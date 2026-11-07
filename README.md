@@ -1,3 +1,26 @@
+## Two method types: classification + clustering
+
+The four supervised classifiers are unchanged. A separate exploratory MiniBatch K-means study groups similar records; clusters are not fraud predictions.
+
+Selected k: **8**; training silhouette: **0.312**; mean seed ARI: **0.697**.
+
+Passed the stated size/repeatability floors; this does not establish real-world or fraud relevance.
+
+Preprocessing, k selection and repeatability checks use training inputs only. Labels, identifiers, label-derived features, absolute event-time columns and Elliptic neighbour aggregates are excluded. Fraud rates are interpreted afterward, never used to choose clusters. Validation/test records are assigned without refitting. Previously viewed test periods remain exploratory.
+
+- [Interpretation and limitations](experiment_suite/evaluation/banksim/clustering_v1/README.md)
+- [Silhouette and seed stability](experiment_suite/evaluation/banksim/clustering_v1/silhouette_stability.png)
+- [Cluster sizes](experiment_suite/evaluation/banksim/clustering_v1/cluster_sizes.png)
+- [Feature profiles](experiment_suite/evaluation/banksim/clustering_v1/feature_profiles.png)
+- [Post-hoc fraud rates](experiment_suite/evaluation/banksim/clustering_v1/fraud_rates.png)
+- [Metrics and saved clustering pipeline](experiment_suite/evaluation/banksim/clustering_v1/)
+
+Run `python training_model/cluster.py` from the branch root after supplying the raw data as described below. This entrypoint preserves completed runs. The local dashboard shows a separate clustering section. The main training entrypoint still runs classification only.
+
+Silhouette is not accuracy, and seed repeatability does not establish temporal stability. Weak clustering is a documented finding, not evidence of successful fraud detection.
+
+---
+
 # BANKSIM: latest supervised experiment
 
 Latest: `priority_search_v2`. Four supervised families; selected champion: **catboost**. Training ran locally on the Mac CPU. Selection uses chronological validation, not test scores.
