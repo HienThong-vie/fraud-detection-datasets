@@ -1,7 +1,5 @@
 # Elliptic Bitcoin AML
 
-[Selected model and operating points](FINAL_MODEL.md) · [Conda workflow](experiment_suite/CONDA_GUIDE.md)
-
 A Python project for fraud-data analysis, supervised classification and exploratory clustering. It includes trained pipelines, a local dashboard, evaluation charts and reproducible training code.
 
 ## Features
@@ -15,16 +13,15 @@ A Python project for fraud-data analysis, supervised classification and explorat
 
 ```bash
 git clone --branch elliptic --single-branch https://github.com/KennyDao1324/fraud-detection-datasets.git
-cd fraud-detection-datasets
-python3.12 -m venv .venv
-source .venv/bin/activate
-python -m pip install -r experiment_suite/requirements.txt
-python experiment_suite/app.py
+cd fraud-detection-datasets/experiment_suite
+conda env create -f environment.yml
+conda activate fraudsuite
+python app.py
 ```
 
 Open http://127.0.0.1:8050/. Saved models work without downloading the raw data. Use the example engineered record shown in the dashboard; raw transaction rows may require preprocessing.
 
-In PyCharm, open the project folder and select `.venv` as the Python interpreter. On Windows, activate the environment with `.venv\Scripts\Activate.ps1`. Training uses Mac/Linux file locks; inference does not require them.
+In PyCharm, open the project folder and select the `fraudsuite` conda environment as interpreter. Training uses Mac/Linux file locks; inference does not require them.
 
 ## Project structure
 
@@ -44,14 +41,14 @@ Small `__init__.py`, `.gitkeep` and launcher files support packaging or folder l
 
 ## Classification results
 
-Experiment: `feature_policy_v4`. Selected model: **xgboost**. The table uses the 1% calibration-FPR operating point; actual later-period FPR can differ.
+Experiment: `feature_policy_v4`. Selected model: **xgboost**. The table uses the 5% calibration-FPR headline operating point; actual later-period FPR can differ. 1% is secondary.
 
 | Model | PR-AUC | Recall | FPR | Precision | F1 | ROC-AUC |
 |---|---:|---:|---:|---:|---:|---:|
-| logistic_regression | 0.1579 | 35.8% | 5.775% | 23.1% | 0.2805 | 0.8207 |
-| random_forest | 0.5449 | 47.8% | 1.767% | 56.7% | 0.5186 | 0.8555 |
-| extra_trees | 0.5366 | 48.0% | 2.146% | 52.0% | 0.4994 | 0.8287 |
-| xgboost | 0.5333 | 48.0% | 1.210% | 65.8% | 0.5552 | 0.8032 |
+| logistic_regression | 0.1579 | 54.7% | 12.629% | 17.3% | 0.2630 | 0.8207 |
+| random_forest | 0.5449 | 50.2% | 6.712% | 26.6% | 0.3478 | 0.8555 |
+| extra_trees | 0.5366 | 51.2% | 6.795% | 26.7% | 0.3513 | 0.8287 |
+| xgboost | 0.5333 | 51.5% | 6.724% | 27.0% | 0.3544 | 0.8032 |
 
 [Model comparison](experiment_suite/evaluation/elliptic/feature_policy_v4/model_comparison.png) · [PR curves](experiment_suite/evaluation/elliptic/feature_policy_v4/precision_recall_curves.png) · [Metrics CSV](experiment_suite/evaluation/elliptic/feature_policy_v4/model_comparison.csv) · [Full results and protocol](experiment_suite/evaluation/elliptic/feature_policy_v4/report.json)
 
@@ -65,13 +62,13 @@ The selected Elliptic classifier remains an offline benchmark using supplied nei
 
 ## Clustering
 
-MiniBatch K-means selected **k=2**. Training silhouette: **0.379**; mean seed ARI: **0.906**.
+MiniBatch K-means selected **k=2**. Training silhouette: **0.628**; mean seed ARI: **0.925**.
 
-Passed the stated size/repeatability floors; this does not establish real-world or fraud relevance.
+Passed stated training size/repeatability floors; this does not establish fraud relevance.
 
 Preprocessing and k selection use training inputs only. Fraud labels and label-derived features are excluded from the inputs and used only afterward to interpret cluster fraud rates. Clusters are not fraud predictions; silhouette is not classification accuracy.
 
-[Interpretation](experiment_suite/evaluation/elliptic/clustering_v1/README.md) · [Silhouette and stability](experiment_suite/evaluation/elliptic/clustering_v1/silhouette_stability.png) · [Cluster sizes](experiment_suite/evaluation/elliptic/clustering_v1/cluster_sizes.png) · [Feature profiles](experiment_suite/evaluation/elliptic/clustering_v1/feature_profiles.png) · [Fraud-rate interpretation](experiment_suite/evaluation/elliptic/clustering_v1/fraud_rates.png)
+[Interpretation](experiment_suite/evaluation/elliptic/clustering_extended_v2/README.md) · [Silhouette and stability](experiment_suite/evaluation/elliptic/clustering_extended_v2/silhouette_stability.png) · [Cluster sizes](experiment_suite/evaluation/elliptic/clustering_extended_v2/cluster_sizes.png) · [Feature profiles](experiment_suite/evaluation/elliptic/clustering_extended_v2/feature_profiles.png) · [Fraud-rate interpretation](experiment_suite/evaluation/elliptic/clustering_extended_v2/fraud_rates.png)
 
 ## Training
 
@@ -96,6 +93,10 @@ This baseline trains only on labelled nodes and uses the 165 published node feat
 
 Raw datasets and row-level prediction exports are not redistributed here. Code and dataset licences are separate; check the original source terms before reuse.
 
+Raw datasets and row-level prediction exports are not redistributed here. Code and dataset licences are separate; check the original source terms before reuse.
+
 ## Citation
 
 Weber, M. et al., “Anti-Money Laundering in Bitcoin: Experimenting with Graph Convolutional Networks for Financial Forensics,” 2019.
+
+[Selected-model identity and operating points](FINAL_MODEL.md) · [Conda workflow](experiment_suite/CONDA_GUIDE.md)
