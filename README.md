@@ -1,7 +1,5 @@
 # Bank Account Fraud Detection
 
-[Selected model and operating points](FINAL_MODEL.md) · [Conda workflow](experiment_suite/CONDA_GUIDE.md)
-
 A Python project for fraud-data analysis, supervised classification and exploratory clustering. It includes trained pipelines, a local dashboard, evaluation charts and reproducible training code.
 
 ## Features
@@ -15,16 +13,15 @@ A Python project for fraud-data analysis, supervised classification and explorat
 
 ```bash
 git clone --branch baf --single-branch https://github.com/KennyDao1324/fraud-detection-datasets.git
-cd fraud-detection-datasets
-python3.12 -m venv .venv
-source .venv/bin/activate
-python -m pip install -r experiment_suite/requirements.txt
-python experiment_suite/app.py
+cd fraud-detection-datasets/experiment_suite
+conda env create -f environment.yml
+conda activate fraudsuite
+python app.py
 ```
 
 Open http://127.0.0.1:8050/. Saved models work without downloading the raw data. Use the example engineered record shown in the dashboard; raw transaction rows may require preprocessing.
 
-In PyCharm, open the project folder and select `.venv` as the Python interpreter. On Windows, activate the environment with `.venv\Scripts\Activate.ps1`. Training uses Mac/Linux file locks; inference does not require them.
+In PyCharm, open the project folder and select the `fraudsuite` conda environment as interpreter. Training uses Mac/Linux file locks; inference does not require them.
 
 ## Project structure
 
@@ -44,14 +41,14 @@ Small `__init__.py`, `.gitkeep` and launcher files support packaging or folder l
 
 ## Classification results
 
-Experiment: `feature_policy_v4`. Selected model: **catboost**. The table uses the 1% calibration-FPR operating point; actual later-period FPR can differ.
+Experiment: `feature_policy_v4`. Selected model: **catboost**. The table uses the 5% calibration-FPR headline operating point; actual later-period FPR can differ. 1% is secondary.
 
 | Model | PR-AUC | Recall | FPR | Precision | F1 | ROC-AUC |
 |---|---:|---:|---:|---:|---:|---:|
-| logistic_regression | 0.1746 | 16.0% | 0.515% | 30.6% | 0.2097 | 0.8952 |
-| random_forest | 0.1534 | 12.0% | 0.507% | 25.1% | 0.1622 | 0.8816 |
-| extra_trees | 0.1525 | 10.1% | 0.347% | 29.3% | 0.1504 | 0.8744 |
-| catboost | 0.2127 | 21.8% | 0.619% | 33.4% | 0.2638 | 0.9066 |
+| logistic_regression | 0.1746 | 44.7% | 3.160% | 16.8% | 0.2440 | 0.8952 |
+| random_forest | 0.1534 | 38.3% | 2.976% | 15.5% | 0.2207 | 0.8816 |
+| extra_trees | 0.1525 | 36.3% | 2.889% | 15.2% | 0.2142 | 0.8744 |
+| catboost | 0.2127 | 51.1% | 3.584% | 16.9% | 0.2539 | 0.9066 |
 
 [Model comparison](experiment_suite/evaluation/baf/feature_policy_v4/model_comparison.png) · [PR curves](experiment_suite/evaluation/baf/feature_policy_v4/precision_recall_curves.png) · [Metrics CSV](experiment_suite/evaluation/baf/feature_policy_v4/model_comparison.csv) · [Full results and protocol](experiment_suite/evaluation/baf/feature_policy_v4/report.json)
 
@@ -63,13 +60,13 @@ The dashboard supports five calibration FPR budgets, optional review-capacity li
 
 ## Clustering
 
-MiniBatch K-means selected **k=2**. Training silhouette: **0.079**; mean seed ARI: **0.080**.
+MiniBatch K-means selected **k=5**. Training silhouette: **0.067**; mean seed ARI: **0.347**.
 
-Weak/unstable geometry: no candidate satisfied both quality floors; do not claim meaningful fraud groups.
+Weak or unstable geometry; no candidate met both size and repeatability floors.
 
 Preprocessing and k selection use training inputs only. Fraud labels and label-derived features are excluded from the inputs and used only afterward to interpret cluster fraud rates. Clusters are not fraud predictions; silhouette is not classification accuracy.
 
-[Interpretation](experiment_suite/evaluation/baf/clustering_v1/README.md) · [Silhouette and stability](experiment_suite/evaluation/baf/clustering_v1/silhouette_stability.png) · [Cluster sizes](experiment_suite/evaluation/baf/clustering_v1/cluster_sizes.png) · [Feature profiles](experiment_suite/evaluation/baf/clustering_v1/feature_profiles.png) · [Fraud-rate interpretation](experiment_suite/evaluation/baf/clustering_v1/fraud_rates.png)
+[Interpretation](experiment_suite/evaluation/baf/clustering_extended_v2/README.md) · [Silhouette and stability](experiment_suite/evaluation/baf/clustering_extended_v2/silhouette_stability.png) · [Cluster sizes](experiment_suite/evaluation/baf/clustering_extended_v2/cluster_sizes.png) · [Feature profiles](experiment_suite/evaluation/baf/clustering_extended_v2/feature_profiles.png) · [Fraud-rate interpretation](experiment_suite/evaluation/baf/clustering_extended_v2/fraud_rates.png)
 
 ## Training
 
@@ -92,3 +89,7 @@ The BAF data is provided under CC BY-NC-SA 4.0. Keep the source, licence, and ci
 or derived dataset, and do not commit the large raw CSV files to this repository.
 
 Raw datasets and row-level prediction exports are not redistributed here. Code and dataset licences are separate; check the original source terms before reuse.
+
+Raw datasets and row-level prediction exports are not redistributed here. Code and dataset licences are separate; check the original source terms before reuse.
+
+[Selected-model identity and operating points](FINAL_MODEL.md) · [Conda workflow](experiment_suite/CONDA_GUIDE.md)
