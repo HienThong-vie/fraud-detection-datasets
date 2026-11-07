@@ -1,7 +1,5 @@
 # PaySim Fraud Detection
 
-[Selected model and operating points](FINAL_MODEL.md) · [Conda workflow](experiment_suite/CONDA_GUIDE.md)
-
 A Python project for fraud-data analysis, supervised classification and exploratory clustering. It includes trained pipelines, a local dashboard, evaluation charts and reproducible training code.
 
 ## Features
@@ -15,16 +13,15 @@ A Python project for fraud-data analysis, supervised classification and explorat
 
 ```bash
 git clone --branch paysim --single-branch https://github.com/KennyDao1324/fraud-detection-datasets.git
-cd fraud-detection-datasets
-python3.12 -m venv .venv
-source .venv/bin/activate
-python -m pip install -r experiment_suite/requirements.txt
-python experiment_suite/app.py
+cd fraud-detection-datasets/experiment_suite
+conda env create -f environment.yml
+conda activate fraudsuite
+python app.py
 ```
 
 Open http://127.0.0.1:8050/. Saved models work without downloading the raw data. Use the example engineered record shown in the dashboard; raw transaction rows may require preprocessing.
 
-In PyCharm, open the project folder and select `.venv` as the Python interpreter. On Windows, activate the environment with `.venv\Scripts\Activate.ps1`. Training uses Mac/Linux file locks; inference does not require them.
+In PyCharm, open the project folder and select the `fraudsuite` conda environment as interpreter. Training uses Mac/Linux file locks; inference does not require them.
 
 ## Project structure
 
@@ -44,14 +41,14 @@ Small `__init__.py`, `.gitkeep` and launcher files support packaging or folder l
 
 ## Classification results
 
-Experiment: `feature_policy_v4`. Selected model: **random_forest**. The table uses the 1% calibration-FPR operating point; actual later-period FPR can differ.
+Experiment: `feature_policy_v4`. Selected model: **random_forest**. The table uses the 5% calibration-FPR headline operating point; actual later-period FPR can differ. 1% is secondary.
 
 | Model | PR-AUC | Recall | FPR | Precision | F1 | ROC-AUC |
 |---|---:|---:|---:|---:|---:|---:|
-| logistic_regression | 0.2733 | 44.5% | 1.875% | 24.4% | 0.3150 | 0.8935 |
-| random_forest | 0.5261 | 46.5% | 0.598% | 51.3% | 0.4878 | 0.9427 |
-| extra_trees | 0.5446 | 52.0% | 0.793% | 47.1% | 0.4943 | 0.9461 |
-| xgboost | 0.6414 | 57.8% | 0.545% | 59.0% | 0.5842 | 0.9594 |
+| logistic_regression | 0.2733 | 65.0% | 8.437% | 9.5% | 0.1652 | 0.8935 |
+| random_forest | 0.5261 | 83.6% | 9.992% | 10.2% | 0.1816 | 0.9427 |
+| extra_trees | 0.5446 | 82.1% | 8.873% | 11.1% | 0.1962 | 0.9461 |
+| xgboost | 0.6414 | 86.2% | 10.620% | 9.9% | 0.1779 | 0.9594 |
 
 [Model comparison](experiment_suite/evaluation/paysim/feature_policy_v4/model_comparison.png) · [PR curves](experiment_suite/evaluation/paysim/feature_policy_v4/precision_recall_curves.png) · [Metrics CSV](experiment_suite/evaluation/paysim/feature_policy_v4/model_comparison.csv) · [Full results and protocol](experiment_suite/evaluation/paysim/feature_policy_v4/report.json)
 
@@ -95,7 +92,11 @@ performance on real customers or real mobile-money systems.
 
 Raw datasets and row-level prediction exports are not redistributed here. Code and dataset licences are separate; check the original source terms before reuse.
 
+Raw datasets and row-level prediction exports are not redistributed here. Code and dataset licences are separate; check the original source terms before reuse.
+
 ## Citation
 
 E. A. Lopez-Rojas, A. Elmir, and S. Axelsson, “PaySim: A financial mobile money simulator for fraud
 detection,” 28th European Modeling and Simulation Symposium, 2016.
+
+[Selected-model identity and operating points](FINAL_MODEL.md) · [Conda workflow](experiment_suite/CONDA_GUIDE.md)
