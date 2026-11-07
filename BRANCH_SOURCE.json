@@ -1,0 +1,7 @@
+{
+  "dataset_branch": "sparkov",
+  "source_repository": "sparkov-fraud-ml",
+  "source_commit": "887005946803473cbad04ebb7495a2954298d651",
+  "source_branch": "boosted-model-comparison",
+  "balanced_experiment": "Exploratory; production model is unchanged. See outputs/balanced_experiment/report.json."
+}

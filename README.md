@@ -1,42 +1,79 @@
-# Fraud Detection Datasets
+# Sparkov Synthetic Credit-Card Fraud ML
 
-One Git repository with eight independent dataset branches. `main` contains this navigation guide.
-Each dataset branch contains its complete Python/PyCharm project, model checkpoints, configuration,
-tests, evaluation charts and reports. The datasets are not merged into one CSV or classifier.
+Standalone PyCharm project for the Sparkov synthetic transaction dataset. It compares class-weighted
+logistic regression, random forest, and CatBoost, selects by validation PR-AUC, and evaluates once on the
+later official test period. CatBoost keeps the dataset's categorical fields native instead of one-hot
+expanding them.
 
-| Branch | Dataset | Source project |
-|---|---|---|
-| `baf` | Bank Account Fraud Base + Variants I–V | ai4cyber-fraud |
-| `ieee` | IEEE-CIS Fraud Detection | ieee-fraud-ml |
-| `paysim` | PaySim mobile money | paysim-fraud-ml |
-| `handbook` | Fraud Detection Handbook simulator | fraud-handbook-ml |
-| `sparkov` | Sparkov synthetic card transactions | sparkov-fraud-ml |
-| `banksim` | BankSim payments | banksim-fraud-ml |
-| `ulb` | ULB/Worldline credit-card transactions | ulb-creditcard-fraud-ml |
-| `elliptic` | Elliptic Bitcoin AML | elliptic-bitcoin-aml-ml |
+## Dataset
 
-Open this repository in PyCharm. Choose a branch using the Git branch selector, or use:
+- [Kaggle source](https://www.kaggle.com/datasets/kartik2112/fraud-detection)
+- Synthetic data generated with Sparkov; distributor licence: CC0 1.0
+- Provided files: `fraudTrain.csv` and `fraudTest.csv`
 
-```bash
-git switch paysim
-```
+No raw customer names, addresses, card numbers, transaction IDs or merchant names are used as model features.
 
-Then follow the README on that branch to set up its environment and run it. Save or commit work before
-switching branches. Each branch keeps its own complete project; do not merge dataset branches into main.
+## PyCharm setup
 
-For teammates working on multiple datasets at once, use separate worktrees to avoid mixing data and
-Python environments between branches:
+Open the whole `sparkov-fraud-ml` folder, create a Python 3.11 virtual environment, then run:
 
 ```bash
-git worktree add ../fraud-paysim paysim
-git worktree add ../fraud-ieee ieee
+python -m pip install --upgrade pip
+python -m pip install -e ".[dev]"
 ```
 
-These are source snapshots of the existing boosted-model-comparison commits; the original repositories
-and their full histories remain available. Each branch records its source commit in BRANCH_SOURCE.json.
-Current checkpoints remain distinct from the exploratory balanced-experiment checkpoint. Existing
-dataset source, licence, attribution and academic-assistance notes are retained in each project README.
-Raw datasets and virtual environments are local inputs, not part of Git. Supply the matching dataset
-on each branch before retraining. Do not share virtual environments across branches.
+Place the files here:
 
-No GitHub remote is configured yet. Nothing in this repository has been pushed or merged.
+```text
+data/raw/fraudTrain.csv
+data/raw/fraudTest.csv
+```
+
+Run:
+
+```bash
+python preprocess_data/run.py
+python training_model/train.py
+python evaluation/evaluate.py
+python -m fraudbench.inference examples/sample_transaction.json
+python -m uvicorn fraudbench.api:app --host 127.0.0.1 --port 8040
+```
+
+Open <http://127.0.0.1:8040/docs> for the API.
+
+## Folder guide
+
+| Folder | Contents |
+|---|---|
+| `dataset` | Provenance, licence and required filenames |
+| `preprocess_data` | Data validation and feature-engineering entrypoint |
+| `preprocessed_df` | Generated train-ready table |
+| `training_model` | Training entrypoint |
+| `checkpoint` | `.joblib` model and model card |
+| `evaluation` | Evaluation entrypoint |
+| `outputs` | Metrics CSV/JSON and PNG charts |
+| `utils` | Team helper scripts |
+
+Some files are intentionally short: entrypoints call the reusable implementation under `src/fraudbench`, and `.gitkeep` preserves empty folders.
+
+## Leakage controls
+
+- The original training file is split chronologically for development and validation.
+- The later official test file is untouched until final evaluation.
+- Sampling happens after the temporal split and preserves the class ratio.
+- Preprocessing is fitted only inside each scikit-learn training pipeline.
+- Identity fields are excluded to prevent memorisation.
+
+## Citation
+
+Brandon Harris, *Sparkov Data Generation*, and Kartik Shenoy, *Credit Card Transactions Fraud Detection Dataset*.
+
+## Current trained result
+
+CatBoost was selected with validation PR-AUC **0.9130**. On the later 50,000-row test sample it achieved
+PR-AUC **0.8643**, ROC-AUC **0.9908**, precision **0.7843**, recall **0.8290**, and F1 **0.8060**. See
+[`outputs/metrics.json`](outputs/metrics.json) and [`outputs/model_comparison.csv`](outputs/model_comparison.csv).
+
+![Sparkov model comparison](outputs/model_comparison.png)
+
+![Sparkov confusion matrix](outputs/confusion_matrix.png)

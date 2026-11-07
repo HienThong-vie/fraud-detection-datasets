@@ -1,0 +1,31 @@
+{
+  "rows": 1852394,
+  "columns": 12,
+  "fraud_rows": 9651,
+  "fraud_rate": 0.005210014716091717,
+  "missing_values": {
+    "trans_date_trans_time": 0,
+    "category": 0,
+    "amt": 0,
+    "gender": 0,
+    "lat": 0,
+    "long": 0,
+    "city_pop": 0,
+    "dob": 0,
+    "unix_time": 0,
+    "merch_lat": 0,
+    "merch_long": 0,
+    "is_fraud": 0
+  },
+  "time_min": "2019-01-01 00:00:18",
+  "time_max": "2020-12-31 23:59:34",
+  "split_rows": {
+    "train": 200000,
+    "validation": 50000,
+    "test": 50000
+  },
+  "source_hashes": {
+    "train_path": "fd7139200dbfcbed0b6742bbe05a4f1abce532c4fef20918228a651647a3e75d",
+    "test_path": "12d553ab19440c752d2531ee1af44bb64f12cc3d3839f1649f19e81c230545f0"
+  }
+}
