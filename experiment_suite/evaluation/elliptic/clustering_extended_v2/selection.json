@@ -1,0 +1,17 @@
+{
+  "k": 2,
+  "elbow_k": 4,
+  "ranks": [
+    {
+      "k": 2,
+      "selection_rank": 1.0
+    },
+    {
+      "k": 8,
+      "selection_rank": 2.0
+    }
+  ],
+  "labels_used": false,
+  "test_used": false,
+  "quality_constraints_relaxed": false
+}

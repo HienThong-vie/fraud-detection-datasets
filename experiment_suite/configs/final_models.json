@@ -1,0 +1,57 @@
+{
+  "selection": "Existing chronological-validation winners only; no test-based re-selection.",
+  "headline_budget": 0.05,
+  "secondary_budget": 0.01,
+  "policy": "point",
+  "review_capacity": null,
+  "test_interpretation": "Previously inspected test periods; exploratory, not fresh holdouts.",
+  "datasets": {
+    "elliptic": {
+      "model": "xgboost",
+      "experiment": "feature_policy_v4",
+      "variant": "v3_incumbent_v2_incumbent_d3_weightpower0_recent_steps20plus",
+      "checkpoint": "evaluation/elliptic/feature_policy_v4/champion.joblib",
+      "checkpoint_sha256": "010494ec8e74205e4e8da0464b27e9e532b742a85f7f428eb1286b18e3221f8f",
+      "operating_points": {
+        "0.05": {
+          "threshold": 0.10103442519900001,
+          "test_metrics": {
+            "precision": 0.2702702702702703,
+            "recall": 0.5147058823529411,
+            "f1": 0.35443037974683544,
+            "pr_auc": 0.5332713782584427,
+            "roc_auc": 0.8032185066603422,
+            "fpr": 0.0672358591248666,
+            "accuracy": 0.9134713267729895,
+            "tn": 7866,
+            "fp": 567,
+            "fn": 198,
+            "tp": 210,
+            "alert_rate": 0.08788598574821853
+          }
+        },
+        "0.01": {
+          "threshold": 0.39253830909700005,
+          "test_metrics": {
+            "precision": 0.6577181208053692,
+            "recall": 0.4803921568627451,
+            "f1": 0.5552407932011332,
+            "pr_auc": 0.5332713782584427,
+            "roc_auc": 0.8032185066603422,
+            "fpr": 0.012095339736748489,
+            "accuracy": 0.9644836556950571,
+            "tn": 8331,
+            "fp": 102,
+            "fn": 212,
+            "tp": 196,
+            "alert_rate": 0.03370659427666554
+          }
+        }
+      },
+      "validation_ap": 0.904858397215856,
+      "selection_score": 0.8568349067604368,
+      "score_name": "fit_balance_score",
+      "offline_only": true
+    }
+  }
+}
