@@ -1,3 +1,25 @@
+# HANDBOOK: four supervised-model comparison
+
+The latest experiment compares **logistic regression, random forest, extra trees, and XGBoost**. Each family has two regularized settings; validation selects its settings and threshold. The four-model winner is frozen before test evaluation. The run was performed locally on the Mac CPU.
+
+Run `python training_model/train.py` from this branch's project root after preparing its raw data. This entrypoint now runs only the four supervised families.
+
+- [Four-model comparison chart](outputs/supervised_search_v1/model_comparison.png)
+- [Precision–recall curves](outputs/supervised_search_v1/precision_recall_curves.png)
+- [ROC curves](outputs/supervised_search_v1/roc_curves.png)
+- [Confusion matrices](outputs/supervised_search_v1/confusion_matrices.png)
+- [Training/validation/test gaps](outputs/supervised_search_v1/generalization_gap.png)
+- [Threshold trade-offs](outputs/supervised_search_v1/threshold_tradeoffs.png)
+- [All metric values](outputs/supervised_search_v1/model_comparison.csv)
+- [Protocol, exact results and limitations](outputs/supervised_search_v1/report.json)
+- [Training method and commands](training_model/FOUR_SUPERVISED.md)
+
+Four fitted pipelines and `champion.joblib` are in `outputs/supervised_search_v1/`. Existing production checkpoints are retained for comparison. All figures in this section are from the new four-model experiment; the original implementation notes below describe the earlier baseline. Test periods were inspected in earlier experiments; these are exploratory comparisons.
+
+---
+
+## Original project documentation and provenance
+
 # Fraud Detection Handbook Simulated-Data ML
 
 This is a standalone, ML-only project for the Fraud Detection Handbook's simulated card-transaction data.

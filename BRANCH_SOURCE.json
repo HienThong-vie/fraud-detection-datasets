@@ -3,5 +3,7 @@
   "source_repository": "fraud-handbook-ml",
   "source_commit": "ca62a3b6ff893e7ac3cdb84cf32c1d21544d5aaf",
   "source_branch": "boosted-model-comparison",
-  "balanced_experiment": "Exploratory; production model is unchanged. See outputs/balanced_experiment/report.json."
+  "balanced_experiment": "Exploratory; production model is unchanged. See outputs/balanced_experiment/report.json.",
+  "latest_experiment": "outputs/supervised_search_v1/report.json",
+  "active_training_entrypoint": "training_model/train.py"
 }
