@@ -1,3 +1,3 @@
-# Checkpoint
+# Checkpoints
 
-Training writes `production_model.joblib` and `model_card.json` here. The binary model is ignored by Git.
+Original production-model files are retained here for reference. Current experiment pipelines are in [`experiment_suite/evaluation/sparkov/`](../experiment_suite/evaluation/sparkov/). Running the new experiments does not replace production checkpoints.
