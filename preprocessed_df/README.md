@@ -1,4 +1,3 @@
-# Preprocessed data
+# Prepared data
 
-`paysim_model_data.csv.gz` is generated locally and contains the exact sampled model rows with a `_split`
-column. It is ignored by Git because it can be large and can always be reproduced from the raw dataset.
+Prepared tables are generated locally. The current workflow stores versioned tables under `experiment_suite/preprocessed_df/paysim/`. Do not commit raw or prepared records. See the [training guide](../README.md#training).

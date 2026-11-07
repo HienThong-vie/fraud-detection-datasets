@@ -1,4 +1,3 @@
 # Preprocessing
 
-`run.py` validates the PaySim schema, creates chronological train/validation/test splits, applies the
-laptop-safe row limits, saves the train-ready table, and writes the dataset profile.
+This folder contains the original preprocessing entrypoint. For the current training workflow, use the preparation command in the [project README](../README.md#training). Imputation, encoding and scaling are fitted on training data only.

@@ -1,4 +1,3 @@
-# Checkpoint
+# Checkpoints
 
-Training writes `production_model.joblib` and `model_card.json` here. The checkpoint contains the fitted
-preprocessing pipeline, selected classifier, decision threshold, and feature list.
+Original production-model files are retained here for reference. Current experiment pipelines are in [`experiment_suite/evaluation/paysim/`](../experiment_suite/evaluation/paysim/). Running the new experiments does not replace production checkpoints.

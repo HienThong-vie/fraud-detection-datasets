@@ -1,3 +1,3 @@
 # Utilities
 
-This folder contains small shared path helpers used by the project-level workflow scripts.
+Helpers for the original dataset workflow. Current prediction workers and experiment checks are in [`experiment_suite/utils/`](../experiment_suite/utils/).
