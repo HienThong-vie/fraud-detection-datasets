@@ -26,3 +26,6 @@ outputs/*
 !outputs/model_comparison.png
 !outputs/prediction_distribution.png
 
+
+# Per-dataset local input links shared across branch switches
+.local_datasets/

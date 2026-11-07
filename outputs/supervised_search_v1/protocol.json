@@ -1,0 +1,29 @@
+{
+  "dataset": "ieee",
+  "platform": "macOS-26.2-arm64-arm-64bit",
+  "machine": "arm64",
+  "training_device": "local Mac CPU",
+  "threads_per_estimator": 4,
+  "prepared_sha256": "2931c43a11a3e7784c4a204eb0d405adffd2558c7bb381d2598b1173ecd339d0",
+  "seed": 42,
+  "calibration_seed": 912,
+  "selection_split_seed": 913,
+  "rows": {
+    "train": 120000,
+    "calibration": 16000,
+    "selection_1": 12000,
+    "selection_2": 12000,
+    "test": 40000
+  },
+  "supervised_only": true,
+  "families": [
+    "logistic_regression",
+    "random_forest",
+    "extra_trees",
+    "xgboost"
+  ],
+  "trials_per_family": 2,
+  "smoke": false,
+  "prior_configuration_screened": true,
+  "total_fits": 9
+}

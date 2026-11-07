@@ -3,5 +3,7 @@
   "source_repository": "ieee-fraud-ml",
   "source_commit": "0bd38315d745df68e0263edd0c3d3f1d444ea940",
   "source_branch": "boosted-model-comparison",
-  "balanced_experiment": "Exploratory; production model is unchanged. See outputs/balanced_experiment/report.json."
+  "balanced_experiment": "Exploratory; production model is unchanged. See outputs/balanced_experiment/report.json.",
+  "latest_experiment": "outputs/supervised_search_v1/report.json",
+  "active_training_entrypoint": "training_model/train.py"
 }
