@@ -87,10 +87,6 @@ serves the selected model through a FastAPI application.
 The system is ML-only. It does not contain a chatbot or an LLM. A model score is a screening signal, not
 a verified probability of fraud, and the prototype does not approve, reject, or block real applications.
 
-> **Academic integrity:** the supplied assignment brief says generative AI must not be used to generate
-> assessment material. Confirm permitted use with the tutor, disclose assistance where required, and
-> make sure every team member can explain and reproduce the submitted work.
-
 ## Dataset source
 
 - [Bank Account Fraud Dataset Suite (NeurIPS 2022) on Kaggle](https://www.kaggle.com/datasets/sgpjesus/bank-account-fraud-dataset-neurips-2022)
