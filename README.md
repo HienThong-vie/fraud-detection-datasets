@@ -1,107 +1,83 @@
-## Two method types: classification + clustering
+# BankSim Fraud Detection
 
-The four supervised classifiers are unchanged. A separate exploratory MiniBatch K-means study groups similar records; clusters are not fraud predictions.
+A Python project for fraud-data analysis, supervised classification and exploratory clustering. It includes trained pipelines, a local dashboard, evaluation charts and reproducible training code.
 
-Selected k: **8**; training silhouette: **0.312**; mean seed ARI: **0.697**.
+## Features
 
-Passed the stated size/repeatability floors; this does not establish real-world or fraud relevance.
+- Four supervised classifiers: logistic regression, random forest, extra trees, catboost.
+- Separate MiniBatch K-means segmentation with training-only selection and seed-stability checks.
+- Time-ordered data splits, validation-calibrated alert thresholds and saved model pipelines.
+- FastAPI dashboard for predictions, metrics and downloadable evaluation files.
 
-Preprocessing, k selection and repeatability checks use training inputs only. Labels, identifiers, label-derived features, absolute event-time columns and Elliptic neighbour aggregates are excluded. Fraud rates are interpreted afterward, never used to choose clusters. Validation/test records are assigned without refitting. Previously viewed test periods remain exploratory.
+## Quick start
 
-- [Interpretation and limitations](experiment_suite/evaluation/banksim/clustering_v1/README.md)
-- [Silhouette and seed stability](experiment_suite/evaluation/banksim/clustering_v1/silhouette_stability.png)
-- [Cluster sizes](experiment_suite/evaluation/banksim/clustering_v1/cluster_sizes.png)
-- [Feature profiles](experiment_suite/evaluation/banksim/clustering_v1/feature_profiles.png)
-- [Post-hoc fraud rates](experiment_suite/evaluation/banksim/clustering_v1/fraud_rates.png)
-- [Metrics and saved clustering pipeline](experiment_suite/evaluation/banksim/clustering_v1/)
+```bash
+git clone --branch banksim --single-branch https://github.com/KennyDao1324/fraud-detection-datasets.git
+cd fraud-detection-datasets
+python3.12 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r experiment_suite/requirements.txt
+python experiment_suite/app.py
+```
 
-Run `python training_model/cluster.py` from the branch root after supplying the raw data as described below. This entrypoint preserves completed runs. The local dashboard shows a separate clustering section. The main training entrypoint still runs classification only.
+Open http://127.0.0.1:8050/. Saved models work without downloading the raw data. Use the example engineered record shown in the dashboard; raw transaction rows may require preprocessing.
 
-Silhouette is not accuracy, and seed repeatability does not establish temporal stability. Weak clustering is a documented finding, not evidence of successful fraud detection.
+In PyCharm, open the project folder and select `.venv` as the Python interpreter. On Windows, activate the environment with `.venv\Scripts\Activate.ps1`. Training uses Mac/Linux file locks; inference does not require them.
 
----
+## Project structure
 
-# BANKSIM: latest supervised experiment
+| Path | Contents |
+|---|---|
+| `experiment_suite/training_model/` | Current preprocessing, classification and clustering code |
+| `experiment_suite/pipelines/banksim/` | Dataset-specific implementation and configuration |
+| `experiment_suite/evaluation/banksim/` | Saved pipelines, metrics, charts and model cards |
+| `experiment_suite/dataset/banksim/` | Local raw input files; excluded from Git |
+| `experiment_suite/app.py` | Local API and dashboard server |
+| `training_model/train.py` | Classification launcher |
+| `training_model/cluster.py` | Clustering launcher |
+| `src/`, `scripts/`, `docs/` | Original dataset implementation, utilities and provenance |
+| `artifacts/`, `checkpoint/`, `outputs/` | Earlier baseline models and evaluation evidence |
 
-Latest: `priority_search_v2`. Four supervised families; selected champion: **catboost**. Training ran locally on the Mac CPU. Selection uses chronological validation, not test scores.
+Small `__init__.py`, `.gitkeep` and launcher files support packaging or folder layout; the main implementation lives in the source and training modules.
 
-| Model | Test AP* | Recall* | Actual FPR* | Precision* | F1* | ROC-AUC* |
+## Classification results
+
+Experiment: `priority_search_v2`. Selected model: **catboost**. The table uses the 1% calibration-FPR operating point; actual later-period FPR can differ.
+
+| Model | PR-AUC | Recall | FPR | Precision | F1 | ROC-AUC |
 |---|---:|---:|---:|---:|---:|---:|
 | logistic_regression | 0.7711 | 78.3% | 0.873% | 49.5% | 0.6065 | 0.9925 |
 | random_forest | 0.8034 | 79.4% | 0.843% | 50.7% | 0.6190 | 0.9926 |
 | extra_trees | 0.7093 | 77.6% | 0.857% | 49.7% | 0.6059 | 0.9909 |
 | catboost | 0.8026 | 80.6% | 0.827% | 51.5% | 0.6286 | 0.9911 |
 
-*Previously inspected test periods are exploratory, not a fresh holdout. The displayed operating point uses a 1% calibration FPR budget; future FPR can differ. Scores support review and do not establish fraud. No business deployment threshold has been approved.
+[Model comparison](experiment_suite/evaluation/banksim/priority_search_v2/model_comparison.png) · [PR curves](experiment_suite/evaluation/banksim/priority_search_v2/precision_recall_curves.png) · [Metrics CSV](experiment_suite/evaluation/banksim/priority_search_v2/model_comparison.csv) · [Full results and protocol](experiment_suite/evaluation/banksim/priority_search_v2/report.json)
 
-- [Model comparison](experiment_suite/evaluation/banksim/priority_search_v2/model_comparison.png)
-- [Precision–recall curves](experiment_suite/evaluation/banksim/priority_search_v2/precision_recall_curves.png)
-- [All metrics](experiment_suite/evaluation/banksim/priority_search_v2/model_comparison.csv)
-- [Protocol and results](experiment_suite/evaluation/banksim/priority_search_v2/report.json)
-- [Saved models and all graphs](experiment_suite/evaluation/banksim/priority_search_v2/)
+Model settings and thresholds were selected using chronological validation. Test periods have already been inspected, so comparisons are exploratory rather than a fresh holdout. A score supports review and does not establish fraud or authorize an account decision.
 
-This branch retains its previously completed experiment; the latest feature-policy retraining targeted BAF, IEEE, PaySim and Elliptic only.
+## Clustering
 
-## Run in PyCharm
+MiniBatch K-means selected **k=8**. Training silhouette: **0.312**; mean seed ARI: **0.697**.
 
-Open this branch as a project, create a Python 3.12 virtual environment, then use the terminal:
+Passed the stated size/repeatability floors; this does not establish real-world or fraud relevance.
 
-```bash
-python -m pip install -r experiment_suite/requirements.txt
-python experiment_suite/app.py
-```
+Preprocessing and k selection use training inputs only. Fraud labels and label-derived features are excluded from the inputs and used only afterward to interpret cluster fraud rates. Clusters are not fraud predictions; silhouette is not classification accuracy.
 
-Open http://127.0.0.1:8050/. Stop another suite server first if the port is in use. Saved models work without raw data; inputs must contain the engineered columns shown by the dashboard.
+[Interpretation](experiment_suite/evaluation/banksim/clustering_v1/README.md) · [Silhouette and stability](experiment_suite/evaluation/banksim/clustering_v1/silhouette_stability.png) · [Cluster sizes](experiment_suite/evaluation/banksim/clustering_v1/cluster_sizes.png) · [Feature profiles](experiment_suite/evaluation/banksim/clustering_v1/feature_profiles.png) · [Fraud-rate interpretation](experiment_suite/evaluation/banksim/clustering_v1/fraud_rates.png)
 
-## Reproduce training
+## Training
 
-Put downloaded source files in `experiment_suite/dataset/banksim/`. Do not commit raw data. Run from `experiment_suite/`:
+Place the original downloaded files in `experiment_suite/dataset/banksim/`. Keep the raw files local and follow their source licences. From `experiment_suite/`, prepare the data:
 
 ```bash
 python -c "import sys; sys.path.insert(0, 'training_model'); from priority_data import prepare; prepare('banksim')"
-```
-
-```bash
 python training_model/priority_search.py --dataset banksim
+python training_model/clustering.py --dataset banksim
 ```
 
-Completed experiment folders are preserved. A completed run may report already complete or reuse cached fits. For a genuinely new search, use a separate working copy and a new versioned experiment directory; do not overwrite the published evidence. Mac/Linux is required for the training locks (`fcntl`); dashboard inference does not need those locks.
+Completed experiment folders are preserved and may report already complete or reuse cached fits. Use a separate working copy and a new versioned output directory for a new search; do not overwrite the published evidence. Run classification and clustering separately.
 
-The full implementation lives in `experiment_suite/training_model/`; original project code and documentation remain below. Production baseline artifacts are retained separately.
-
----
-
-## Earlier project documentation, sources and licences
-
-# BANKSIM: four supervised-model comparison
-
-The latest experiment compares **logistic regression, random forest, extra trees, and CatBoost**. Each family has two regularized settings; validation selects its settings and threshold. The four-model winner is frozen before test evaluation. The run was performed locally on the Mac CPU.
-
-Run `python training_model/train.py` from this branch's project root after preparing its raw data. This entrypoint now runs only the four supervised families.
-
-- [Four-model comparison chart](outputs/supervised_search_v1/model_comparison.png)
-- [Precision–recall curves](outputs/supervised_search_v1/precision_recall_curves.png)
-- [ROC curves](outputs/supervised_search_v1/roc_curves.png)
-- [Confusion matrices](outputs/supervised_search_v1/confusion_matrices.png)
-- [Training/validation/test gaps](outputs/supervised_search_v1/generalization_gap.png)
-- [Threshold trade-offs](outputs/supervised_search_v1/threshold_tradeoffs.png)
-- [All metric values](outputs/supervised_search_v1/model_comparison.csv)
-- [Protocol, exact results and limitations](outputs/supervised_search_v1/report.json)
-- [Training method and commands](training_model/FOUR_SUPERVISED.md)
-
-Four fitted pipelines and `champion.joblib` are in `outputs/supervised_search_v1/`. Existing production checkpoints are retained for comparison. All figures in this section are from the new four-model experiment; the original implementation notes below describe the earlier baseline. Test periods were inspected in earlier experiments; these are exploratory comparisons.
-
----
-
-## Original project documentation and provenance
-
-# BankSim Synthetic Payment Fraud ML
-
-Standalone PyCharm project for the BankSim agent-based bank-payment dataset. It compares class-weighted
-logistic regression, random forest, and CatBoost using a chronological train/validation/test split.
-CatBoost keeps the dataset's categorical fields native instead of one-hot expanding them.
-
-## Dataset
+## Dataset and licence
 
 - [Canonical Kaggle source](https://www.kaggle.com/datasets/ealaxi/banksim1)
 - Synthetic data generated by the BankSim simulator from aggregated Spanish-bank patterns
@@ -109,58 +85,8 @@ CatBoost keeps the dataset's categorical fields native instead of one-hot expand
 
 The CSV is not redistributed by this repository. Customer IDs, merchant IDs and constant ZIP fields are excluded from the baseline to reduce memorisation and useless features.
 
-## PyCharm setup and run
-
-Open the whole folder, create a Python 3.11 virtual environment, then:
-
-```bash
-python -m pip install --upgrade pip
-python -m pip install -e ".[dev]"
-python scripts/download_data.py
-python preprocess_data/run.py
-python training_model/train.py
-python evaluation/evaluate.py
-python -m fraudbench.inference examples/sample_transaction.json
-python -m uvicorn fraudbench.api:app --host 127.0.0.1 --port 8050
-```
-
-Expected raw file:
-
-```text
-data/raw/bs140513_032310.csv
-```
-
-## Folder guide
-
-| Folder | Contents |
-|---|---|
-| `dataset` | Source, citation and expected filename |
-| `preprocess_data` | Validation and temporal splitting |
-| `preprocessed_df` | Generated model table |
-| `training_model` | Training entrypoint |
-| `checkpoint` | Selected `.joblib` model |
-| `evaluation` | Evaluation entrypoint |
-| `outputs` | Metrics, predictions and charts |
-| `utils` | Team helper scripts |
-
-## Evaluation design
-
-- Simulation steps are split chronologically before sampling.
-- Preprocessing is fitted within the training pipeline.
-- Selection and threshold tuning use validation data only.
-- The final period is untouched until held-out evaluation.
-- PR-AUC is the selection metric because fraud is rare.
+Raw datasets and row-level prediction exports are not redistributed here. Code and dataset licences are separate; check the original source terms before reuse.
 
 ## Citation
 
 E. A. López-Rojas and S. Axelsson, “BankSim: A Bank Payment Simulation for Fraud Detection Research,” 2014.
-
-## Current trained result
-
-Logistic regression was selected. On the latest 50,000-row simulation-period sample it achieved PR-AUC **0.7716**, ROC-AUC **0.9923**, precision **0.8757**, recall **0.5870**, and F1 **0.7029**. See [`outputs/metrics.json`](outputs/metrics.json) and [`outputs/model_comparison.csv`](outputs/model_comparison.csv).
-CatBoost was evaluated as a third candidate, but its validation PR-AUC (**0.7753**) did not exceed logistic
-regression (**0.7850**), so it was not selected.
-
-![BankSim model comparison](outputs/model_comparison.png)
-
-![BankSim confusion matrix](outputs/confusion_matrix.png)
