@@ -39,4 +39,13 @@ dataset source, licence, attribution and academic-assistance notes are retained 
 Raw datasets and virtual environments are local inputs, not part of Git. Supply the matching dataset
 on each branch before retraining. Do not share virtual environments across branches.
 
-No GitHub remote is configured yet. Nothing in this repository has been pushed or merged.
+GitHub: https://github.com/KennyDao1324/fraud-detection-datasets
+
+Choose a dataset from GitHub's branch dropdown to browse its complete project. The default `main`
+branch contains only this guide; the eight dataset branches remain separate and are not merged.
+
+```bash
+git clone https://github.com/KennyDao1324/fraud-detection-datasets.git
+cd fraud-detection-datasets
+git switch paysim
+```
