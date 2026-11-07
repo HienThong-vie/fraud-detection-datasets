@@ -1,0 +1,16 @@
+{
+  "data_dir": "data/raw",
+  "train_fraction": 0.70,
+  "validation_fraction": 0.15,
+  "max_train_rows": 120000,
+  "max_validation_rows": 40000,
+  "max_test_rows": 40000,
+  "random_seed": 42,
+  "target_false_positive_rate": 0.05,
+  "hist_gradient_boosting_iterations": 120,
+  "xgboost_estimators": 500,
+  "xgboost_max_depth": 7,
+  "xgboost_learning_rate": 0.05,
+  "n_jobs": 4
+}
+

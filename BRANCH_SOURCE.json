@@ -1,0 +1,7 @@
+{
+  "dataset_branch": "ieee",
+  "source_repository": "ieee-fraud-ml",
+  "source_commit": "0bd38315d745df68e0263edd0c3d3f1d444ea940",
+  "source_branch": "boosted-model-comparison",
+  "balanced_experiment": "Exploratory; production model is unchanged. See outputs/balanced_experiment/report.json."
+}

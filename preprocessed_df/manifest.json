@@ -1,0 +1,12 @@
+{
+  "purpose": "Train-ready sampled IEEE-CIS dataframe",
+  "file": "ieee_model_data.csv.gz",
+  "size_bytes": 8247349,
+  "rows": 200000,
+  "columns": 84,
+  "split_counts": {
+    "train": 120000,
+    "validation": 40000,
+    "test": 40000
+  }
+}
