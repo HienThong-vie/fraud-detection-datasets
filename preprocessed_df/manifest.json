@@ -1,0 +1,29 @@
+{
+  "purpose": "Train-ready sampled BAF dataframes",
+  "files": [
+    {
+      "name": "base_model_data.csv.gz",
+      "size_bytes": 29908931
+    },
+    {
+      "name": "variant_i_model_data.csv.gz",
+      "size_bytes": 29878309
+    },
+    {
+      "name": "variant_ii_model_data.csv.gz",
+      "size_bytes": 29960480
+    },
+    {
+      "name": "variant_iii_model_data.csv.gz",
+      "size_bytes": 29957203
+    },
+    {
+      "name": "variant_iv_model_data.csv.gz",
+      "size_bytes": 29957725
+    },
+    {
+      "name": "variant_v_model_data.csv.gz",
+      "size_bytes": 29958791
+    }
+  ]
+}

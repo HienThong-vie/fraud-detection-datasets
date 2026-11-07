@@ -1,0 +1,7 @@
+dataset,purpose,rows,row_difference_vs_base,columns,column_difference_vs_base,fraud_rate,fraud_rate_difference_vs_base,sentinel_minus_one_total,sentinel_difference_vs_base,dtype_differences_vs_base,missing_expected_columns,additional_columns
+Base,Reference dataset with no sampling bias intentionally introduced.,1000000,0,32,0,0.011029,0.0,973183,0,,,
+Variant I,Group-size disparity stress test.,1000000,0,32,0,0.011029,0.0,965874,-7309,,,
+Variant II,Fraud-prevalence disparity stress test.,1000000,0,32,0,0.011029,0.0,1007388,34205,,,
+Variant III,Group-dependent class-separability stress test.,1000000,0,34,2,0.01103,9.999999999992654e-07,1015308,42125,"x1, x2",,"x1, x2"
+Variant IV,Temporal prevalence-disparity stress test.,1000000,0,32,0,0.01103,9.999999999992654e-07,1015027,41844,,,
+Variant V,Temporal class-separability stress test.,1000000,0,34,2,0.01103,9.999999999992654e-07,1014540,41357,"x1, x2",,"x1, x2"

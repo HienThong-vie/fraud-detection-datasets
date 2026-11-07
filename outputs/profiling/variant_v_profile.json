@@ -1,0 +1,116 @@
+{
+  "additional_columns": [
+    "x1",
+    "x2"
+  ],
+  "columns": 34,
+  "dataset": "Variant V",
+  "dtypes": {
+    "bank_branch_count_8w": "int64",
+    "bank_months_count": "int64",
+    "credit_risk_score": "int64",
+    "current_address_months_count": "int64",
+    "customer_age": "int64",
+    "date_of_birth_distinct_emails_4w": "int64",
+    "days_since_request": "float64",
+    "device_distinct_emails_8w": "int64",
+    "device_fraud_count": "int64",
+    "device_os": "object",
+    "email_is_free": "int64",
+    "employment_status": "object",
+    "foreign_request": "int64",
+    "fraud_bool": "int64",
+    "has_other_cards": "int64",
+    "housing_status": "object",
+    "income": "float64",
+    "intended_balcon_amount": "float64",
+    "keep_alive_session": "int64",
+    "month": "int64",
+    "name_email_similarity": "float64",
+    "payment_type": "object",
+    "phone_home_valid": "int64",
+    "phone_mobile_valid": "int64",
+    "prev_address_months_count": "int64",
+    "proposed_credit_limit": "float64",
+    "session_length_in_minutes": "float64",
+    "source": "object",
+    "velocity_24h": "float64",
+    "velocity_4w": "float64",
+    "velocity_6h": "float64",
+    "x1": "float64",
+    "x2": "float64",
+    "zip_count_4w": "int64"
+  },
+  "duplicate_rows": 0,
+  "effective_missing_sentinel_counts": {
+    "bank_months_count": 246922,
+    "current_address_months_count": 3381,
+    "device_distinct_emails_8w": 342,
+    "intended_balcon_amount": 751071,
+    "prev_address_months_count": 761730,
+    "session_length_in_minutes": 2165
+  },
+  "file": "Variant V.csv",
+  "file_bytes": 252214315,
+  "fraud_count": 11030,
+  "fraud_rate": 0.01103,
+  "fraud_rate_by_month": {
+    "0": 0.011696198735410992,
+    "1": 0.008909743726134615,
+    "2": 0.007320459421936135,
+    "3": 0.01364455176114369,
+    "4": 0.01568435046847303,
+    "5": 0.00909855182513424,
+    "6": 0.01225641477823825,
+    "7": 0.00931994695965145
+  },
+  "minus_one_counts_all_numeric": {
+    "bank_months_count": 246922,
+    "credit_risk_score": 397,
+    "current_address_months_count": 3381,
+    "device_distinct_emails_8w": 342,
+    "prev_address_months_count": 761730,
+    "session_length_in_minutes": 2165
+  },
+  "missing_cells": 0,
+  "missing_cells_after_sentinel_conversion": 1765611,
+  "missing_expected_columns": [],
+  "missing_sentinel_columns": [
+    "bank_months_count",
+    "current_address_months_count",
+    "device_distinct_emails_8w",
+    "intended_balcon_amount",
+    "prev_address_months_count",
+    "session_length_in_minutes"
+  ],
+  "missing_value_policy": {
+    "intended_balcon_amount": "all negative values are converted to missing",
+    "other_documented_sentinel_columns": "exactly -1 is converted to missing"
+  },
+  "month_counts": {
+    "0": 80026,
+    "1": 105278,
+    "2": 142614,
+    "3": 156546,
+    "4": 126368,
+    "5": 147496,
+    "6": 136092,
+    "7": 105580
+  },
+  "negative_missing_counts": {
+    "intended_balcon_amount": 751071
+  },
+  "null_counts": {},
+  "purpose": "Temporal class-separability stress test.",
+  "rows": 1000000,
+  "sentinel_minus_one_counts": {
+    "bank_months_count": 246922,
+    "current_address_months_count": 3381,
+    "device_distinct_emails_8w": 342,
+    "intended_balcon_amount": 0,
+    "prev_address_months_count": 761730,
+    "session_length_in_minutes": 2165
+  },
+  "sentinel_minus_one_total": 1014540,
+  "sha256": "470899bbef97c32a100528d63e863e1b1036df9501df6ef8140e7ec13b7365b4"
+}

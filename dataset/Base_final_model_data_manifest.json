@@ -1,0 +1,12 @@
+{
+  "file": "Base_final_model_data.csv",
+  "rows": 350000,
+  "columns": 32,
+  "size_bytes": 72849584,
+  "size_mib": 69.47,
+  "sha256": "cb622dd60a640e4106c9eef908bd126fec9f72435b9f34cf77359695a1c5cf57",
+  "source": "data/processed/base_model_data.csv.gz",
+  "dictionary": "Base_final_model_data_dictionary.csv",
+  "licence": "CC BY-NC-SA 4.0; synthetic BAF data; coursework/non-commercial use.",
+  "note": "Exact sampled rows used by the final Base experiment after missing-value conversion."
+}

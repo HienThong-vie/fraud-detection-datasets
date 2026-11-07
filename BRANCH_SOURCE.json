@@ -1,0 +1,7 @@
+{
+  "dataset_branch": "baf",
+  "source_repository": "ai4cyber-fraud",
+  "source_commit": "7919ca0e9f6a98e96a9e1d899ae017a784968916",
+  "source_branch": "boosted-model-comparison",
+  "balanced_experiment": "Exploratory; production model is unchanged. See outputs/balanced_experiment/report.json."
+}

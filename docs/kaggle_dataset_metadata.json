@@ -1,0 +1,20 @@
+{
+  "checked_at": "2026-10-29",
+  "ref": "sgpjesus/bank-account-fraud-dataset-neurips-2022",
+  "title": "Bank Account Fraud Dataset Suite (NeurIPS 2022)",
+  "current_version_number": 2,
+  "last_updated": "2023-11-29T11:32:12.037Z",
+  "license_name": "CC BY-NC-SA 4.0",
+  "versions": [
+    {
+      "version_number": 2,
+      "creation_date": "2023-11-29T11:32:12.037Z",
+      "version_notes": "Update 2023-11-29 - Remove relationship between index and label"
+    },
+    {
+      "version_number": 1,
+      "creation_date": "2022-11-25T14:20:58.057Z",
+      "version_notes": "Initial release"
+    }
+  ]
+}
