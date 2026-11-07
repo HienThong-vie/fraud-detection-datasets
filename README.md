@@ -84,7 +84,6 @@ Completed experiment folders are preserved and may report already complete or re
 
 No raw customer names, addresses, card numbers, transaction IDs or merchant names are used as model features.
 
-Raw datasets and row-level prediction exports are not redistributed here. Code and dataset licences are separate; check the original source terms before reuse.
 
 Raw datasets and row-level prediction exports are not redistributed here. Code and dataset licences are separate; check the original source terms before reuse.
 
@@ -93,3 +92,7 @@ Raw datasets and row-level prediction exports are not redistributed here. Code a
 Brandon Harris, *Sparkov Data Generation*, and Kartik Shenoy, *Credit Card Transactions Fraud Detection Dataset*.
 
 [Selected-model identity and operating points](FINAL_MODEL.md) · [Conda workflow](experiment_suite/CONDA_GUIDE.md)
+
+## Prepared data and reproducibility
+
+[CSV export, scoring, refitting and prediction commands](experiment_suite/CONDA_GUIDE.md). Each export has a data dictionary and checksum manifest. Refit outputs are separate from the selected checkpoint.

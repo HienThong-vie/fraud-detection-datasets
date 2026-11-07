@@ -1,0 +1,53 @@
+{
+  "dataset": "sparkov",
+  "experiment": "fit_balance_v3",
+  "rows": 500000,
+  "columns": 11,
+  "csv_sha256": "ddf7a72590b2630388c316c5c9ee976f69e90d865515ad88d656b32e3d3a9870",
+  "csv_bytes": 48260464,
+  "dtypes": {
+    "amt": "float64",
+    "city_pop": "int64",
+    "age": "float64",
+    "hour": "int32",
+    "weekday": "int32",
+    "distance_km": "float64",
+    "category": "string",
+    "gender": "string",
+    "target": "int8",
+    "_event_time": "int64",
+    "_split": "str"
+  },
+  "frame_sha256": "be141e28a68ea9e5ba1426a984666f911e614e784c1cb7d4fa80bdb6ac5c33ca",
+  "feature_columns": [
+    "amt",
+    "city_pop",
+    "age",
+    "hour",
+    "weekday",
+    "distance_km",
+    "category",
+    "gender"
+  ],
+  "checkpoint_sha256": "f4e13f1757bb24b7c71be80eff995dfad875ae99605345713e039b80a6365532",
+  "periods": {
+    "calibration": {
+      "rows": 20001,
+      "positives": 117
+    },
+    "selection": {
+      "rows": 29999,
+      "positives": 180
+    },
+    "test": {
+      "rows": 50000,
+      "positives": 193
+    },
+    "train": {
+      "rows": 400000,
+      "positives": 2301
+    }
+  },
+  "exact_round_trip_verified": true,
+  "float_format": "%.17g"
+}

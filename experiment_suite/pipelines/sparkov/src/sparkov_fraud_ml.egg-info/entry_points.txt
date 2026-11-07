@@ -1,3 +1,0 @@
-[console_scripts]
-fraud-predict = fraudbench.inference:main
-fraud-train = fraudbench.training:main

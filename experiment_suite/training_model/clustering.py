@@ -26,25 +26,33 @@ VERSION = 'clustering_v1'
 
 
 class QuantileClipper(BaseEstimator, TransformerMixin):
+    """Clip each numeric column to its training 1st-99th percentiles so outliers do not dominate distances."""
     def fit(self, x, y=None):
+        """Learn the 1st and 99th percentile of each column from the training rows."""
         x = np.asarray(x, dtype=float)
         self.lower_ = np.nanquantile(x, .01, axis=0)
         self.upper_ = np.nanquantile(x, .99, axis=0)
         return self
 
     def transform(self, x):
+        """Clip values to the learned percentiles."""
         return np.clip(np.asarray(x, dtype=float), self.lower_, self.upper_)
 
 
 class ClusterRepresentation(BaseEstimator, TransformerMixin):
+    """Turn the (possibly sparse) encoded matrix into a dense float32 array for K-Means."""
     def fit(self, x, y=None):
+        """Nothing to learn; kept for the scikit-learn interface."""
         return self
 
     def transform(self, x):
+        """Convert to a dense float32 array."""
         return np.asarray(x.toarray() if hasattr(x, 'toarray') else x, dtype=np.float32)
 
 
 def feature_columns(dataset, columns):
+    """Clustering inputs: model features without labels, label-derived fields, identifiers or absolute time
+    indices."""
     excluded = {'target', 'fraud_bool', 'isFraud', 'is_fraud', 'Class', 'class',
                 'TransactionID', 'tx_id', 'nameOrig', 'nameDest', 'CUSTOMER_ID', 'TERMINAL_ID',
                 'step', 'day', 'Time', 'TransactionDay', 'time_step',
@@ -55,6 +63,8 @@ def feature_columns(dataset, columns):
 
 
 def preprocessing(x):
+    """Training-fitted preprocessing: median imputation, percentile clipping and scaling for numbers; mode
+    imputation and one-hot encoding for categories."""
     numeric = list(x.select_dtypes(include=np.number).columns)
     categorical = [c for c in x if c not in numeric]
     return ColumnTransformer([
@@ -66,6 +76,8 @@ def preprocessing(x):
 
 
 def choose_candidate(rows):
+    """Pick k: highest silhouette among k whose smallest cluster has >= 1% of rows and whose mean seed ARI is
+    >= 0.6; otherwise the best silhouette with a warning."""
     eligible = [r for r in rows if r['min_cluster_share'] >= .01 and r['stability_ari_mean'] >= .6
                 and r['silhouette'] is not None]
     fallback = not eligible
@@ -76,6 +88,8 @@ def choose_candidate(rows):
 
 
 def fit_search(x, maximum=80000, probe_rows=2000, k_values=range(2, 9), return_candidates=False):
+    """Fit MiniBatch K-Means for k = 2-8 on up to 80,000 training rows and record silhouette, inertia,
+    cluster sizes and seed stability (ARI); labels are not used."""
     rng = np.random.default_rng(42)
     indices = np.sort(rng.choice(len(x), min(len(x), maximum), replace=False))
     fit = x.iloc[indices]
@@ -131,6 +145,7 @@ def fit_search(x, maximum=80000, probe_rows=2000, k_values=range(2, 9), return_c
 
 
 def wilson_interval(positive, total):
+    """95% Wilson interval of a fraud rate."""
     p, z = positive / total, 1.96
     denom = 1 + z * z / total
     centre = (p + z * z / (2 * total)) / denom
@@ -139,6 +154,7 @@ def wilson_interval(positive, total):
 
 
 def interpret(frame, assignments):
+    """After fitting only: fraud rate (with Wilson interval) of every cluster in every split."""
     rows = []
     for split in ('train', 'calibration', 'selection', 'test'):
         part = frame[frame._split == split]
@@ -154,6 +170,7 @@ def interpret(frame, assignments):
 
 
 def graphs(out, candidates, groups, profiles):
+    """Save the silhouette/stability, cluster-size, profile and fraud-rate charts."""
     import matplotlib
     matplotlib.use('Agg')
     import matplotlib.pyplot as plt
@@ -188,6 +205,8 @@ def graphs(out, candidates, groups, profiles):
 
 
 def run(dataset):
+    """Clustering experiment for one dataset: choose k on training rows, assign every row, read fraud rates
+    per cluster, save pipeline, tables, charts and report."""
     out = ROOT / 'evaluation' / dataset / VERSION
     out.mkdir(parents=True, exist_ok=True)
     if (out / 'report.json').exists():
@@ -253,6 +272,7 @@ def run(dataset):
 
 
 def write_card(out, report, groups, profiles):
+    """Write the README card that summarises the clustering result and its limitations."""
     lines = [f"# {report['dataset'].upper()}: exploratory clustering", '',
              f"MiniBatch K-means selected **k={report['selected_k']}** using training-only geometry. "
              f"Training silhouette: {report['selected']['silhouette']:.3f}; mean seed ARI: {report['selected']['stability_ari_mean']:.3f}.", '',

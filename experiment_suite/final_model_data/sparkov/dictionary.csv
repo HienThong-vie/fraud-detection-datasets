@@ -1,0 +1,12 @@
+column,type,meaning,model_input
+amt,float64,Prepared feature: amt. See pipeline documentation for derivation.,yes
+city_pop,int64,Prepared feature: city_pop. See pipeline documentation for derivation.,yes
+age,float64,Prepared feature: age. See pipeline documentation for derivation.,yes
+hour,int32,Prepared feature: hour. See pipeline documentation for derivation.,yes
+weekday,int32,Prepared feature: weekday. See pipeline documentation for derivation.,yes
+distance_km,float64,Prepared feature: distance_km. See pipeline documentation for derivation.,yes
+category,string,Prepared feature: category. See pipeline documentation for derivation.,yes
+gender,string,Prepared feature: gender. See pipeline documentation for derivation.,yes
+target,int8,"Binary target label, never a model input.",no
+_event_time,int64,"Original event-time ordering, excluded from model inputs.",no
+_split,str,Frozen train/calibration/selection/test partition.,no
