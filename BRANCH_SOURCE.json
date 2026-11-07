@@ -3,5 +3,7 @@
   "source_repository": "ulb-creditcard-fraud-ml",
   "source_commit": "5e676c85796318c0b72478d6505070339b82bae4",
   "source_branch": "boosted-model-comparison",
-  "balanced_experiment": "Exploratory; production model is unchanged. See outputs/balanced_experiment/report.json."
+  "balanced_experiment": "Exploratory; production model is unchanged. See outputs/balanced_experiment/report.json.",
+  "latest_experiment": "outputs/supervised_search_v1/report.json",
+  "active_training_entrypoint": "training_model/train.py"
 }

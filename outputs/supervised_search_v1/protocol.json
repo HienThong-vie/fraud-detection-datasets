@@ -1,0 +1,29 @@
+{
+  "dataset": "ulb",
+  "platform": "macOS-26.2-arm64-arm-64bit",
+  "machine": "arm64",
+  "training_device": "local Mac CPU",
+  "threads_per_estimator": 4,
+  "prepared_sha256": "c72efca79e9c0cf58483460b8a78f5a669f9d285c65fc285ef6a164d4a1dd8ed",
+  "seed": 42,
+  "calibration_seed": 912,
+  "selection_split_seed": 913,
+  "rows": {
+    "train": 150000,
+    "calibration": 20000,
+    "selection_1": 15000,
+    "selection_2": 15000,
+    "test": 50000
+  },
+  "supervised_only": true,
+  "families": [
+    "logistic_regression",
+    "random_forest",
+    "extra_trees",
+    "xgboost"
+  ],
+  "trials_per_family": 2,
+  "smoke": false,
+  "prior_configuration_screened": true,
+  "total_fits": 9
+}
