@@ -1,0 +1,89 @@
+{
+  "dataset": "handbook",
+  "experiment": "priority_search_v2",
+  "rows": 400000,
+  "columns": 29,
+  "csv_sha256": "e43e69b1f5d32e1a9c5e20f5e66eb0f2861a95e546eca93f87bf7e0a6b369a81",
+  "csv_bytes": 104606223,
+  "dtypes": {
+    "TX_AMOUNT": "float32",
+    "hour": "int8",
+    "day_of_week": "int8",
+    "customer_previous_count": "int32",
+    "customer_mean_amount_previous": "float32",
+    "customer_seconds_since_previous": "float32",
+    "terminal_previous_count": "int32",
+    "terminal_seconds_since_previous": "float32",
+    "customer_count_1d": "float32",
+    "customer_mean_amount_1d": "float32",
+    "amount_to_customer_mean_1d": "float32",
+    "customer_count_7d": "float32",
+    "customer_mean_amount_7d": "float32",
+    "amount_to_customer_mean_7d": "float32",
+    "customer_count_30d": "float32",
+    "customer_mean_amount_30d": "float32",
+    "amount_to_customer_mean_30d": "float32",
+    "terminal_count_1d": "float32",
+    "terminal_mean_amount_1d": "float32",
+    "terminal_known_fraud_rate_1d_delay7d": "float32",
+    "terminal_count_7d": "float32",
+    "terminal_mean_amount_7d": "float32",
+    "terminal_known_fraud_rate_7d_delay7d": "float32",
+    "terminal_count_30d": "float32",
+    "terminal_mean_amount_30d": "float32",
+    "terminal_known_fraud_rate_30d_delay7d": "float32",
+    "target": "int8",
+    "_event_time": "int64",
+    "_split": "str"
+  },
+  "frame_sha256": "89a6d3512f72afcdca6b03ab629ba3ad526c7029427b4cbf12a9cf9e7cea16a0",
+  "feature_columns": [
+    "TX_AMOUNT",
+    "hour",
+    "day_of_week",
+    "customer_previous_count",
+    "customer_mean_amount_previous",
+    "customer_seconds_since_previous",
+    "terminal_previous_count",
+    "terminal_seconds_since_previous",
+    "customer_count_1d",
+    "customer_mean_amount_1d",
+    "amount_to_customer_mean_1d",
+    "customer_count_7d",
+    "customer_mean_amount_7d",
+    "amount_to_customer_mean_7d",
+    "customer_count_30d",
+    "customer_mean_amount_30d",
+    "amount_to_customer_mean_30d",
+    "terminal_count_1d",
+    "terminal_mean_amount_1d",
+    "terminal_known_fraud_rate_1d_delay7d",
+    "terminal_count_7d",
+    "terminal_mean_amount_7d",
+    "terminal_known_fraud_rate_7d_delay7d",
+    "terminal_count_30d",
+    "terminal_mean_amount_30d",
+    "terminal_known_fraud_rate_30d_delay7d"
+  ],
+  "checkpoint_sha256": "ec150d98357dcf05c1342028d167116dd645e75f4003ece4ae0784c84bf82c4b",
+  "periods": {
+    "calibration": {
+      "rows": 20002,
+      "positives": 156
+    },
+    "selection": {
+      "rows": 29998,
+      "positives": 279
+    },
+    "test": {
+      "rows": 50000,
+      "positives": 448
+    },
+    "train": {
+      "rows": 300000,
+      "positives": 2417
+    }
+  },
+  "exact_round_trip_verified": true,
+  "float_format": "%.17g"
+}

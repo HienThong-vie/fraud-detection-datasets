@@ -1,4 +1,9 @@
-"""Four supervised families, enriched features, forward refits and calibration-only policies."""
+"""Experiment feature_policy_v4: four supervised model families, engineered features and threshold policies.
+
+Steps (BAF): train on months 0-3, calibrate review thresholds on month 4 for FPR budgets of 0.5-5%, choose the
+model on month 5 with the selection score, freeze the choice, and then score test months 6-7.
+Selection score = weakest-block utility (0.65 x AP + 0.35 x mean recall over the budgets - 0.05 x relative FPR
+overshoot) - 0.15 x training-validation gap in AP above random - 0.10 x ROC-AUC gap. Test data never selects."""
 import argparse
 import copy
 import json
@@ -32,6 +37,8 @@ os.environ.setdefault('MPLCONFIGDIR', str(ROOT / '.cache/matplotlib'))
 
 
 def weighted_measure(y, scores, threshold, weight=None):
+    """Confusion-matrix metrics at one threshold, optionally weighted (PaySim training rows carry
+    inverse-sampling weights)."""
     if weight is None:
         return measure(y, scores, threshold)
     tn, fp, fn, tp = confusion_matrix(y, scores >= threshold, labels=[0, 1], sample_weight=weight).ravel()
@@ -43,6 +50,8 @@ def weighted_measure(y, scores, threshold, weight=None):
 
 
 def diagnostic(y, scores, weight=None):
+    """Threshold-free diagnostics for one split: prevalence, AP, ROC-AUC, AP above the random baseline and
+    log loss."""
     metrics = weighted_measure(y, scores, .5, weight)
     prevalence = float(np.average(y, weights=weight))
     return dict(rows=len(y), positives=int(np.sum(y)), prevalence=prevalence, ap=metrics['pr_auc'],
@@ -51,6 +60,8 @@ def diagnostic(y, scores, weight=None):
 
 
 def preprocess(dataset, index, native=False):
+    """Preprocessing for one candidate setting: a training-fitted FeatureScreen, then native columns for
+    CatBoost or imputation, scaling and one-hot encoding for the other families."""
     drop = ('TransactionDay', 'step', 'day') if index else ()
     screen = FeatureScreen(local_only=dataset == 'elliptic', missing_limit=.98 if index == 0 else .995,
                            correlation_limit=.995 if index == 0 else .999, drop_columns=drop)
@@ -66,6 +77,8 @@ def preprocess(dataset, index, native=False):
 
 
 def candidate_models(dataset, family, train, smoke=False):
+    """Yield the new candidates of one family: two regularised settings (a third recent-window one on
+    Elliptic), with class weights for imbalance."""
     count = 3 if dataset == 'elliptic' else 2
     prevalence = float(np.average(train.target, weights=train._sample_weight))
     for index in range(count):
@@ -96,6 +109,8 @@ def candidate_models(dataset, family, train, smoke=False):
 
 
 def fit_model(model, family, train, columns):
+    """Fit one candidate on training rows only; boosted trees pick their number of rounds by early stopping
+    on the latest training period, then refit on all training rows."""
     weights = train._sample_weight.to_numpy(dtype=float)
     weights = weights / weights.mean()
     info = dict(rows=len(train), fraud=int(train.target.sum()), best_rounds=None)
@@ -150,6 +165,8 @@ def fit_model(model, family, train, columns):
 
 
 def assess(model, family, variant, train, calibration, selection, columns):
+    """Score a fitted candidate without test data: thresholds from the calibration month, metrics and the
+    selection score from the selection month."""
     if family in ('random_forest', 'extra_trees'):
         model.steps[-1][1].set_params(n_jobs=1)
     cal = predict_scores(model, calibration[columns])
@@ -183,16 +200,22 @@ def assess(model, family, variant, train, calibration, selection, columns):
 
 
 def passes(record, incumbent):
+    """Floors a new candidate must meet against the previous version (>= 95% of its validation AP, >= 85% of
+    its 1%-budget recall, utility within 0.03)."""
     return (record['validation']['pr_auc'] >= .95 * incumbent['validation']['pr_auc']
             and record['validation']['recall'] >= .85 * incumbent['validation']['recall']
             and record['selection_utility'] >= incumbent['selection_utility'] - .03)
 
 
 def windowed(train, window):
+    """Keep only the most recent time steps of training data (None keeps all); used for the Elliptic
+    recent-window candidate."""
     return train if window is None else train[train._event_time >= train._event_time.max() - window + 1]
 
 
 def forward_refits(model, family, window, train, natural, columns, smoke=False):
+    """Diagnostic only: two refits inside the training period (fit, calibrate, evaluate on later blocks) to
+    check stability over time; never used to select."""
     times = np.sort(natural._event_time.unique())
     if len(times) < 4:
         return [dict(skipped='Fewer than four training time groups')]
@@ -232,6 +255,8 @@ def forward_refits(model, family, window, train, natural, columns, smoke=False):
 
 
 def run(dataset, smoke=False):
+    """Run the experiment once per dataset; a file lock and an existing report stop published results from
+    being overwritten."""
     import fcntl
     folder = evaluation_directory(dataset) / ('feature_policy_smoke' if smoke else VERSION)
     folder.mkdir(parents=True, exist_ok=True)
@@ -244,6 +269,8 @@ def run(dataset, smoke=False):
 
 
 def _run(dataset, smoke, folder):
+    """The experiment: re-score v3 incumbents, fit and assess new candidates, choose the champion on
+    validation, freeze it, then score the test months and save all outputs."""
     sys.path.insert(0, str(project_directory(dataset) / 'src'))
     frame, natural, metadata = prepare(dataset)
     columns = metadata['feature_columns']

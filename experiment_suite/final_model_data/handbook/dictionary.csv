@@ -1,0 +1,30 @@
+column,type,meaning,model_input
+TX_AMOUNT,float32,Prepared feature: TX_AMOUNT. See pipeline documentation for derivation.,yes
+hour,int8,Prepared feature: hour. See pipeline documentation for derivation.,yes
+day_of_week,int8,Prepared feature: day_of_week. See pipeline documentation for derivation.,yes
+customer_previous_count,int32,Prepared feature: customer_previous_count. See pipeline documentation for derivation.,yes
+customer_mean_amount_previous,float32,Prepared feature: customer_mean_amount_previous. See pipeline documentation for derivation.,yes
+customer_seconds_since_previous,float32,Prepared feature: customer_seconds_since_previous. See pipeline documentation for derivation.,yes
+terminal_previous_count,int32,Prepared feature: terminal_previous_count. See pipeline documentation for derivation.,yes
+terminal_seconds_since_previous,float32,Prepared feature: terminal_seconds_since_previous. See pipeline documentation for derivation.,yes
+customer_count_1d,float32,Prepared feature: customer_count_1d. See pipeline documentation for derivation.,yes
+customer_mean_amount_1d,float32,Prepared feature: customer_mean_amount_1d. See pipeline documentation for derivation.,yes
+amount_to_customer_mean_1d,float32,Prepared feature: amount_to_customer_mean_1d. See pipeline documentation for derivation.,yes
+customer_count_7d,float32,Prepared feature: customer_count_7d. See pipeline documentation for derivation.,yes
+customer_mean_amount_7d,float32,Prepared feature: customer_mean_amount_7d. See pipeline documentation for derivation.,yes
+amount_to_customer_mean_7d,float32,Prepared feature: amount_to_customer_mean_7d. See pipeline documentation for derivation.,yes
+customer_count_30d,float32,Prepared feature: customer_count_30d. See pipeline documentation for derivation.,yes
+customer_mean_amount_30d,float32,Prepared feature: customer_mean_amount_30d. See pipeline documentation for derivation.,yes
+amount_to_customer_mean_30d,float32,Prepared feature: amount_to_customer_mean_30d. See pipeline documentation for derivation.,yes
+terminal_count_1d,float32,Prepared feature: terminal_count_1d. See pipeline documentation for derivation.,yes
+terminal_mean_amount_1d,float32,Prepared feature: terminal_mean_amount_1d. See pipeline documentation for derivation.,yes
+terminal_known_fraud_rate_1d_delay7d,float32,Prepared feature: terminal_known_fraud_rate_1d_delay7d. See pipeline documentation for derivation.,yes
+terminal_count_7d,float32,Prepared feature: terminal_count_7d. See pipeline documentation for derivation.,yes
+terminal_mean_amount_7d,float32,Prepared feature: terminal_mean_amount_7d. See pipeline documentation for derivation.,yes
+terminal_known_fraud_rate_7d_delay7d,float32,Prepared feature: terminal_known_fraud_rate_7d_delay7d. See pipeline documentation for derivation.,yes
+terminal_count_30d,float32,Prepared feature: terminal_count_30d. See pipeline documentation for derivation.,yes
+terminal_mean_amount_30d,float32,Prepared feature: terminal_mean_amount_30d. See pipeline documentation for derivation.,yes
+terminal_known_fraud_rate_30d_delay7d,float32,Prepared feature: terminal_known_fraud_rate_30d_delay7d. See pipeline documentation for derivation.,yes
+target,int8,"Binary target label, never a model input.",no
+_event_time,int64,"Original event-time ordering, excluded from model inputs.",no
+_split,str,Frozen train/calibration/selection/test partition.,no

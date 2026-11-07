@@ -28,6 +28,8 @@ VERSION = 'priority_search_v2'
 
 
 def predict_scores(model, frame):
+    """Model score for the fraud class, rounded to 12 decimals so saved and reloaded models give identical
+    results."""
     return np.round(np.asarray(model.predict_proba(frame)[:, 1], dtype='float64'), 12)
 
 
@@ -41,6 +43,8 @@ def fpr_threshold(y, scores, budget):
 
 
 def selection_blocks(frame):
+    """Split the selection period into two time-ordered halves; BAF has month-level time only, so month 5
+    stays one block."""
     times = np.sort(frame._event_time.unique())
     if len(times) < 2:
         return [frame]
@@ -51,12 +55,16 @@ def selection_blocks(frame):
 
 
 def priority_utility(ap, operating):
+    """Utility of one block: 0.65 x AP + 0.35 x mean recall over the budgets - 0.05 x mean relative FPR
+    overshoot."""
     recalls = [m['recall'] for m in operating.values()]
     excess = [max(0., m['fpr'] - float(b)) / float(b) for b, m in operating.items()]
     return .65 * ap + .35 * float(np.mean(recalls)) - .05 * float(np.mean(excess))
 
 
 def assess_trial(model, family, variant, train, calibration, selection, blocks, columns, fit_seconds):
+    """Experiment v2 (superseded by feature_policy_search.assess): score one candidate on calibration and
+    selection rows."""
     if family in ('random_forest', 'extra_trees'):
         model.steps[-1][1].set_params(n_jobs=1)
     cal = predict_scores(model, calibration[columns])
@@ -83,9 +91,11 @@ def assess_trial(model, family, variant, train, calibration, selection, blocks, 
 
 
 def candidates(dataset, columns, categorical, train, smoke):
+    """Experiment v2: candidate pipelines of the four families."""
     base = templates(columns, categorical)
     preprocessing = base['logistic_regression'][0][1].steps[0][1]
     def wrapped(model):
+        """Experiment v2: put a classifier behind the shared preprocessing."""
         return Pipeline([('preprocessor', clone(preprocessing)), ('classifier', model)])
     families = {
         'logistic_regression': [(f'C{c}', wrapped(LogisticRegression(C=c, class_weight='balanced',
@@ -136,6 +146,7 @@ def candidates(dataset, columns, categorical, train, smoke):
 
 
 def budget_plot(out, rows):
+    """Plot recall and actual FPR at every budget for each family (also used by v4)."""
     import matplotlib
     matplotlib.use('Agg')
     import matplotlib.pyplot as plt
@@ -154,6 +165,7 @@ def budget_plot(out, rows):
 
 
 def _run(dataset, smoke=False):
+    """Experiment priority_search_v2, kept for provenance; the active version is recorded in configs/final_models.json."""
     directory = project_directory(dataset)
     sys.path.insert(0, str(directory / 'src'))
     os.chdir(directory)
@@ -256,6 +268,7 @@ def _run(dataset, smoke=False):
 
 
 def run(dataset, smoke=False):
+    """Run experiment v2 once per dataset, guarded by a file lock."""
     import fcntl
     directory = evaluation_directory(dataset) / ('priority_search_smoke' if smoke else VERSION)
     directory.mkdir(parents=True, exist_ok=True)

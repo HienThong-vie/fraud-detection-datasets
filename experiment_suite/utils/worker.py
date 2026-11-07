@@ -9,12 +9,14 @@ import pandas as pd
 ROOT = Path(__file__).resolve().parents[1]
 
 def main():
+    """Score records (from stdin) or describe the model, for one dataset, model version and FPR budget; runs
+    in its own process."""
     dataset, variant = sys.argv[1:3]
     requested_variant = variant
     if variant == 'selected':
         final = json.loads((ROOT / 'configs/final_models.json').read_text())['datasets'][dataset]
         variant = {'feature_policy_v4':'features','fit_balance_v3':'fitting','priority_search_v2':'priority'}[final['experiment']]
-    budget = float(sys.argv[3]) if len(sys.argv)>3 else .01
+    budget = float(sys.argv[3]) if len(sys.argv)>3 else .05
     policy = sys.argv[4] if len(sys.argv)>4 else 'point'
     capacity = float(sys.argv[5]) if len(sys.argv)>5 and sys.argv[5] != 'none' else None
     if variant != 'features' and (policy != 'point' or capacity is not None):
