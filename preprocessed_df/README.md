@@ -1,6 +1,3 @@
-# Preprocessed dataframes
+# Prepared data
 
-The six `.csv.gz` links expose the exact sampled train, validation, and test rows used for Base and
-Variants I-V. Each table includes a `_split` column. The large generated files are reproducible and
-excluded from Git; `manifest.json` records the available artifacts.
-
+Prepared tables are generated locally. The current workflow stores versioned tables under `experiment_suite/preprocessed_df/baf/`. Do not commit raw or prepared records. See the [training guide](../README.md#training).

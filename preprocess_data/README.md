@@ -1,5 +1,3 @@
-# Preprocess data
+# Preprocessing
 
-Run `python preprocess_data/run.py` to validate and profile Base and Variants I-V. Preprocessing used by
-the models remains inside each fitted scikit-learn pipeline, preventing train/test leakage.
-
+This folder contains the original preprocessing entrypoint. For the current training workflow, use the preparation command in the [project README](../README.md#training). Imputation, encoding and scaling are fitted on training data only.
