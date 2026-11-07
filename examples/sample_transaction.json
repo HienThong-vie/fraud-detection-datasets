@@ -1,0 +1,10 @@
+{
+  "TX_AMOUNT": 125.5,
+  "hour": 14,
+  "day_of_week": 2,
+  "customer_previous_count": 8,
+  "customer_mean_amount_previous": 62.25,
+  "customer_seconds_since_previous": 7200.0,
+  "terminal_previous_count": 140,
+  "terminal_seconds_since_previous": 180.0
+}

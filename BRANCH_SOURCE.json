@@ -1,0 +1,7 @@
+{
+  "dataset_branch": "handbook",
+  "source_repository": "fraud-handbook-ml",
+  "source_commit": "ca62a3b6ff893e7ac3cdb84cf32c1d21544d5aaf",
+  "source_branch": "boosted-model-comparison",
+  "balanced_experiment": "Exploratory; production model is unchanged. See outputs/balanced_experiment/report.json."
+}
