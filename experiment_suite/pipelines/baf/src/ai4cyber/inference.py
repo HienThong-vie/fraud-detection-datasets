@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from pathlib import Path
 from typing import Any
 
@@ -22,12 +23,22 @@ class ModelService:
             raise FileNotFoundError(
                 f"Model artifact not found: {self.artifact_path}. Run the training command first."
             )
+        for root in [*self.artifact_path.resolve().parents, *Path(__file__).resolve().parents]:
+            for candidate in (root / 'training_model', root / 'experiment_suite/training_model'):
+                if (candidate / 'upgrade_support.py').exists():
+                    sys.path.insert(0, str(candidate))
         self.artifact: dict = joblib.load(self.artifact_path)
-        self.pipeline = self.artifact["pipeline"]
+        self.pipeline = self.artifact.get("pipeline", self.artifact.get("model"))
         self.threshold = float(self.artifact["threshold"])
         self.feature_columns = list(self.artifact["feature_columns"])
 
     def _frame(self, features: dict[str, Any]) -> pd.DataFrame:
+        if self.artifact.get('experiment') == 'feature_policy_v4':
+            from .data import replace_missing_sentinels
+            from upgrade_support import baf_features
+            raw_columns = self.artifact['raw_feature_columns']
+            if set(features) == set(raw_columns):
+                return baf_features(replace_missing_sentinels(pd.DataFrame([features])))[self.feature_columns]
         missing = [column for column in self.feature_columns if column not in features]
         if missing:
             raise ValueError(f"Missing required model fields: {missing}")
@@ -35,6 +46,9 @@ class ModelService:
         if unknown:
             raise ValueError(f"Unknown model fields: {unknown}")
         frame = pd.DataFrame([{column: features[column] for column in self.feature_columns}])
+        if self.artifact.get('experiment') == 'feature_policy_v4':
+            from .data import replace_missing_sentinels
+            return replace_missing_sentinels(frame)
         sentinel_columns = set(
             self.artifact.get("missing_sentinel_columns", MISSING_SENTINEL_COLUMNS)
         )
@@ -71,8 +85,10 @@ class ModelService:
             **make_review_decision(score, self.threshold),
             "dataset": self.artifact["dataset"],
             "model": self.artifact["model_name"],
-            "leading_factors": self._local_ablation_factors(frame, score),
+            "leading_factors": [] if self.artifact.get('experiment') == 'feature_policy_v4' else self._local_ablation_factors(frame, score),
             "factor_note": (
+                "Feature attribution is not supplied for the promoted engineered CatBoost pipeline."
+                if self.artifact.get('experiment') == 'feature_policy_v4' else
                 "Local ablation associations, not causal reasons: each field is replaced by the "
                 "training-time imputation value and the score change is measured."
             ),

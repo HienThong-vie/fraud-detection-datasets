@@ -1,33 +1,64 @@
-column,type,meaning,model_input
-_split,object,"Temporal partition used by the experiment: train, validation, or test.",no
-name_email_similarity,float64,Similarity between the applicant name and email; higher is more similar.,yes
-prev_address_months_count,float64,Months at the previous registered address; missing when unavailable.,yes
-current_address_months_count,float64,Months at the current registered address; missing when unavailable.,yes
-days_since_request,float64,Days elapsed since the application was made.,yes
-intended_balcon_amount,float64,Initial transfer amount for the application; negative source values are missing.,yes
-payment_type,object,Anonymized credit payment plan type.,yes
-zip_count_4w,int64,Applications from the same ZIP code in the previous four weeks.,yes
-velocity_6h,float64,Average applications per hour during the previous six hours.,yes
-velocity_24h,float64,Average applications per hour during the previous 24 hours.,yes
-velocity_4w,float64,Average applications per hour during the previous four weeks.,yes
-bank_branch_count_8w,int64,Applications at the selected branch during the previous eight weeks.,yes
-date_of_birth_distinct_emails_4w,int64,Distinct emails sharing the date of birth in four weeks.,yes
-credit_risk_score,int64,Internal application credit-risk score.,yes
-email_is_free,int64,Whether the applicant uses a free email domain.,yes
-housing_status,object,Anonymized applicant residential status.,yes
-phone_home_valid,int64,Whether the supplied home phone is valid.,yes
-phone_mobile_valid,int64,Whether the supplied mobile phone is valid.,yes
-bank_months_count,float64,Age in months of a previous bank account; missing when unavailable.,yes
-has_other_cards,int64,Whether the applicant has other cards from the same bank.,yes
-proposed_credit_limit,float64,Credit limit requested by the applicant.,yes
-foreign_request,int64,Whether the request country differs from the bank country.,yes
-source,object,Application channel: browser or telephone app.,yes
-session_length_in_minutes,float64,Length of the application web session in minutes.,yes
-device_os,object,Operating system of the device used for the request.,yes
-keep_alive_session,int64,User keep-alive choice at session logout.,yes
-device_distinct_emails_8w,float64,Distinct emails seen from the device in the previous eight weeks.,yes
-fraud_bool,int64,"Target label: 1 fraudulent application, 0 legitimate application.",no
-month,int64,"Dataset month in the range 0 to 7, used for the temporal split.",no
-customer_age,int64,"Applicant age in years, rounded to the decade.",no
-income,float64,Applicant annual income in decile form.,no
-employment_status,object,Anonymized applicant employment status.,no
+column,type,meaning,pipeline_input,model_input,note
+name_email_similarity,float64,Similarity between the applicant name and email; higher is more similar.,yes,yes,
+prev_address_months_count,float64,Months at the previous registered address; missing when unavailable.,yes,yes,
+current_address_months_count,float64,Months at the current registered address; missing when unavailable.,yes,yes,
+days_since_request,float64,Days elapsed since the application was made.,yes,yes,
+intended_balcon_amount,float64,Initial transfer amount for the application; negative source values are missing.,yes,yes,
+payment_type,str,Anonymized credit payment plan type.,yes,yes,
+zip_count_4w,int64,Applications from the same ZIP code in the previous four weeks.,yes,yes,
+velocity_6h,float64,Average applications per hour during the previous six hours.,yes,yes,
+velocity_24h,float64,Average applications per hour during the previous 24 hours.,yes,yes,
+velocity_4w,float64,Average applications per hour during the previous four weeks.,yes,yes,
+bank_branch_count_8w,int64,Applications at the selected branch during the previous eight weeks.,yes,yes,
+date_of_birth_distinct_emails_4w,int64,Distinct emails sharing the date of birth in four weeks.,yes,yes,
+credit_risk_score,int64,Internal application credit-risk score.,yes,yes,
+email_is_free,int64,Whether the applicant uses a free email domain.,yes,yes,
+housing_status,str,Anonymized applicant residential status.,yes,yes,
+phone_home_valid,int64,Whether the supplied home phone is valid.,yes,yes,
+phone_mobile_valid,int64,Whether the supplied mobile phone is valid.,yes,yes,
+bank_months_count,float64,Age in months of a previous bank account; missing when unavailable.,yes,yes,
+has_other_cards,int64,Whether the applicant has other cards from the same bank.,yes,yes,
+proposed_credit_limit,float64,Credit limit requested by the applicant.,yes,yes,
+foreign_request,int64,Whether the request country differs from the bank country.,yes,yes,
+source,str,Application channel: browser or telephone app.,yes,yes,
+session_length_in_minutes,float64,Length of the application web session in minutes.,yes,yes,
+device_os,str,Operating system of the device used for the request.,yes,yes,
+keep_alive_session,int64,User keep-alive choice at session logout.,yes,yes,
+device_distinct_emails_8w,float64,Distinct emails seen from the device in the previous eight weeks.,yes,yes,
+name_email_similarity_missing,int8,Missingness indicator for name_email_similarity; computed after missing-code cleaning.,yes,no,Screened out before CatBoost (constant/redundant training feature).
+prev_address_months_count_missing,int8,Missingness indicator for prev_address_months_count; computed after missing-code cleaning.,yes,yes,
+current_address_months_count_missing,int8,Missingness indicator for current_address_months_count; computed after missing-code cleaning.,yes,yes,
+days_since_request_missing,int8,Missingness indicator for days_since_request; computed after missing-code cleaning.,yes,no,Screened out before CatBoost (constant/redundant training feature).
+intended_balcon_amount_missing,int8,Missingness indicator for intended_balcon_amount; computed after missing-code cleaning.,yes,yes,
+zip_count_4w_missing,int8,Missingness indicator for zip_count_4w; computed after missing-code cleaning.,yes,no,Screened out before CatBoost (constant/redundant training feature).
+velocity_6h_missing,int8,Missingness indicator for velocity_6h; computed after missing-code cleaning.,yes,no,Screened out before CatBoost (constant/redundant training feature).
+velocity_24h_missing,int8,Missingness indicator for velocity_24h; computed after missing-code cleaning.,yes,no,Screened out before CatBoost (constant/redundant training feature).
+velocity_4w_missing,int8,Missingness indicator for velocity_4w; computed after missing-code cleaning.,yes,no,Screened out before CatBoost (constant/redundant training feature).
+bank_branch_count_8w_missing,int8,Missingness indicator for bank_branch_count_8w; computed after missing-code cleaning.,yes,no,Screened out before CatBoost (constant/redundant training feature).
+date_of_birth_distinct_emails_4w_missing,int8,Missingness indicator for date_of_birth_distinct_emails_4w; computed after missing-code cleaning.,yes,no,Screened out before CatBoost (constant/redundant training feature).
+credit_risk_score_missing,int8,Missingness indicator for credit_risk_score; computed after missing-code cleaning.,yes,no,Screened out before CatBoost (constant/redundant training feature).
+email_is_free_missing,int8,Missingness indicator for email_is_free; computed after missing-code cleaning.,yes,no,Screened out before CatBoost (constant/redundant training feature).
+phone_home_valid_missing,int8,Missingness indicator for phone_home_valid; computed after missing-code cleaning.,yes,no,Screened out before CatBoost (constant/redundant training feature).
+phone_mobile_valid_missing,int8,Missingness indicator for phone_mobile_valid; computed after missing-code cleaning.,yes,no,Screened out before CatBoost (constant/redundant training feature).
+bank_months_count_missing,int8,Missingness indicator for bank_months_count; computed after missing-code cleaning.,yes,yes,
+has_other_cards_missing,int8,Missingness indicator for has_other_cards; computed after missing-code cleaning.,yes,no,Screened out before CatBoost (constant/redundant training feature).
+proposed_credit_limit_missing,int8,Missingness indicator for proposed_credit_limit; computed after missing-code cleaning.,yes,no,Screened out before CatBoost (constant/redundant training feature).
+foreign_request_missing,int8,Missingness indicator for foreign_request; computed after missing-code cleaning.,yes,no,Screened out before CatBoost (constant/redundant training feature).
+session_length_in_minutes_missing,int8,Missingness indicator for session_length_in_minutes; computed after missing-code cleaning.,yes,yes,
+keep_alive_session_missing,int8,Missingness indicator for keep_alive_session; computed after missing-code cleaning.,yes,no,Screened out before CatBoost (constant/redundant training feature).
+device_distinct_emails_8w_missing,int8,Missingness indicator for device_distinct_emails_8w; computed after missing-code cleaning.,yes,yes,
+missing_numeric_count,int16,Count of missing original numeric inputs.,yes,yes,
+velocity_6h_log1p,float64,"log(1 + max(0, velocity_6h)).",yes,yes,
+velocity_24h_log1p,float64,"log(1 + max(0, velocity_24h)).",yes,yes,
+velocity_4w_log1p,float64,"log(1 + max(0, velocity_4w)).",yes,yes,
+zip_count_4w_log1p,float64,"log(1 + max(0, zip_count_4w)).",yes,yes,
+bank_branch_count_8w_log1p,float64,"log(1 + max(0, bank_branch_count_8w)).",yes,yes,
+device_distinct_emails_8w_log1p,float64,"log(1 + max(0, device_distinct_emails_8w)).",yes,yes,
+velocity_6h_to_velocity_24h,float64,"velocity_6h divided by max(1, velocity_24h), clipped to [0,10000].",yes,yes,
+velocity_24h_to_velocity_4w,float64,"velocity_24h divided by max(1, velocity_4w), clipped to [0,10000].",yes,yes,
+device_emails_foreign,float64,Device distinct-email count multiplied by foreign-request flag.,yes,yes,
+phone_both_invalid,int8,1 when both original phone-validity flags are zero.,yes,yes,
+payment_device,str,Original payment type joined with device OS.,yes,yes,
+fraud_bool,int8,"Target label: 1 fraudulent application, 0 legitimate application.",no,no,
+month,int8,"Dataset month in the range 0 to 7, used for the temporal split.",no,no,
+_split,str,"Temporal partition used by the experiment: train, validation, or test.",no,no,

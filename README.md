@@ -1,5 +1,7 @@
 # Bank Account Fraud Detection
 
+[Selected model and operating points](FINAL_MODEL.md) · [Conda workflow](experiment_suite/CONDA_GUIDE.md)
+
 A Python project for fraud-data analysis, supervised classification and exploratory clustering. It includes trained pipelines, a local dashboard, evaluation charts and reproducible training code.
 
 ## Features

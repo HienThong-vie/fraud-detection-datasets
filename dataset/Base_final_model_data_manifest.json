@@ -1,12 +1,23 @@
 {
-  "file": "Base_final_model_data.csv",
-  "rows": 350000,
-  "columns": 32,
-  "size_bytes": 72849584,
-  "size_mib": 69.47,
-  "sha256": "cb622dd60a640e4106c9eef908bd126fec9f72435b9f34cf77359695a1c5cf57",
-  "source": "data/processed/base_model_data.csv.gz",
-  "dictionary": "Base_final_model_data_dictionary.csv",
-  "licence": "CC BY-NC-SA 4.0; synthetic BAF data; coursework/non-commercial use.",
-  "note": "Exact sampled rows used by the final Base experiment after missing-value conversion."
+  "rows": 650000,
+  "columns": 63,
+  "candidate_inputs": 60,
+  "retained_inputs": 44,
+  "split_rows": {
+    "calibration": 50000,
+    "selection": 50000,
+    "test": 50000,
+    "train": 500000
+  },
+  "bytes": 262270976,
+  "decimal_MB": 262.270976,
+  "binary_MiB": 250.12109375,
+  "sha256": "4678caa5333eb56cd5a0e44fa21bea4ecdcab9c5f133f7f84d4ca771c0fbbe3c",
+  "float_format": "%.17g",
+  "null_representation": "empty CSV field",
+  "sample_weight": "Omitted: BAF weights are all one.",
+  "licence": "CC BY-NC-SA 4.0",
+  "source": "https://www.kaggle.com/datasets/sgpjesus/bank-account-fraud-dataset-neurips-2022",
+  "checkpoint_sha256": "6655ca84af79c1a6bbdf8b5a61e5fd8178320476ef257c34da7b4f1f8a2927a3",
+  "upload_limit": "Not supplied; compare this size and the final ZIP size with the actual portal limit."
 }

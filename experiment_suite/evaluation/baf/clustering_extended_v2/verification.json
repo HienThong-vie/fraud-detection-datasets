@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "dataset": "baf",
+  "all_k_assignments_reproduced": true,
+  "counts_reproduced": true,
+  "unknown_not_negative": true,
+  "selected_k": 5
+}

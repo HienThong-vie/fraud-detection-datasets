@@ -1,0 +1,29 @@
+{
+  "k": 5,
+  "elbow_k": 5,
+  "ranks": [
+    {
+      "k": 2,
+      "selection_rank": 3.0
+    },
+    {
+      "k": 3,
+      "selection_rank": 2.7
+    },
+    {
+      "k": 4,
+      "selection_rank": 4.1000000000000005
+    },
+    {
+      "k": 5,
+      "selection_rank": 2.0
+    },
+    {
+      "k": 6,
+      "selection_rank": 3.0
+    }
+  ],
+  "labels_used": false,
+  "test_used": false,
+  "quality_constraints_relaxed": true
+}
