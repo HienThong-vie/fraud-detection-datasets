@@ -1,7 +1,5 @@
 # BankSim Fraud Detection
 
-[Selected model and operating points](FINAL_MODEL.md) · [Conda workflow](experiment_suite/CONDA_GUIDE.md)
-
 A Python project for fraud-data analysis, supervised classification and exploratory clustering. It includes trained pipelines, a local dashboard, evaluation charts and reproducible training code.
 
 ## Features
@@ -15,16 +13,15 @@ A Python project for fraud-data analysis, supervised classification and explorat
 
 ```bash
 git clone --branch banksim --single-branch https://github.com/KennyDao1324/fraud-detection-datasets.git
-cd fraud-detection-datasets
-python3.12 -m venv .venv
-source .venv/bin/activate
-python -m pip install -r experiment_suite/requirements.txt
-python experiment_suite/app.py
+cd fraud-detection-datasets/experiment_suite
+conda env create -f environment.yml
+conda activate fraudsuite
+python app.py
 ```
 
 Open http://127.0.0.1:8050/. Saved models work without downloading the raw data. Use the example engineered record shown in the dashboard; raw transaction rows may require preprocessing.
 
-In PyCharm, open the project folder and select `.venv` as the Python interpreter. On Windows, activate the environment with `.venv\Scripts\Activate.ps1`. Training uses Mac/Linux file locks; inference does not require them.
+In PyCharm, open the project folder and select the `fraudsuite` conda environment as interpreter. Training uses Mac/Linux file locks; inference does not require them.
 
 ## Project structure
 
@@ -44,14 +41,14 @@ Small `__init__.py`, `.gitkeep` and launcher files support packaging or folder l
 
 ## Classification results
 
-Experiment: `priority_search_v2`. Selected model: **catboost**. The table uses the 1% calibration-FPR operating point; actual later-period FPR can differ.
+Experiment: `priority_search_v2`. Selected model: **catboost**. The table uses the 5% calibration-FPR headline operating point; actual later-period FPR can differ. 1% is secondary.
 
 | Model | PR-AUC | Recall | FPR | Precision | F1 | ROC-AUC |
 |---|---:|---:|---:|---:|---:|---:|
-| logistic_regression | 0.7711 | 78.3% | 0.873% | 49.5% | 0.6065 | 0.9925 |
-| random_forest | 0.8034 | 79.4% | 0.843% | 50.7% | 0.6190 | 0.9926 |
-| extra_trees | 0.7093 | 77.6% | 0.857% | 49.7% | 0.6059 | 0.9909 |
-| catboost | 0.8026 | 80.6% | 0.827% | 51.5% | 0.6286 | 0.9911 |
+| logistic_regression | 0.7711 | 95.9% | 5.042% | 17.2% | 0.2917 | 0.9925 |
+| random_forest | 0.8034 | 95.0% | 5.024% | 17.1% | 0.2900 | 0.9926 |
+| extra_trees | 0.7093 | 93.9% | 5.075% | 16.8% | 0.2851 | 0.9909 |
+| catboost | 0.8026 | 94.3% | 5.212% | 16.5% | 0.2807 | 0.9911 |
 
 [Model comparison](experiment_suite/evaluation/banksim/priority_search_v2/model_comparison.png) · [PR curves](experiment_suite/evaluation/banksim/priority_search_v2/precision_recall_curves.png) · [Metrics CSV](experiment_suite/evaluation/banksim/priority_search_v2/model_comparison.csv) · [Full results and protocol](experiment_suite/evaluation/banksim/priority_search_v2/report.json)
 
@@ -89,6 +86,10 @@ The CSV is not redistributed by this repository. Customer IDs, merchant IDs and 
 
 Raw datasets and row-level prediction exports are not redistributed here. Code and dataset licences are separate; check the original source terms before reuse.
 
+Raw datasets and row-level prediction exports are not redistributed here. Code and dataset licences are separate; check the original source terms before reuse.
+
 ## Citation
 
 E. A. López-Rojas and S. Axelsson, “BankSim: A Bank Payment Simulation for Fraud Detection Research,” 2014.
+
+[Selected-model identity and operating points](FINAL_MODEL.md) · [Conda workflow](experiment_suite/CONDA_GUIDE.md)
