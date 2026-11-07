@@ -1,0 +1,7 @@
+{
+  "dataset_branch": "banksim",
+  "source_repository": "banksim-fraud-ml",
+  "source_commit": "b51f0b7788c15aed71495966ececba2fec49faec",
+  "source_branch": "boosted-model-comparison",
+  "balanced_experiment": "Exploratory; production model is unchanged. See outputs/balanced_experiment/report.json."
+}

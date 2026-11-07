@@ -1,0 +1,80 @@
+{
+  "config": {
+    "dataset_name": "BankSim synthetic bank payments",
+    "dataset_kind": "synthetic",
+    "dataset_path": "data/raw/bs140513_032310.csv",
+    "train_fraction": 0.6,
+    "validation_fraction": 0.2,
+    "max_train_rows": 150000,
+    "max_validation_rows": 50000,
+    "max_test_rows": 50000,
+    "random_seed": 42,
+    "logistic_max_iter": 500,
+    "random_forest_trees": 140,
+    "random_forest_max_depth": 14,
+    "catboost_iterations": 400,
+    "catboost_depth": 8,
+    "catboost_learning_rate": 0.06
+  },
+  "profile": {
+    "rows": 594643,
+    "columns": 6,
+    "fraud_rows": 7200,
+    "fraud_rate": 0.012108105199254007,
+    "missing_values": {
+      "step": 0,
+      "age": 0,
+      "gender": 0,
+      "category": 0,
+      "amount": 0,
+      "fraud": 0
+    },
+    "step_min": 0,
+    "step_max": 179,
+    "split_rows": {
+      "train": 150000,
+      "validation": 50000,
+      "test": 50000
+    },
+    "source_hashes": {
+      "dataset_path": "ae8a3ec9d0f5bc3bcb5f579b6c32b04c43c53e3ceb5541156a7756c6a1187daa"
+    }
+  },
+  "selected_model": "logistic_regression",
+  "selection_metric": "validation_pr_auc",
+  "validation": {
+    "model": "logistic_regression",
+    "threshold": 0.9837596414,
+    "accuracy": 0.9949,
+    "precision": 0.88,
+    "recall": 0.6296958855,
+    "f1": 0.7340980188,
+    "roc_auc": 0.9929365223,
+    "pr_auc": 0.784993097,
+    "false_positive_rate": 0.0009708541,
+    "true_negative": 49393,
+    "false_positive": 48,
+    "false_negative": 207,
+    "true_positive": 352
+  },
+  "test": {
+    "threshold": 0.9837596414315287,
+    "accuracy": 0.99464,
+    "precision": 0.8756906077348067,
+    "recall": 0.587037037037037,
+    "f1": 0.7028824833702882,
+    "roc_auc": 0.992320767998083,
+    "pr_auc": 0.7716416037247998,
+    "false_positive_rate": 0.000909826122118884,
+    "true_negative": 49415,
+    "false_positive": 45,
+    "false_negative": 223,
+    "true_positive": 317
+  },
+  "split_rows": {
+    "train": 150000,
+    "validation": 50000,
+    "test": 50000
+  },
+  "leakage_note": "The held-out test period was not used for selection or threshold tuning."
+}
