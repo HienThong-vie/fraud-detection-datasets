@@ -1,7 +1,5 @@
 # Sparkov Fraud Detection
 
-[Selected model and operating points](FINAL_MODEL.md) · [Conda workflow](experiment_suite/CONDA_GUIDE.md)
-
 A Python project for fraud-data analysis, supervised classification and exploratory clustering. It includes trained pipelines, a local dashboard, evaluation charts and reproducible training code.
 
 ## Features
@@ -15,16 +13,15 @@ A Python project for fraud-data analysis, supervised classification and explorat
 
 ```bash
 git clone --branch sparkov --single-branch https://github.com/KennyDao1324/fraud-detection-datasets.git
-cd fraud-detection-datasets
-python3.12 -m venv .venv
-source .venv/bin/activate
-python -m pip install -r experiment_suite/requirements.txt
-python experiment_suite/app.py
+cd fraud-detection-datasets/experiment_suite
+conda env create -f environment.yml
+conda activate fraudsuite
+python app.py
 ```
 
 Open http://127.0.0.1:8050/. Saved models work without downloading the raw data. Use the example engineered record shown in the dashboard; raw transaction rows may require preprocessing.
 
-In PyCharm, open the project folder and select `.venv` as the Python interpreter. On Windows, activate the environment with `.venv\Scripts\Activate.ps1`. Training uses Mac/Linux file locks; inference does not require them.
+In PyCharm, open the project folder and select the `fraudsuite` conda environment as interpreter. Training uses Mac/Linux file locks; inference does not require them.
 
 ## Project structure
 
@@ -44,14 +41,14 @@ Small `__init__.py`, `.gitkeep` and launcher files support packaging or folder l
 
 ## Classification results
 
-Experiment: `fit_balance_v3`. Selected model: **catboost**. The table uses the 1% calibration-FPR operating point; actual later-period FPR can differ.
+Experiment: `fit_balance_v3`. Selected model: **catboost**. The table uses the 5% calibration-FPR headline operating point; actual later-period FPR can differ. 1% is secondary.
 
 | Model | PR-AUC | Recall | FPR | Precision | F1 | ROC-AUC |
 |---|---:|---:|---:|---:|---:|---:|
-| logistic_regression | 0.1531 | 51.3% | 0.970% | 17.0% | 0.2555 | 0.9140 |
-| random_forest | 0.8440 | 95.3% | 1.150% | 24.3% | 0.3874 | 0.9953 |
-| extra_trees | 0.8062 | 86.0% | 1.142% | 22.6% | 0.3578 | 0.9827 |
-| catboost | 0.8859 | 94.8% | 1.076% | 25.5% | 0.4013 | 0.9939 |
+| logistic_regression | 0.1531 | 74.1% | 4.955% | 5.5% | 0.1020 | 0.9140 |
+| random_forest | 0.8440 | 97.9% | 5.078% | 7.0% | 0.1299 | 0.9953 |
+| extra_trees | 0.8062 | 93.8% | 4.921% | 6.9% | 0.1281 | 0.9827 |
+| catboost | 0.8859 | 97.9% | 4.939% | 7.1% | 0.1330 | 0.9939 |
 
 [Model comparison](experiment_suite/evaluation/sparkov/fit_balance_v3/model_comparison.png) · [PR curves](experiment_suite/evaluation/sparkov/fit_balance_v3/precision_recall_curves.png) · [Metrics CSV](experiment_suite/evaluation/sparkov/fit_balance_v3/model_comparison.csv) · [Full results and protocol](experiment_suite/evaluation/sparkov/fit_balance_v3/report.json)
 
@@ -89,6 +86,10 @@ No raw customer names, addresses, card numbers, transaction IDs or merchant name
 
 Raw datasets and row-level prediction exports are not redistributed here. Code and dataset licences are separate; check the original source terms before reuse.
 
+Raw datasets and row-level prediction exports are not redistributed here. Code and dataset licences are separate; check the original source terms before reuse.
+
 ## Citation
 
 Brandon Harris, *Sparkov Data Generation*, and Kartik Shenoy, *Credit Card Transactions Fraud Detection Dataset*.
+
+[Selected-model identity and operating points](FINAL_MODEL.md) · [Conda workflow](experiment_suite/CONDA_GUIDE.md)
