@@ -84,7 +84,6 @@ Completed experiment folders are preserved and may report already complete or re
 
 The anonymization prevents business-level interpretation of the PCA components. This project must not invent meanings for them.
 
-Raw datasets and row-level prediction exports are not redistributed here. Code and dataset licences are separate; check the original source terms before reuse.
 
 Raw datasets and row-level prediction exports are not redistributed here. Code and dataset licences are separate; check the original source terms before reuse.
 
@@ -93,3 +92,7 @@ Raw datasets and row-level prediction exports are not redistributed here. Code a
 Dal Pozzolo, A. et al., “Calibrating Probability with Undersampling for Unbalanced Classification,” IEEE SSCI, 2015.
 
 [Selected-model identity and operating points](FINAL_MODEL.md) · [Conda workflow](experiment_suite/CONDA_GUIDE.md)
+
+## Prepared data and reproducibility
+
+[CSV export, scoring, refitting and prediction commands](experiment_suite/CONDA_GUIDE.md). Each export has a data dictionary and checksum manifest. Refit outputs are separate from the selected checkpoint.

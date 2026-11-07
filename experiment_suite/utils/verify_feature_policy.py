@@ -12,6 +12,8 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def verify(dataset):
+    """Reload the v4 data and models and re-check fingerprints, frozen rows, test-free selection, saved
+    predictions, thresholds and all policy metrics; write verification.json only if all pass."""
     sys.path.insert(0, str(ROOT / 'pipelines' / dataset / 'src'))
     sys.path.insert(0, str(ROOT / 'training_model'))
     from upgrade_data import fingerprint

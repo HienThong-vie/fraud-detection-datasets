@@ -1,0 +1,34 @@
+column,type,meaning,model_input
+Time,float64,Prepared feature: Time. See pipeline documentation for derivation.,yes
+Amount,float64,Prepared feature: Amount. See pipeline documentation for derivation.,yes
+V1,float64,Prepared feature: V1. See pipeline documentation for derivation.,yes
+V2,float64,Prepared feature: V2. See pipeline documentation for derivation.,yes
+V3,float64,Prepared feature: V3. See pipeline documentation for derivation.,yes
+V4,float64,Prepared feature: V4. See pipeline documentation for derivation.,yes
+V5,float64,Prepared feature: V5. See pipeline documentation for derivation.,yes
+V6,float64,Prepared feature: V6. See pipeline documentation for derivation.,yes
+V7,float64,Prepared feature: V7. See pipeline documentation for derivation.,yes
+V8,float64,Prepared feature: V8. See pipeline documentation for derivation.,yes
+V9,float64,Prepared feature: V9. See pipeline documentation for derivation.,yes
+V10,float64,Prepared feature: V10. See pipeline documentation for derivation.,yes
+V11,float64,Prepared feature: V11. See pipeline documentation for derivation.,yes
+V12,float64,Prepared feature: V12. See pipeline documentation for derivation.,yes
+V13,float64,Prepared feature: V13. See pipeline documentation for derivation.,yes
+V14,float64,Prepared feature: V14. See pipeline documentation for derivation.,yes
+V15,float64,Prepared feature: V15. See pipeline documentation for derivation.,yes
+V16,float64,Prepared feature: V16. See pipeline documentation for derivation.,yes
+V17,float64,Prepared feature: V17. See pipeline documentation for derivation.,yes
+V18,float64,Prepared feature: V18. See pipeline documentation for derivation.,yes
+V19,float64,Prepared feature: V19. See pipeline documentation for derivation.,yes
+V20,float64,Prepared feature: V20. See pipeline documentation for derivation.,yes
+V21,float64,Prepared feature: V21. See pipeline documentation for derivation.,yes
+V22,float64,Prepared feature: V22. See pipeline documentation for derivation.,yes
+V23,float64,Prepared feature: V23. See pipeline documentation for derivation.,yes
+V24,float64,Prepared feature: V24. See pipeline documentation for derivation.,yes
+V25,float64,Prepared feature: V25. See pipeline documentation for derivation.,yes
+V26,float64,Prepared feature: V26. See pipeline documentation for derivation.,yes
+V27,float64,Prepared feature: V27. See pipeline documentation for derivation.,yes
+V28,float64,Prepared feature: V28. See pipeline documentation for derivation.,yes
+target,int8,"Binary target label, never a model input.",no
+_event_time,float64,"Original event-time ordering, excluded from model inputs.",no
+_split,str,Frozen train/calibration/selection/test partition.,no

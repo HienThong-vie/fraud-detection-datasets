@@ -8,16 +8,21 @@ POLICIES = ('point', 'ucb95')
 
 
 def policy_key(policy, budget, capacity=None):
+    """Dictionary key of one policy, for example 'point|0.05|none'."""
     return f'{policy}|{float(budget)}|{float(capacity) if capacity is not None else "none"}'
 
 
 def wilson_upper(errors, n, z=1.6448536269514722):
+    """One-sided 95% Wilson upper bound of an error rate (errors out of n); used by the conservative ucb95
+    policy."""
     p = errors / n
     return float((p + z * z / (2 * n) + z * np.sqrt(p * (1 - p) / n + z * z / (4 * n * n)))
                  / (1 + z * z / n))
 
 
 def count_threshold(scores, permitted):
+    """Smallest cutoff that lets at most `permitted` of the given scores reach it (score >= cutoff means
+    flagged)."""
     ordered = np.sort(np.asarray(scores, dtype='float64'))
     if not len(ordered):
         raise ValueError('Calibration scores are required')
@@ -27,6 +32,8 @@ def count_threshold(scores, permitted):
 
 
 def calibrate(y, scores):
+    """Calibrate review thresholds on the calibration month for every FPR budget, policy (point or ucb95) and
+    optional review capacity."""
     y, scores = np.asarray(y), np.asarray(scores, dtype='float64')
     negatives = scores[y == 0]
     result = {}

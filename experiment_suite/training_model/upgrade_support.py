@@ -5,6 +5,9 @@ from sklearn.base import BaseEstimator, TransformerMixin
 
 
 class FeatureScreen(TransformerMixin, BaseEstimator):
+    """Training-fitted column screen: drops listed columns, sparse or duplicate V-columns (IEEE) and any
+    column constant in the training rows (on BAF, 16 missing-value flags of fields never missing in months
+    0-3)."""
     def __init__(self, local_only=False, missing_limit=.98, correlation_limit=.995, sample_rows=20000, drop_columns=()):
         self.local_only = local_only
         self.missing_limit = missing_limit
@@ -13,6 +16,7 @@ class FeatureScreen(TransformerMixin, BaseEstimator):
         self.drop_columns = drop_columns
 
     def fit(self, X, y=None):
+        """Decide which columns to keep, from the training rows only."""
         columns = list(X.columns)
         dropped = list(self.drop_columns)
         if self.local_only:
@@ -36,16 +40,20 @@ class FeatureScreen(TransformerMixin, BaseEstimator):
         return self
 
     def transform(self, X):
+        """Keep the columns chosen in fit."""
         return X[self.columns_].copy()
 
 
 class NativeFrame(TransformerMixin, BaseEstimator):
+    """Pass columns to CatBoost unchanged, turning categories into text with an explicit __MISSING__ value."""
     def fit(self, X, y=None):
+        """Record the training columns and which of them are categorical."""
         self.columns_ = list(X.columns)
         self.categorical_ = [c for c in X if not pd.api.types.is_numeric_dtype(X[c])]
         return self
 
     def transform(self, X):
+        """Return the training columns, with categories as text and missing ones labelled."""
         result = X[self.columns_].copy()
         for c in self.categorical_:
             result[c] = result[c].astype('string').fillna('__MISSING__').astype(str)
@@ -87,6 +95,9 @@ def before_bucket_history(entity, clock, amounts, windows, prefix):
 
 
 def baf_features(frame):
+    """Build the 60 BAF candidate features from the 26 cleaned inputs: missing-value flags and count, log1p
+    of six skewed counts, two velocity ratios, device-email x foreign request, both phones invalid, and
+    payment type|device OS."""
     frame = frame.copy()
     for column in frame.columns:
         if column not in {'payment_type', 'housing_status', 'source', 'device_os'}:

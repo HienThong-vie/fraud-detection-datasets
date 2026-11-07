@@ -13,14 +13,18 @@ CAPS = dict(baf=500000, ieee=300000, paysim=300000, handbook=300000,
 
 
 def project_directory(dataset):
+    """Folder of the dataset-specific pipeline (configuration and source package)."""
     return ROOT / 'pipelines' / dataset if (ROOT / 'pipelines').exists() else ROOT
 
 
 def evaluation_directory(dataset):
+    """Folder where the experiment outputs of a dataset are written."""
     return ROOT / 'evaluation' / dataset if (ROOT / 'pipelines').exists() else ROOT / 'outputs'
 
 
 def bound(frame, target, maximum, seed):
+    """Stratified random sample of at most `maximum` rows (keeps the fraud rate), returned in the original
+    order."""
     if maximum is None or len(frame) <= maximum:
         return frame.copy()
     chosen, _ = train_test_split(np.arange(len(frame)), train_size=maximum,
@@ -67,6 +71,8 @@ def rolling_history(raw):
 
 
 def prepare(dataset, smoke=False):
+    """Build once and cache the partitions used by experiments v2-v4 (BAF: train months 0-3, calibration 4,
+    selection 5, test 6-7), with missing-value codes turned into missing values."""
     directory = project_directory(dataset)
     sys.path.insert(0, str(directory / 'src'))
     if (ROOT / 'pipelines').exists():
@@ -87,6 +93,7 @@ def prepare(dataset, smoke=False):
         return pd.read_pickle(destination), json.loads((out / 'metadata.json').read_text())
 
     def assemble(x, y, times):
+        """Attach the label and event time to one partition and sort it by time (stable sort)."""
         part = x.copy().reset_index(drop=True)
         part['target'] = np.asarray(y, dtype='int8')
         part['_event_time'] = np.asarray(times)

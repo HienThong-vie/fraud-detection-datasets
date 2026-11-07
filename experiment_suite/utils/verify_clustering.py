@@ -16,6 +16,8 @@ from priority_data import prepare
 
 
 def verify(dataset):
+    """Reload the saved clustering pipeline and check that k, cluster assignments and fraud-rate tables are
+    reproduced."""
     folder = ROOT / 'evaluation' / dataset / 'clustering_v1'
     report = json.loads((folder / 'report.json').read_text())
     bundle = joblib.load(folder / 'clustering.joblib')
