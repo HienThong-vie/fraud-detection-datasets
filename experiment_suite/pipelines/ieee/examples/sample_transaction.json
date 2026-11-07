@@ -1,0 +1,19 @@
+{
+  "TransactionAmt": 68.5,
+  "ProductCD": "W",
+  "card1": 13926,
+  "card4": "discover",
+  "card6": "credit",
+  "addr1": 315,
+  "dist1": 19,
+  "C1": 1,
+  "C2": 1,
+  "D1": 14,
+  "M1": "T",
+  "M2": "T",
+  "M3": "T",
+  "TransactionHour": 0,
+  "TransactionDay": 1,
+  "TransactionWeekday": 1
+}
+

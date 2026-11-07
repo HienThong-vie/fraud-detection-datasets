@@ -1,7 +1,7 @@
 from pathlib import Path
+import subprocess
 import sys
-from supervised_search import run
 
-if __name__ == '__main__':
-    run('ieee', project=Path(__file__).resolve().parents[1])
-    run('ieee', project=Path(__file__).resolve().parents[1], include_prior=True)
+if __name__ == "__main__":
+    root = Path(__file__).resolve().parents[1] / "experiment_suite"
+    subprocess.run([sys.executable, "training_model/feature_policy_search.py", "--dataset", "ieee"], cwd=root, check=True)

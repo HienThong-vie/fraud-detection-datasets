@@ -1,0 +1,16 @@
+{
+  "test_metrics": {
+    "accuracy": 0.92705,
+    "f1": 0.3667534722222222,
+    "false_negative": 547,
+    "false_positive": 2371,
+    "false_positive_rate": 0.06141214256112723,
+    "pr_auc": 0.4794794962447699,
+    "precision": 0.2627487562189055,
+    "recall": 0.6070402298850575,
+    "roc_auc": 0.8875633913643055,
+    "threshold": 0.3065411150455475,
+    "true_negative": 36237,
+    "true_positive": 845
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "dataset": "ieee",
+  "families": 4,
+  "frozen_validation_only_selection": true,
+  "calibration_budgets_verified": true,
+  "checkpoint_scores_reproduced": true,
+  "prepared_data_hash_verified": true,
+  "champion_checkpoint_verified": true
+}
