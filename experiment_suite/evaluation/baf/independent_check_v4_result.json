@@ -1,0 +1,53 @@
+{
+  "status": "passed",
+  "periods_match": true,
+  "data_source": "prepared CSV only",
+  "families": {
+    "logistic_regression": {
+      "test_pr_auc": 0.17461550873041717,
+      "reported_test_pr_auc": 0.17461550873041717,
+      "test_roc_auc": 0.8952286686271839,
+      "policies_recalibrated_identically": true,
+      "policies_checked": 50,
+      "largest_metric_difference": 0.0
+    },
+    "random_forest": {
+      "test_pr_auc": 0.15342040204649002,
+      "reported_test_pr_auc": 0.15342040204649002,
+      "test_roc_auc": 0.881599711227688,
+      "policies_recalibrated_identically": true,
+      "policies_checked": 50,
+      "largest_metric_difference": 0.0
+    },
+    "extra_trees": {
+      "test_pr_auc": 0.15246676503754883,
+      "reported_test_pr_auc": 0.15246676503754883,
+      "test_roc_auc": 0.87443594101065,
+      "policies_recalibrated_identically": true,
+      "policies_checked": 50,
+      "largest_metric_difference": 0.0
+    },
+    "catboost": {
+      "test_pr_auc": 0.21266755368540877,
+      "reported_test_pr_auc": 0.21266755368540877,
+      "test_roc_auc": 0.9065731011550314,
+      "policies_recalibrated_identically": true,
+      "policies_checked": 50,
+      "largest_metric_difference": 0.0
+    }
+  },
+  "fairness": {
+    "0.05": {
+      "fp_50plus": 618,
+      "legit_50plus": 8034,
+      "fp_under50": 1149,
+      "legit_under50": 41264
+    },
+    "0.01": {
+      "fp_50plus": 141,
+      "legit_50plus": 8034,
+      "fp_under50": 164,
+      "legit_under50": 41264
+    }
+  }
+}

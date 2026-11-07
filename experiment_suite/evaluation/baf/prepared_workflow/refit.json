@@ -1,0 +1,577 @@
+{
+  "model": "refitted with champion settings",
+  "policy_thresholds": {
+    "point|0.005|none": {
+      "policy": "point",
+      "fpr_budget": 0.005,
+      "review_capacity": null,
+      "threshold": 0.6600411761900001,
+      "calibration_fpr": 0.004996864315915114,
+      "calibration_fpr_upper95": 0.0055463061995795065,
+      "calibration_alert_rate": 0.00676,
+      "calibration_feasible": true
+    },
+    "point|0.005|0.005": {
+      "policy": "point",
+      "fpr_budget": 0.005,
+      "review_capacity": 0.005,
+      "threshold": 0.6985242186710001,
+      "calibration_fpr": 0.0035605187028382996,
+      "calibration_fpr_upper95": 0.004029180126499911,
+      "calibration_alert_rate": 0.005,
+      "calibration_feasible": true
+    },
+    "point|0.005|0.01": {
+      "policy": "point",
+      "fpr_budget": 0.005,
+      "review_capacity": 0.01,
+      "threshold": 0.6600411761900001,
+      "calibration_fpr": 0.004996864315915114,
+      "calibration_fpr_upper95": 0.0055463061995795065,
+      "calibration_alert_rate": 0.00676,
+      "calibration_feasible": true
+    },
+    "point|0.005|0.02": {
+      "policy": "point",
+      "fpr_budget": 0.005,
+      "review_capacity": 0.02,
+      "threshold": 0.6600411761900001,
+      "calibration_fpr": 0.004996864315915114,
+      "calibration_fpr_upper95": 0.0055463061995795065,
+      "calibration_alert_rate": 0.00676,
+      "calibration_feasible": true
+    },
+    "point|0.005|0.05": {
+      "policy": "point",
+      "fpr_budget": 0.005,
+      "review_capacity": 0.05,
+      "threshold": 0.6600411761900001,
+      "calibration_fpr": 0.004996864315915114,
+      "calibration_fpr_upper95": 0.0055463061995795065,
+      "calibration_alert_rate": 0.00676,
+      "calibration_feasible": true
+    },
+    "ucb95|0.005|none": {
+      "policy": "ucb95",
+      "fpr_budget": 0.005,
+      "review_capacity": null,
+      "threshold": 0.6728098293480002,
+      "calibration_fpr": 0.004470878598450365,
+      "calibration_fpr_upper95": 0.004992302867676842,
+      "calibration_alert_rate": 0.00608,
+      "calibration_feasible": true
+    },
+    "ucb95|0.005|0.005": {
+      "policy": "ucb95",
+      "fpr_budget": 0.005,
+      "review_capacity": 0.005,
+      "threshold": 0.6985242186710001,
+      "calibration_fpr": 0.0035605187028382996,
+      "calibration_fpr_upper95": 0.004029180126499911,
+      "calibration_alert_rate": 0.005,
+      "calibration_feasible": true
+    },
+    "ucb95|0.005|0.01": {
+      "policy": "ucb95",
+      "fpr_budget": 0.005,
+      "review_capacity": 0.01,
+      "threshold": 0.6728098293480002,
+      "calibration_fpr": 0.004470878598450365,
+      "calibration_fpr_upper95": 0.004992302867676842,
+      "calibration_alert_rate": 0.00608,
+      "calibration_feasible": true
+    },
+    "ucb95|0.005|0.02": {
+      "policy": "ucb95",
+      "fpr_budget": 0.005,
+      "review_capacity": 0.02,
+      "threshold": 0.6728098293480002,
+      "calibration_fpr": 0.004470878598450365,
+      "calibration_fpr_upper95": 0.004992302867676842,
+      "calibration_alert_rate": 0.00608,
+      "calibration_feasible": true
+    },
+    "ucb95|0.005|0.05": {
+      "policy": "ucb95",
+      "fpr_budget": 0.005,
+      "review_capacity": 0.05,
+      "threshold": 0.6728098293480002,
+      "calibration_fpr": 0.004470878598450365,
+      "calibration_fpr_upper95": 0.004992302867676842,
+      "calibration_alert_rate": 0.00608,
+      "calibration_feasible": true
+    },
+    "point|0.01|none": {
+      "policy": "point",
+      "fpr_budget": 0.01,
+      "review_capacity": null,
+      "threshold": 0.5675263474840001,
+      "calibration_fpr": 0.009993728631830227,
+      "calibration_fpr_upper95": 0.010756901038932756,
+      "calibration_alert_rate": 0.01256,
+      "calibration_feasible": true
+    },
+    "point|0.01|0.005": {
+      "policy": "point",
+      "fpr_budget": 0.01,
+      "review_capacity": 0.005,
+      "threshold": 0.6985242186710001,
+      "calibration_fpr": 0.0035605187028382996,
+      "calibration_fpr_upper95": 0.004029180126499911,
+      "calibration_alert_rate": 0.005,
+      "calibration_feasible": true
+    },
+    "point|0.01|0.01": {
+      "policy": "point",
+      "fpr_budget": 0.01,
+      "review_capacity": 0.01,
+      "threshold": 0.6041910915720001,
+      "calibration_fpr": 0.00772794400275131,
+      "calibration_fpr_upper95": 0.008403279380109867,
+      "calibration_alert_rate": 0.01,
+      "calibration_feasible": true
+    },
+    "point|0.01|0.02": {
+      "policy": "point",
+      "fpr_budget": 0.01,
+      "review_capacity": 0.02,
+      "threshold": 0.5675263474840001,
+      "calibration_fpr": 0.009993728631830227,
+      "calibration_fpr_upper95": 0.010756901038932756,
+      "calibration_alert_rate": 0.01256,
+      "calibration_feasible": true
+    },
+    "point|0.01|0.05": {
+      "policy": "point",
+      "fpr_budget": 0.01,
+      "review_capacity": 0.05,
+      "threshold": 0.5675263474840001,
+      "calibration_fpr": 0.009993728631830227,
+      "calibration_fpr_upper95": 0.010756901038932756,
+      "calibration_alert_rate": 0.01256,
+      "calibration_feasible": true
+    },
+    "ucb95|0.01|none": {
+      "policy": "ucb95",
+      "fpr_budget": 0.01,
+      "review_capacity": null,
+      "threshold": 0.5792330327210001,
+      "calibration_fpr": 0.009245210495438085,
+      "calibration_fpr_upper95": 0.00998061811695603,
+      "calibration_alert_rate": 0.01168,
+      "calibration_feasible": true
+    },
+    "ucb95|0.01|0.005": {
+      "policy": "ucb95",
+      "fpr_budget": 0.01,
+      "review_capacity": 0.005,
+      "threshold": 0.6985242186710001,
+      "calibration_fpr": 0.0035605187028382996,
+      "calibration_fpr_upper95": 0.004029180126499911,
+      "calibration_alert_rate": 0.005,
+      "calibration_feasible": true
+    },
+    "ucb95|0.01|0.01": {
+      "policy": "ucb95",
+      "fpr_budget": 0.01,
+      "review_capacity": 0.01,
+      "threshold": 0.6041910915720001,
+      "calibration_fpr": 0.00772794400275131,
+      "calibration_fpr_upper95": 0.008403279380109867,
+      "calibration_alert_rate": 0.01,
+      "calibration_feasible": true
+    },
+    "ucb95|0.01|0.02": {
+      "policy": "ucb95",
+      "fpr_budget": 0.01,
+      "review_capacity": 0.02,
+      "threshold": 0.5792330327210001,
+      "calibration_fpr": 0.009245210495438085,
+      "calibration_fpr_upper95": 0.00998061811695603,
+      "calibration_alert_rate": 0.01168,
+      "calibration_feasible": true
+    },
+    "ucb95|0.01|0.05": {
+      "policy": "ucb95",
+      "fpr_budget": 0.01,
+      "review_capacity": 0.05,
+      "threshold": 0.5792330327210001,
+      "calibration_fpr": 0.009245210495438085,
+      "calibration_fpr_upper95": 0.00998061811695603,
+      "calibration_alert_rate": 0.01168,
+      "calibration_feasible": true
+    },
+    "point|0.02|none": {
+      "policy": "point",
+      "fpr_budget": 0.02,
+      "review_capacity": null,
+      "threshold": 0.4588573572710001,
+      "calibration_fpr": 0.019987457263660455,
+      "calibration_fpr_upper95": 0.02104946696381255,
+      "calibration_alert_rate": 0.02384,
+      "calibration_feasible": true
+    },
+    "point|0.02|0.005": {
+      "policy": "point",
+      "fpr_budget": 0.02,
+      "review_capacity": 0.005,
+      "threshold": 0.6985242186710001,
+      "calibration_fpr": 0.0035605187028382996,
+      "calibration_fpr_upper95": 0.004029180126499911,
+      "calibration_alert_rate": 0.005,
+      "calibration_feasible": true
+    },
+    "point|0.02|0.01": {
+      "policy": "point",
+      "fpr_budget": 0.02,
+      "review_capacity": 0.01,
+      "threshold": 0.6041910915720001,
+      "calibration_fpr": 0.00772794400275131,
+      "calibration_fpr_upper95": 0.008403279380109867,
+      "calibration_alert_rate": 0.01,
+      "calibration_feasible": true
+    },
+    "point|0.02|0.02": {
+      "policy": "point",
+      "fpr_budget": 0.02,
+      "review_capacity": 0.02,
+      "threshold": 0.48572657386900003,
+      "calibration_fpr": 0.016548319880237097,
+      "calibration_fpr_upper95": 0.017518926847663575,
+      "calibration_alert_rate": 0.02,
+      "calibration_feasible": true
+    },
+    "point|0.02|0.05": {
+      "policy": "point",
+      "fpr_budget": 0.02,
+      "review_capacity": 0.05,
+      "threshold": 0.4588573572710001,
+      "calibration_fpr": 0.019987457263660455,
+      "calibration_fpr_upper95": 0.02104946696381255,
+      "calibration_alert_rate": 0.02384,
+      "calibration_feasible": true
+    },
+    "ucb95|0.02|none": {
+      "policy": "ucb95",
+      "fpr_budget": 0.02,
+      "review_capacity": null,
+      "threshold": 0.46651576319700006,
+      "calibration_fpr": 0.01895571604863345,
+      "calibration_fpr_upper95": 0.019991245517997913,
+      "calibration_alert_rate": 0.02262,
+      "calibration_feasible": true
+    },
+    "ucb95|0.02|0.005": {
+      "policy": "ucb95",
+      "fpr_budget": 0.02,
+      "review_capacity": 0.005,
+      "threshold": 0.6985242186710001,
+      "calibration_fpr": 0.0035605187028382996,
+      "calibration_fpr_upper95": 0.004029180126499911,
+      "calibration_alert_rate": 0.005,
+      "calibration_feasible": true
+    },
+    "ucb95|0.02|0.01": {
+      "policy": "ucb95",
+      "fpr_budget": 0.02,
+      "review_capacity": 0.01,
+      "threshold": 0.6041910915720001,
+      "calibration_fpr": 0.00772794400275131,
+      "calibration_fpr_upper95": 0.008403279380109867,
+      "calibration_alert_rate": 0.01,
+      "calibration_feasible": true
+    },
+    "ucb95|0.02|0.02": {
+      "policy": "ucb95",
+      "fpr_budget": 0.02,
+      "review_capacity": 0.02,
+      "threshold": 0.48572657386900003,
+      "calibration_fpr": 0.016548319880237097,
+      "calibration_fpr_upper95": 0.017518926847663575,
+      "calibration_alert_rate": 0.02,
+      "calibration_feasible": true
+    },
+    "ucb95|0.02|0.05": {
+      "policy": "ucb95",
+      "fpr_budget": 0.02,
+      "review_capacity": 0.05,
+      "threshold": 0.46651576319700006,
+      "calibration_fpr": 0.01895571604863345,
+      "calibration_fpr_upper95": 0.019991245517997913,
+      "calibration_alert_rate": 0.02262,
+      "calibration_feasible": true
+    },
+    "point|0.03|none": {
+      "policy": "point",
+      "fpr_budget": 0.03,
+      "review_capacity": null,
+      "threshold": 0.38737229367200005,
+      "calibration_fpr": 0.029981185895490686,
+      "calibration_fpr_upper95": 0.0312687972298601,
+      "calibration_alert_rate": 0.03464,
+      "calibration_feasible": true
+    },
+    "point|0.03|0.005": {
+      "policy": "point",
+      "fpr_budget": 0.03,
+      "review_capacity": 0.005,
+      "threshold": 0.6985242186710001,
+      "calibration_fpr": 0.0035605187028382996,
+      "calibration_fpr_upper95": 0.004029180126499911,
+      "calibration_alert_rate": 0.005,
+      "calibration_feasible": true
+    },
+    "point|0.03|0.01": {
+      "policy": "point",
+      "fpr_budget": 0.03,
+      "review_capacity": 0.01,
+      "threshold": 0.6041910915720001,
+      "calibration_fpr": 0.00772794400275131,
+      "calibration_fpr_upper95": 0.008403279380109867,
+      "calibration_alert_rate": 0.01,
+      "calibration_feasible": true
+    },
+    "point|0.03|0.02": {
+      "policy": "point",
+      "fpr_budget": 0.03,
+      "review_capacity": 0.02,
+      "threshold": 0.48572657386900003,
+      "calibration_fpr": 0.016548319880237097,
+      "calibration_fpr_upper95": 0.017518926847663575,
+      "calibration_alert_rate": 0.02,
+      "calibration_feasible": true
+    },
+    "point|0.03|0.05": {
+      "policy": "point",
+      "fpr_budget": 0.03,
+      "review_capacity": 0.05,
+      "threshold": 0.38737229367200005,
+      "calibration_fpr": 0.029981185895490686,
+      "calibration_fpr_upper95": 0.0312687972298601,
+      "calibration_alert_rate": 0.03464,
+      "calibration_feasible": true
+    },
+    "ucb95|0.03|none": {
+      "policy": "ucb95",
+      "fpr_budget": 0.03,
+      "review_capacity": null,
+      "threshold": 0.39379538814400006,
+      "calibration_fpr": 0.028726912261536282,
+      "calibration_fpr_upper95": 0.029988725127981824,
+      "calibration_alert_rate": 0.03324,
+      "calibration_feasible": true
+    },
+    "ucb95|0.03|0.005": {
+      "policy": "ucb95",
+      "fpr_budget": 0.03,
+      "review_capacity": 0.005,
+      "threshold": 0.6985242186710001,
+      "calibration_fpr": 0.0035605187028382996,
+      "calibration_fpr_upper95": 0.004029180126499911,
+      "calibration_alert_rate": 0.005,
+      "calibration_feasible": true
+    },
+    "ucb95|0.03|0.01": {
+      "policy": "ucb95",
+      "fpr_budget": 0.03,
+      "review_capacity": 0.01,
+      "threshold": 0.6041910915720001,
+      "calibration_fpr": 0.00772794400275131,
+      "calibration_fpr_upper95": 0.008403279380109867,
+      "calibration_alert_rate": 0.01,
+      "calibration_feasible": true
+    },
+    "ucb95|0.03|0.02": {
+      "policy": "ucb95",
+      "fpr_budget": 0.03,
+      "review_capacity": 0.02,
+      "threshold": 0.48572657386900003,
+      "calibration_fpr": 0.016548319880237097,
+      "calibration_fpr_upper95": 0.017518926847663575,
+      "calibration_alert_rate": 0.02,
+      "calibration_feasible": true
+    },
+    "ucb95|0.03|0.05": {
+      "policy": "ucb95",
+      "fpr_budget": 0.03,
+      "review_capacity": 0.05,
+      "threshold": 0.39379538814400006,
+      "calibration_fpr": 0.028726912261536282,
+      "calibration_fpr_upper95": 0.029988725127981824,
+      "calibration_alert_rate": 0.03324,
+      "calibration_feasible": true
+    },
+    "point|0.05|none": {
+      "policy": "point",
+      "fpr_budget": 0.05,
+      "review_capacity": null,
+      "threshold": 0.30083088096800004,
+      "calibration_fpr": 0.04998887337905363,
+      "calibration_fpr_upper95": 0.05162588269202366,
+      "calibration_alert_rate": 0.05572,
+      "calibration_feasible": true
+    },
+    "point|0.05|0.005": {
+      "policy": "point",
+      "fpr_budget": 0.05,
+      "review_capacity": 0.005,
+      "threshold": 0.6985242186710001,
+      "calibration_fpr": 0.0035605187028382996,
+      "calibration_fpr_upper95": 0.004029180126499911,
+      "calibration_alert_rate": 0.005,
+      "calibration_feasible": true
+    },
+    "point|0.05|0.01": {
+      "policy": "point",
+      "fpr_budget": 0.05,
+      "review_capacity": 0.01,
+      "threshold": 0.6041910915720001,
+      "calibration_fpr": 0.00772794400275131,
+      "calibration_fpr_upper95": 0.008403279380109867,
+      "calibration_alert_rate": 0.01,
+      "calibration_feasible": true
+    },
+    "point|0.05|0.02": {
+      "policy": "point",
+      "fpr_budget": 0.05,
+      "review_capacity": 0.02,
+      "threshold": 0.48572657386900003,
+      "calibration_fpr": 0.016548319880237097,
+      "calibration_fpr_upper95": 0.017518926847663575,
+      "calibration_alert_rate": 0.02,
+      "calibration_feasible": true
+    },
+    "point|0.05|0.05": {
+      "policy": "point",
+      "fpr_budget": 0.05,
+      "review_capacity": 0.05,
+      "threshold": 0.32042960293300005,
+      "calibration_fpr": 0.04458740466508871,
+      "calibration_fpr_upper95": 0.04613945655987381,
+      "calibration_alert_rate": 0.05,
+      "calibration_feasible": true
+    },
+    "ucb95|0.05|none": {
+      "policy": "ucb95",
+      "fpr_budget": 0.05,
+      "review_capacity": null,
+      "threshold": 0.30677989720500004,
+      "calibration_fpr": 0.0483704557868544,
+      "calibration_fpr_upper95": 0.049982595745894275,
+      "calibration_alert_rate": 0.05394,
+      "calibration_feasible": true
+    },
+    "ucb95|0.05|0.005": {
+      "policy": "ucb95",
+      "fpr_budget": 0.05,
+      "review_capacity": 0.005,
+      "threshold": 0.6985242186710001,
+      "calibration_fpr": 0.0035605187028382996,
+      "calibration_fpr_upper95": 0.004029180126499911,
+      "calibration_alert_rate": 0.005,
+      "calibration_feasible": true
+    },
+    "ucb95|0.05|0.01": {
+      "policy": "ucb95",
+      "fpr_budget": 0.05,
+      "review_capacity": 0.01,
+      "threshold": 0.6041910915720001,
+      "calibration_fpr": 0.00772794400275131,
+      "calibration_fpr_upper95": 0.008403279380109867,
+      "calibration_alert_rate": 0.01,
+      "calibration_feasible": true
+    },
+    "ucb95|0.05|0.02": {
+      "policy": "ucb95",
+      "fpr_budget": 0.05,
+      "review_capacity": 0.02,
+      "threshold": 0.48572657386900003,
+      "calibration_fpr": 0.016548319880237097,
+      "calibration_fpr_upper95": 0.017518926847663575,
+      "calibration_alert_rate": 0.02,
+      "calibration_feasible": true
+    },
+    "ucb95|0.05|0.05": {
+      "policy": "ucb95",
+      "fpr_budget": 0.05,
+      "review_capacity": 0.05,
+      "threshold": 0.32042960293300005,
+      "calibration_fpr": 0.04458740466508871,
+      "calibration_fpr_upper95": 0.04613945655987381,
+      "calibration_alert_rate": 0.05,
+      "calibration_feasible": true
+    }
+  },
+  "selection": {
+    "pr_auc": 0.18195829702882713,
+    "roc_auc": 0.8895956294774797,
+    "budget_0.05": {
+      "threshold": 0.30083088096800004,
+      "tp": 264,
+      "fp": 1480,
+      "fn": 327,
+      "tn": 47929,
+      "recall": 0.4467005076142132,
+      "fpr": 0.029954056953186665,
+      "precision": 0.15137614678899083,
+      "accuracy": 0.96386,
+      "f1": 0.22612419700214137
+    },
+    "budget_0.01": {
+      "threshold": 0.5675263474840001,
+      "tp": 111,
+      "fp": 238,
+      "fn": 480,
+      "tn": 49171,
+      "recall": 0.18781725888324874,
+      "fpr": 0.004816936185715153,
+      "precision": 0.31805157593123207,
+      "accuracy": 0.98564,
+      "f1": 0.2361702127659574
+    }
+  },
+  "test": {
+    "pr_auc": 0.21266755368540877,
+    "roc_auc": 0.9065731011550314,
+    "budget_0.05": {
+      "threshold": 0.30083088096800004,
+      "tp": 359,
+      "fp": 1767,
+      "fn": 343,
+      "tn": 47531,
+      "recall": 0.5113960113960114,
+      "fpr": 0.03584323907663597,
+      "precision": 0.16886171213546566,
+      "accuracy": 0.9578,
+      "f1": 0.25388967468175394
+    },
+    "budget_0.01": {
+      "threshold": 0.5675263474840001,
+      "tp": 153,
+      "fp": 305,
+      "fn": 549,
+      "tn": 48993,
+      "recall": 0.21794871794871795,
+      "fpr": 0.006186863564444805,
+      "precision": 0.33406113537117904,
+      "accuracy": 0.98292,
+      "f1": 0.2637931034482759
+    }
+  },
+  "test_fpr_by_age": {
+    "budget_0.05": {
+      "fp_50plus": 618,
+      "legit_50plus": 8034,
+      "fp_under50": 1149,
+      "legit_under50": 41264,
+      "ratio": 2.763
+    },
+    "budget_0.01": {
+      "fp_50plus": 141,
+      "legit_50plus": 8034,
+      "fp_under50": 164,
+      "legit_under50": 41264,
+      "ratio": 4.416
+    }
+  }
+}

@@ -17,7 +17,7 @@ Checkpoint SHA-256: `6655ca84af79c1a6bbdf8b5a61e5fd8178320476ef257c34da7b4f1f8a2
 
 The `selected` API/CLI variant resolves only this dataset’s frozen champion. Prediction examples and input requirements are available in the dashboard.
 
-The production model and card now match v4 CatBoost. The previous model is preserved under `legacy_7919ca0/`. Both original 27-field inputs and the 60-field engineered schema are supported by the BAF production service.
+The production model and card now match v4 CatBoost. The previous model is preserved under `legacy_7919ca0/`. Both original 26-field inputs and the 60-field engineered schema are supported by the BAF production service.
 
 [Age-group fairness](experiment_suite/evaluation/baf/final_evidence/fairness_age.csv) · [Processed-data manifest](dataset/Base_final_model_data_manifest.json)
 

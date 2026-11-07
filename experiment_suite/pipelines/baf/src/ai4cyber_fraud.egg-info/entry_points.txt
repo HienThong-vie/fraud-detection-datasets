@@ -1,4 +1,0 @@
-[console_scripts]
-ai4cyber-cluster = ai4cyber.clustering:main
-ai4cyber-predict = ai4cyber.inference:main
-ai4cyber-train = ai4cyber.training:main
