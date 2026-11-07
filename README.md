@@ -1,3 +1,62 @@
+# ELLIPTIC: latest supervised experiment
+
+Latest: `feature_policy_v4`. Four supervised families; selected champion: **xgboost**. Training ran locally on the Mac CPU. Selection uses chronological validation, not test scores.
+
+| Model | Test AP* | Recall* | Actual FPR* | Precision* | F1* | ROC-AUC* |
+|---|---:|---:|---:|---:|---:|---:|
+| logistic_regression | 0.1579 | 35.8% | 5.775% | 23.1% | 0.2805 | 0.8207 |
+| random_forest | 0.5449 | 47.8% | 1.767% | 56.7% | 0.5186 | 0.8555 |
+| extra_trees | 0.5366 | 48.0% | 2.146% | 52.0% | 0.4994 | 0.8287 |
+| xgboost | 0.5333 | 48.0% | 1.210% | 65.8% | 0.5552 | 0.8032 |
+
+*Previously inspected test periods are exploratory, not a fresh holdout. The displayed operating point uses a 1% calibration FPR budget; future FPR can differ. Scores support review and do not establish fraud. No business deployment threshold has been approved.
+
+- [Model comparison](experiment_suite/evaluation/elliptic/feature_policy_v4/model_comparison.png)
+- [Precision–recall curves](experiment_suite/evaluation/elliptic/feature_policy_v4/precision_recall_curves.png)
+- [All metrics](experiment_suite/evaluation/elliptic/feature_policy_v4/model_comparison.csv)
+- [Protocol and results](experiment_suite/evaluation/elliptic/feature_policy_v4/report.json)
+- [Saved models and all graphs](experiment_suite/evaluation/elliptic/feature_policy_v4/)
+
+- [Threshold policies](experiment_suite/evaluation/elliptic/feature_policy_v4/threshold_policies.csv)
+- [Feature comparison](experiment_suite/evaluation/elliptic/feature_policy_v4/candidate_feature_comparison.png)
+- [Temporal checks](experiment_suite/evaluation/elliptic/feature_policy_v4/temporal_validation.png)
+- [Model card and limitations](experiment_suite/evaluation/elliptic/feature_policy_v4/MODEL_CARD.md)
+
+The dashboard offers 0.5%, 1%, 2%, 3% and 5% calibration FPR budgets, an approximate one-sided 95% calibration FPR bound, and review-capacity limits. These constraints apply to calibration data and do not guarantee future compliance.
+
+**Elliptic warning:** the selected incumbent uses supplied forward-neighbour aggregates and remains an offline benchmark, not a validated at-transaction-time model. Incoming-only candidates were tested but did not win the declared validation criterion.
+
+## Run in PyCharm
+
+Open this branch as a project, create a Python 3.12 virtual environment, then use the terminal:
+
+```bash
+python -m pip install -r experiment_suite/requirements.txt
+python experiment_suite/app.py
+```
+
+Open http://127.0.0.1:8050/. Stop another suite server first if the port is in use. Saved models work without raw data; inputs must contain the engineered columns shown by the dashboard.
+
+## Reproduce training
+
+Put downloaded source files in `experiment_suite/dataset/elliptic/`. Do not commit raw data. Run from `experiment_suite/`:
+
+```bash
+python -c "import sys; sys.path.insert(0, 'training_model'); from priority_data import prepare; prepare('elliptic')"
+```
+
+```bash
+python training_model/feature_policy_search.py --dataset elliptic
+```
+
+Completed experiment folders are preserved. A completed run may report already complete or reuse cached fits. For a genuinely new search, use a separate working copy and a new versioned experiment directory; do not overwrite the published evidence. Mac/Linux is required for the training locks (`fcntl`); dashboard inference does not need those locks.
+
+The full implementation lives in `experiment_suite/training_model/`; original project code and documentation remain below. Production baseline artifacts are retained separately.
+
+---
+
+## Earlier project documentation, sources and licences
+
 # ELLIPTIC: four supervised-model comparison
 
 The latest experiment compares **logistic regression, random forest, extra trees, and XGBoost**. Each family has two regularized settings; validation selects its settings and threshold. The four-model winner is frozen before test evaluation. The run was performed locally on the Mac CPU.

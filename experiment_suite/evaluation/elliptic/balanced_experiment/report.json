@@ -1,0 +1,26 @@
+{
+  "repository": "elliptic-bitcoin-aml-ml",
+  "selection": {
+    "model": "xgboost",
+    "threshold": 0.5728265643119812,
+    "selection_score": 0.9297469969024913,
+    "train_pr_auc": 0.9999990814473847,
+    "pr_auc_gap": 0.06300017179411133,
+    "pr_auc": 0.9369989096532734,
+    "roc_auc": 0.9753231113309391,
+    "precision": 0.940809968847352,
+    "recall": 0.893491124260355,
+    "f1": 0.9165402124430957,
+    "fpr": 0.005311713726586525
+  },
+  "test": {
+    "pr_auc": 0.553279107234358,
+    "roc_auc": 0.8463244304006436,
+    "precision": 0.6534653465346535,
+    "recall": 0.4852941176470588,
+    "f1": 0.5569620253164558,
+    "fpr": 0.012451085023123443
+  },
+  "limitations": "Existing test periods have previously been inspected; this is an exploratory comparison, not a new untouched holdout. Threshold calibration and model selection use separate stratified halves of validation. No production replacement or refit.",
+  "rule": "50% F1, 25% PR-AUC, 25% ROC-AUC geometric mean minus 0.1 times positive train/selection PR-AUC gap; threshold within 98% of calibration-best F1, prefer balanced precision/recall, calibration FPR <= 5%."
+}

@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "dataset": "elliptic",
+  "verified_families": 4,
+  "verified_policies": 200,
+  "frozen_evaluation_rows": true,
+  "test_free_selection": true,
+  "prepared_hashes_verified": true,
+  "champion_checkpoint_verified": true
+}

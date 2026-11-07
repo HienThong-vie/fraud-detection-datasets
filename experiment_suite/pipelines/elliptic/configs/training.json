@@ -1,0 +1,18 @@
+{
+  "dataset_name": "Elliptic Bitcoin AML transactions",
+  "dataset_kind": "real_anonymized_graph",
+  "features_path": "data/raw/elliptic_txs_features.csv",
+  "classes_path": "data/raw/elliptic_txs_classes.csv",
+  "train_last_step": 34,
+  "validation_last_step": 41,
+  "max_train_rows": null,
+  "max_validation_rows": null,
+  "max_test_rows": null,
+  "random_seed": 42,
+  "logistic_max_iter": 700,
+  "random_forest_trees": 160,
+  "random_forest_max_depth": 16,
+  "xgboost_estimators": 500,
+  "xgboost_max_depth": 6,
+  "xgboost_learning_rate": 0.05
+}

@@ -1,0 +1,29 @@
+{
+  "dataset": "elliptic",
+  "platform": "macOS-26.2-arm64-arm-64bit",
+  "machine": "arm64",
+  "training_device": "local Mac CPU",
+  "threads_per_estimator": 4,
+  "prepared_sha256": "8ab1d1623d53d516593024ad19f0d98f9707d424d7a063175cc718c2444aee1d",
+  "seed": 42,
+  "calibration_seed": 912,
+  "selection_split_seed": 913,
+  "rows": {
+    "train": 29894,
+    "calibration": 3131,
+    "selection_1": 2349,
+    "selection_2": 2349,
+    "test": 8841
+  },
+  "supervised_only": true,
+  "families": [
+    "logistic_regression",
+    "random_forest",
+    "extra_trees",
+    "xgboost"
+  ],
+  "trials_per_family": 2,
+  "smoke": false,
+  "prior_configuration_screened": true,
+  "total_fits": 9
+}

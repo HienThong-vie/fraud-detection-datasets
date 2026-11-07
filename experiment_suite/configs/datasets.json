@@ -1,0 +1,10 @@
+{
+  "elliptic": {
+    "repository": "elliptic-bitcoin-aml-ml",
+    "package": "fraudbench",
+    "source_commit": "681380350418f57f39ff45e1875d66b4c0f2ec44",
+    "input_format": "engineered model feature columns",
+    "source_url": "https://github.com/KennyDao1324/elliptic-bitcoin-aml-ml",
+    "kind": "real anonymized"
+  }
+}
