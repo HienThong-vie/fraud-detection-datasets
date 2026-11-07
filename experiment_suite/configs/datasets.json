@@ -1,0 +1,10 @@
+{
+  "handbook": {
+    "repository": "fraud-handbook-ml",
+    "package": "handbook_fraud",
+    "source_commit": "ca62a3b6ff893e7ac3cdb84cf32c1d21544d5aaf",
+    "input_format": "engineered model feature columns",
+    "source_url": "https://github.com/KennyDao1324/fraud-handbook-ml",
+    "kind": "synthetic"
+  }
+}

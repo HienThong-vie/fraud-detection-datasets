@@ -1,0 +1,4 @@
+[console_scripts]
+handbook-predict = handbook_fraud.inference:main
+handbook-profile = handbook_fraud.profiling:main
+handbook-train = handbook_fraud.training:main

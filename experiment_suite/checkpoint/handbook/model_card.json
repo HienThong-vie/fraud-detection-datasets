@@ -1,0 +1,58 @@
+{
+  "dataset_source": "https://github.com/Fraud-Detection-Handbook/simulated-data-raw",
+  "config": {
+    "dataset_directory": "data/raw",
+    "download_start_date": "2018-04-01",
+    "download_end_date": "2018-09-30",
+    "source_commit": "6e67dbd0a3bfe0d7ec33abc4bce5f37cd4ff0d6a",
+    "train_fraction": 0.6,
+    "validation_fraction": 0.2,
+    "max_train_rows": 150000,
+    "max_validation_rows": 50000,
+    "max_test_rows": 50000,
+    "random_seed": 42,
+    "logistic_max_iter": 400,
+    "random_forest_trees": 120,
+    "random_forest_max_depth": 12,
+    "xgboost_estimators": 500,
+    "xgboost_max_depth": 7,
+    "xgboost_learning_rate": 0.05
+  },
+  "selected_model": "random_forest",
+  "selection_metric": "validation_pr_auc",
+  "validation": {
+    "model": "random_forest",
+    "threshold": 0.4915114485,
+    "accuracy": 0.99296,
+    "precision": 0.8487394958,
+    "recall": 0.232183908,
+    "f1": 0.3646209386,
+    "roc_auc": 0.6652390278,
+    "pr_auc": 0.2508052897,
+    "false_positive_rate": 0.0003631595,
+    "true_negative": 49547,
+    "false_positive": 18,
+    "false_negative": 334,
+    "true_positive": 101
+  },
+  "test": {
+    "threshold": 0.4915114484513808,
+    "accuracy": 0.9929,
+    "precision": 0.9696969696969697,
+    "recall": 0.21428571428571427,
+    "f1": 0.3510054844606947,
+    "roc_auc": 0.6315863349900825,
+    "pr_auc": 0.25112861238808903,
+    "false_positive_rate": 6.0542460445592506e-05,
+    "true_negative": 49549,
+    "false_positive": 3,
+    "false_negative": 352,
+    "true_positive": 96
+  },
+  "split_rows": {
+    "train": 150000,
+    "validation": 50000,
+    "test": 50000
+  },
+  "leakage_note": "Historical features use only earlier events; test data was not used for selection."
+}

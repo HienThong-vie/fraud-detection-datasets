@@ -1,0 +1,12 @@
+[
+  {
+    "TX_AMOUNT":57.16,
+    "hour":0,
+    "day_of_week":6,
+    "customer_previous_count":0,
+    "customer_mean_amount_previous":0.0,
+    "customer_seconds_since_previous":-1.0,
+    "terminal_previous_count":0,
+    "terminal_seconds_since_previous":-1.0
+  }
+]

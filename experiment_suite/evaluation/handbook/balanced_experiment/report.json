@@ -1,0 +1,26 @@
+{
+  "repository": "fraud-handbook-ml",
+  "selection": {
+    "model": "logistic_regression",
+    "threshold": 0.8789214557863323,
+    "selection_score": 0.34103750381378894,
+    "train_pr_auc": 0.2875734084412508,
+    "pr_auc_gap": 0.05067213638236784,
+    "pr_auc": 0.23690127205888295,
+    "roc_auc": 0.6187248217298883,
+    "precision": 0.4722222222222222,
+    "recall": 0.23394495412844038,
+    "f1": 0.3128834355828221,
+    "fpr": 0.002300056492615608
+  },
+  "test": {
+    "pr_auc": 0.22968012095699505,
+    "roc_auc": 0.6336923026748236,
+    "precision": 0.25462962962962965,
+    "recall": 0.24553571428571427,
+    "f1": 0.25,
+    "fpr": 0.006498224087826929
+  },
+  "limitations": "Existing test periods have previously been inspected; this is an exploratory comparison, not a new untouched holdout. Threshold calibration and model selection use separate stratified halves of validation. No production replacement or refit.",
+  "rule": "50% F1, 25% PR-AUC, 25% ROC-AUC geometric mean minus 0.1 times positive train/selection PR-AUC gap; threshold within 98% of calibration-best F1, prefer balanced precision/recall, calibration FPR <= 5%."
+}

@@ -1,0 +1,30 @@
+[
+  {
+    "TX_AMOUNT":32.1399993896,
+    "hour":0,
+    "day_of_week":5,
+    "customer_previous_count":392,
+    "customer_mean_amount_previous":35.9255104065,
+    "customer_seconds_since_previous":52090.0,
+    "terminal_previous_count":128,
+    "terminal_seconds_since_previous":55005.0,
+    "customer_count_1d":4.0,
+    "customer_mean_amount_1d":42.7249984741,
+    "amount_to_customer_mean_1d":0.7522527575,
+    "customer_count_7d":17.0,
+    "customer_mean_amount_7d":33.8423538208,
+    "amount_to_customer_mean_7d":0.9496975541,
+    "customer_count_30d":71.0,
+    "customer_mean_amount_30d":36.4200019836,
+    "amount_to_customer_mean_30d":0.8824821115,
+    "terminal_count_1d":1.0,
+    "terminal_mean_amount_1d":20.7800006866,
+    "terminal_known_fraud_rate_1d_delay7d":0.0,
+    "terminal_count_7d":5.0,
+    "terminal_mean_amount_7d":55.2560005188,
+    "terminal_known_fraud_rate_7d_delay7d":0.0,
+    "terminal_count_30d":27.0,
+    "terminal_mean_amount_30d":59.6551856995,
+    "terminal_known_fraud_rate_30d_delay7d":0.0303030312
+  }
+]

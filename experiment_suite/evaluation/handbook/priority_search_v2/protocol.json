@@ -1,0 +1,85 @@
+{
+  "dataset": "handbook",
+  "experiment": "priority_search_v2",
+  "training_device": "local Mac CPU",
+  "platform": "macOS-26.2-arm64-arm-64bit",
+  "threads_per_estimator": 4,
+  "supervised_only": true,
+  "smoke": false,
+  "budgets": [
+    0.005,
+    0.01,
+    0.05
+  ],
+  "default_budget": 0.01,
+  "seed": 42,
+  "preparation": {
+    "dataset": "handbook",
+    "feature_columns": [
+      "TX_AMOUNT",
+      "hour",
+      "day_of_week",
+      "customer_previous_count",
+      "customer_mean_amount_previous",
+      "customer_seconds_since_previous",
+      "terminal_previous_count",
+      "terminal_seconds_since_previous",
+      "customer_count_1d",
+      "customer_mean_amount_1d",
+      "amount_to_customer_mean_1d",
+      "customer_count_7d",
+      "customer_mean_amount_7d",
+      "amount_to_customer_mean_7d",
+      "customer_count_30d",
+      "customer_mean_amount_30d",
+      "amount_to_customer_mean_30d",
+      "terminal_count_1d",
+      "terminal_mean_amount_1d",
+      "terminal_known_fraud_rate_1d_delay7d",
+      "terminal_count_7d",
+      "terminal_mean_amount_7d",
+      "terminal_known_fraud_rate_7d_delay7d",
+      "terminal_count_30d",
+      "terminal_mean_amount_30d",
+      "terminal_known_fraud_rate_30d_delay7d"
+    ],
+    "old_training_cap": 150000,
+    "requested_training_cap": 300000,
+    "notes": [
+      "Handbook rolling 1/7/30-day history excludes current and simultaneous transactions. Terminal fraud labels are used only after >7 days in an explicit online-replay scenario; past validation/test outcomes can enter later features after this delay. Not a frozen no-feedback deployment."
+    ],
+    "periods": {
+      "train": {
+        "rows": 300000,
+        "fraud": 2417,
+        "first": 31.0,
+        "last": 9417397.0
+      },
+      "test": {
+        "rows": 50000,
+        "fraud": 448,
+        "first": 12614892.0,
+        "last": 15810976.0
+      },
+      "calibration": {
+        "rows": 20002,
+        "fraud": 156,
+        "first": 9418270.0,
+        "last": 10685126.0
+      },
+      "selection": {
+        "rows": 29998,
+        "fraud": 279,
+        "first": 10685130.0,
+        "last": 12614224.0
+      }
+    },
+    "preparation": "Original raw split boundaries and test sampling seeds preserved except BAF calibration/train change; no test oversampling."
+  },
+  "data_sha256": "89a6d3512f72afcdca6b03ab629ba3ad526c7029427b4cbf12a9cf9e7cea16a0",
+  "selection_rule": "Maximize weakest chronological-block utility: 65% AP + 35% mean recall across three calibrated FPR budgets, minus selection FPR excess penalty and 0.10 positive training/selection AP gap. No ROC-AUC or accuracy weight.",
+  "limitations": "Previously inspected test periods are exploratory, not a fresh final holdout. Validation FPR budgets are not guarantees on test or deployment. AP is average_precision_score, not trapezoidal integration. Historical label features, where used, require operational availability assumptions.",
+  "stable_scoring": true,
+  "prediction_decimals": 12,
+  "forest_prediction_threads": 1
+}
