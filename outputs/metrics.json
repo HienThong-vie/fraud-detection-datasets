@@ -1,0 +1,39 @@
+{
+  "selected_model": "xgboost",
+  "selection_metric": "validation_pr_auc",
+  "validation": {
+    "model": "xgboost",
+    "threshold": 0.857494235,
+    "accuracy": 0.9877378976,
+    "precision": 0.9849246231,
+    "recall": 0.8711111111,
+    "f1": 0.9245283019,
+    "roc_auc": 0.974153698,
+    "pr_auc": 0.9320812223,
+    "false_positive_rate": 0.0012580375,
+    "true_negative": 7145,
+    "false_positive": 9,
+    "false_negative": 87,
+    "true_positive": 588
+  },
+  "test": {
+    "threshold": 0.8574942350387573,
+    "accuracy": 0.9728537495758398,
+    "precision": 0.8818181818181818,
+    "recall": 0.47549019607843135,
+    "f1": 0.6178343949044586,
+    "roc_auc": 0.8463244304006436,
+    "pr_auc": 0.553279107234358,
+    "false_positive_rate": 0.0030831258152496147,
+    "true_negative": 8407,
+    "false_positive": 26,
+    "false_negative": 214,
+    "true_positive": 194
+  },
+  "split_rows": {
+    "train": 29894,
+    "validation": 7829,
+    "test": 8841
+  },
+  "leakage_note": "The held-out test period was not used for selection or threshold tuning."
+}
