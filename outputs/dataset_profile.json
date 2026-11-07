@@ -1,0 +1,47 @@
+{
+  "source": "https://www.kaggle.com/datasets/ealaxi/paysim1",
+  "license": "CC BY-SA 4.0",
+  "file": "PS_20174392719_1491204439457_log.csv",
+  "file_size_bytes": 493534783,
+  "sha256": "16910f90577b0d981bf8ff289714510bb89bc71bff7d3f220f024e287e4eea6b",
+  "rows": 6362620,
+  "columns_loaded": [
+    "step",
+    "type",
+    "amount",
+    "isFraud",
+    "isFlaggedFraud"
+  ],
+  "dtypes": {
+    "step": "int16",
+    "type": "category",
+    "amount": "float32",
+    "isFraud": "int8",
+    "isFlaggedFraud": "int8"
+  },
+  "fraud_rows": 8213,
+  "fraud_rate": 0.001290820448180152,
+  "flagged_rows": 16,
+  "step_min": 1,
+  "step_max": 743,
+  "transaction_types": {
+    "CASH_OUT": 2237500,
+    "PAYMENT": 2151495,
+    "CASH_IN": 1399284,
+    "TRANSFER": 532909,
+    "DEBIT": 41432
+  },
+  "missing_values": {
+    "step": 0,
+    "type": 0,
+    "amount": 0,
+    "isFraud": 0,
+    "isFlaggedFraud": 0
+  },
+  "leakage_controls": [
+    "isFlaggedFraud is excluded from model inputs",
+    "origin and destination balances are excluded",
+    "raw account identifiers are excluded",
+    "splits are chronological by step"
+  ]
+}

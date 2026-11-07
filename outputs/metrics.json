@@ -1,0 +1,39 @@
+{
+  "selected_model": "random_forest",
+  "selection_metric": "validation_pr_auc",
+  "validation": {
+    "model": "random_forest",
+    "threshold": 0.5852532508,
+    "accuracy": 0.99448,
+    "precision": 0.7857142857,
+    "recall": 0.2588235294,
+    "f1": 0.389380531,
+    "roc_auc": 0.853887168,
+    "pr_auc": 0.29108267,
+    "false_positive_rate": 0.0004832863,
+    "true_negative": 49636,
+    "false_positive": 24,
+    "false_negative": 252,
+    "true_positive": 88
+  },
+  "test": {
+    "threshold": 0.5852532507672767,
+    "accuracy": 0.98902,
+    "precision": 0.8296703296703297,
+    "recall": 0.2257100149476831,
+    "f1": 0.35487661574618096,
+    "roc_auc": 0.8529154466432011,
+    "pr_auc": 0.3069194378190177,
+    "false_positive_rate": 0.0006284081003831262,
+    "true_negative": 49300,
+    "false_positive": 31,
+    "false_negative": 518,
+    "true_positive": 151
+  },
+  "split_rows": {
+    "train": 150000,
+    "validation": 50000,
+    "test": 50000
+  },
+  "leakage_note": "Test data was not used for model selection or threshold selection."
+}

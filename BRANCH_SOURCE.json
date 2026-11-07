@@ -1,0 +1,7 @@
+{
+  "dataset_branch": "paysim",
+  "source_repository": "paysim-fraud-ml",
+  "source_commit": "a8eea764a88919f9f892119bdc5f4aa48f51cb02",
+  "source_branch": "boosted-model-comparison",
+  "balanced_experiment": "Exploratory; production model is unchanged. See outputs/balanced_experiment/report.json."
+}
