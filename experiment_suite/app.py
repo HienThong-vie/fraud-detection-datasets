@@ -49,6 +49,11 @@ def detail(dataset: str):
             row['test_shift_warning']=test_shift_warning(row)
     upgraded=output/'feature_policy_v4/report.json'
     result['features']=json.loads(upgraded.read_text()) if features_ready(dataset) else None
+    clustering=output/'clustering_v1/report.json'
+    cluster_verification=output/'clustering_v1/verification.json'
+    result['clustering']=(json.loads(clustering.read_text())
+                          if clustering.exists() and cluster_verification.exists()
+                          and json.loads(cluster_verification.read_text()).get('status')=='passed' else None)
     if result['features']:
         for row in result['features']['models']:
             row['test_shift_warning']=test_shift_warning(row)
