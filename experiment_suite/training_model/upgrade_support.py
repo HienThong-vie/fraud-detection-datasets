@@ -87,6 +87,10 @@ def before_bucket_history(entity, clock, amounts, windows, prefix):
 
 
 def baf_features(frame):
+    frame = frame.copy()
+    for column in frame.columns:
+        if column not in {'payment_type', 'housing_status', 'source', 'device_os'}:
+            frame[column] = pd.to_numeric(frame[column], errors='raise')
     result = frame.copy()
     numeric = frame.select_dtypes(include='number').columns
     for c in numeric:

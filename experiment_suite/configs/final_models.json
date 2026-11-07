@@ -1,0 +1,57 @@
+{
+  "selection": "Existing chronological-validation winners only; no test-based re-selection.",
+  "headline_budget": 0.05,
+  "secondary_budget": 0.01,
+  "policy": "point",
+  "review_capacity": null,
+  "test_interpretation": "Previously inspected test periods; exploratory, not fresh holdouts.",
+  "datasets": {
+    "paysim": {
+      "model": "random_forest",
+      "experiment": "feature_policy_v4",
+      "variant": "features_setting1_windowNone",
+      "checkpoint": "evaluation/paysim/feature_policy_v4/champion.joblib",
+      "checkpoint_sha256": "ea67b343f9ad118ab5f120f380db67dad8e2b9bef8a99c0b9496f1254fc797ef",
+      "operating_points": {
+        "0.05": {
+          "threshold": 0.004092325896000001,
+          "test_metrics": {
+            "precision": 0.10185860058309038,
+            "recall": 0.8355754857997011,
+            "f1": 0.18158193925613123,
+            "pr_auc": 0.5260737558816952,
+            "roc_auc": 0.9427099463769935,
+            "fpr": 0.09991688796091706,
+            "accuracy": 0.89922,
+            "tn": 44402,
+            "fp": 4929,
+            "fn": 110,
+            "tp": 559,
+            "alert_rate": 0.10976
+          }
+        },
+        "0.01": {
+          "threshold": 0.05660013187000001,
+          "test_metrics": {
+            "precision": 0.5132013201320133,
+            "recall": 0.4648729446935725,
+            "f1": 0.4878431372549019,
+            "pr_auc": 0.5260737558816952,
+            "roc_auc": 0.9427099463769935,
+            "fpr": 0.005980012568162008,
+            "accuracy": 0.98694,
+            "tn": 49036,
+            "fp": 295,
+            "fn": 358,
+            "tp": 311,
+            "alert_rate": 0.01212
+          }
+        }
+      },
+      "validation_ap": 0.5147888678783387,
+      "selection_score": 0.4889963712624732,
+      "score_name": "fit_balance_score",
+      "offline_only": false
+    }
+  }
+}

@@ -23,8 +23,8 @@ def execute(dataset, arguments, payload=None):
         raise RuntimeError(result.stderr[-4000:] or result.stdout[-4000:])
     return result.stdout
 
-def predict(dataset, records, variant='production', fpr_budget=.01, threshold_policy='point', review_capacity=None):
-    if variant not in ('production','balanced','supervised','priority','fitting','features'):
+def predict(dataset, records, variant='selected', fpr_budget=.05, threshold_policy='point', review_capacity=None):
+    if variant not in ('selected','production','balanced','supervised','priority','fitting','features'):
         raise ValueError('Unknown model variant')
     output = execute(dataset,[str(ROOT/'utils/worker.py'),dataset,variant,str(fpr_budget),
                               threshold_policy,str(review_capacity) if review_capacity is not None else 'none'],records)
