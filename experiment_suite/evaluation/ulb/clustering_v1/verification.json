@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "dataset": "ulb",
+  "selected_k": 2,
+  "saved_assignments_reproduced": true,
+  "interpretation_tables_reproduced": true,
+  "training_only_numeric_imputer_verified": true,
+  "k_selection_reproduced": true,
+  "classifier_replacement": false
+}
