@@ -87,8 +87,11 @@ Completed experiment folders are preserved and may report already complete or re
 Kaggle requires an account and acceptance of the competition rules before download. Those rules apply to
 the data independently of this project's code licence, so the raw CSV files are not redistributed here.
 
-Raw datasets and row-level prediction exports are not redistributed here. Code and dataset licences are separate; check the original source terms before reuse.
 
 Raw datasets and row-level prediction exports are not redistributed here. Code and dataset licences are separate; check the original source terms before reuse.
 
 [Selected-model identity and operating points](FINAL_MODEL.md) · [Conda workflow](experiment_suite/CONDA_GUIDE.md)
+
+## Prepared data and reproducibility
+
+[CSV export, scoring, refitting and prediction commands](experiment_suite/CONDA_GUIDE.md). Each export has a data dictionary and checksum manifest. Refit outputs are separate from the selected checkpoint.

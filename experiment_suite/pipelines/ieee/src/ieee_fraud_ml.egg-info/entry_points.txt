@@ -1,4 +1,0 @@
-[console_scripts]
-ieee-predict = ieee_fraud.inference:main
-ieee-profile = ieee_fraud.profiling:main
-ieee-train = ieee_fraud.training:main

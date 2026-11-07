@@ -1,7 +1,3 @@
 # Evaluation
 
-[Classification models, metrics and charts](../experiment_suite/evaluation/ieee/feature_policy_v4/)
-
-[Clustering interpretation and graphs](../experiment_suite/evaluation/ieee/clustering_v1/README.md)
-
-Classification and clustering are evaluated separately. Previously viewed test periods are exploratory.
+Charts, model comparisons and verification results are under [evaluation](../experiment_suite/evaluation/ieee/).

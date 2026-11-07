@@ -55,7 +55,7 @@ const capacityLabel=document.createElement('label');capacityLabel.textContent=' 
 const capacitySelect=document.createElement('select');capacitySelect.id='capacity';
 for(const [value,label] of [['none','No capacity constraint'],['0.005','50 alerts / 10,000 cases'],['0.01','100 alerts / 10,000 cases'],['0.02','200 alerts / 10,000 cases'],['0.05','500 alerts / 10,000 cases']]){const o=document.createElement('option');o.value=value;o.textContent=label;capacitySelect.appendChild(o);}
 capacityLabel.appendChild(capacitySelect);budgetLabel.after(policyLabel,capacityLabel);
-function syncPolicies(){const active=featureMode(),previous=budgetSelect.value;budgetSelect.replaceChildren();for(const value of (active?['0.005','0.01','0.02','0.03','0.05']:['0.005','0.01','0.05'])){const o=document.createElement('option');o.value=value;o.textContent=(Number(value)*100)+'%';budgetSelect.appendChild(o);}budgetSelect.value=[...budgetSelect.options].some(o=>o.value===previous)?previous:'0.01';policySelect.disabled=capacitySelect.disabled=!active;}
+function syncPolicies(){const active=featureMode(),previous=budgetSelect.value;budgetSelect.replaceChildren();for(const value of (active?['0.005','0.01','0.02','0.03','0.05']:['0.005','0.01','0.05'])){const o=document.createElement('option');o.value=value;o.textContent=(Number(value)*100)+'%';budgetSelect.appendChild(o);}budgetSelect.value=[...budgetSelect.options].some(o=>o.value===previous)?previous:'0.05';policySelect.disabled=capacitySelect.disabled=!active;}
 const priorityNote=document.createElement('p');priorityNote.className='tag';$('metrics').after(priorityNote);
 const refresh=document.createElement('button');refresh.textContent='Refresh training results';$('about').after(refresh);
 function renderPriority(){
