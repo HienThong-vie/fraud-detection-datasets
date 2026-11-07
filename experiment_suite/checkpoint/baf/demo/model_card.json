@@ -1,0 +1,798 @@
+{
+  "config": {
+    "clustering_k_values": [
+      2,
+      3,
+      4
+    ],
+    "clustering_sample_rows": 3000,
+    "dataset_files": [
+      "Base.csv",
+      "Variant I.csv",
+      "Variant II.csv",
+      "Variant III.csv",
+      "Variant IV.csv",
+      "Variant V.csv"
+    ],
+    "excluded_features": [
+      "device_fraud_count",
+      "x1",
+      "x2"
+    ],
+    "max_test_rows": 1000,
+    "max_train_rows": 4000,
+    "max_validation_rows": 1000,
+    "n_jobs": -1,
+    "protected_features": [
+      "customer_age",
+      "income",
+      "employment_status"
+    ],
+    "random_seed": 42,
+    "target_column": "fraud_bool",
+    "target_false_positive_rate": 0.05,
+    "test_months": [
+      6,
+      7
+    ],
+    "time_column": "month",
+    "train_months": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "tree_estimators": 16,
+    "tree_max_depth": 8,
+    "validation_months": [
+      5
+    ]
+  },
+  "datasets": [
+    {
+      "champion_artifact": "artifacts/demo/base/champion.joblib",
+      "dataset": "Base",
+      "profile": {
+        "additional_columns": [],
+        "columns": 32,
+        "dtypes": {
+          "bank_branch_count_8w": "int64",
+          "bank_months_count": "int64",
+          "credit_risk_score": "float64",
+          "current_address_months_count": "int64",
+          "customer_age": "int64",
+          "date_of_birth_distinct_emails_4w": "int64",
+          "days_since_request": "float64",
+          "device_distinct_emails_8w": "int64",
+          "device_fraud_count": "int64",
+          "device_os": "object",
+          "email_is_free": "int64",
+          "employment_status": "object",
+          "foreign_request": "int64",
+          "fraud_bool": "int64",
+          "has_other_cards": "int64",
+          "housing_status": "object",
+          "income": "float64",
+          "intended_balcon_amount": "float64",
+          "keep_alive_session": "int64",
+          "month": "int64",
+          "name_email_similarity": "float64",
+          "payment_type": "object",
+          "phone_home_valid": "int64",
+          "phone_mobile_valid": "int64",
+          "prev_address_months_count": "int64",
+          "proposed_credit_limit": "int64",
+          "session_length_in_minutes": "float64",
+          "source": "object",
+          "velocity_24h": "float64",
+          "velocity_4w": "float64",
+          "velocity_6h": "float64",
+          "zip_count_4w": "int64"
+        },
+        "duplicate_rows": 0,
+        "fraud_count": 78,
+        "fraud_rate": 0.013,
+        "fraud_rate_by_month": {
+          "0": 0.017333333333333333,
+          "1": 0.012,
+          "2": 0.012,
+          "3": 0.010666666666666666,
+          "4": 0.014666666666666666,
+          "5": 0.010666666666666666,
+          "6": 0.014666666666666666,
+          "7": 0.012
+        },
+        "minus_one_counts_all_numeric": {
+          "bank_months_count": 181,
+          "current_address_months_count": 26,
+          "device_distinct_emails_8w": 1002,
+          "prev_address_months_count": 33
+        },
+        "missing_cells": 0,
+        "missing_cells_after_sentinel_conversion": 1242,
+        "missing_expected_columns": [],
+        "missing_sentinel_columns": [
+          "bank_months_count",
+          "current_address_months_count",
+          "device_distinct_emails_8w",
+          "intended_balcon_amount",
+          "prev_address_months_count",
+          "session_length_in_minutes"
+        ],
+        "month_counts": {
+          "0": 750,
+          "1": 750,
+          "2": 750,
+          "3": 750,
+          "4": 750,
+          "5": 750,
+          "6": 750,
+          "7": 750
+        },
+        "null_counts": {},
+        "rows": 6000,
+        "sentinel_minus_one_counts": {
+          "bank_months_count": 181,
+          "current_address_months_count": 26,
+          "device_distinct_emails_8w": 1002,
+          "intended_balcon_amount": 0,
+          "prev_address_months_count": 33,
+          "session_length_in_minutes": 0
+        },
+        "sentinel_minus_one_total": 1242
+      },
+      "test_metrics": {
+        "accuracy": 0.961,
+        "confusion_matrix": [
+          [
+            957,
+            30
+          ],
+          [
+            9,
+            4
+          ]
+        ],
+        "f1": 0.1702127659574468,
+        "false_negative": 9,
+        "false_positive": 30,
+        "false_positive_rate": 0.030395136778115502,
+        "pr_auc": 0.07331349086614196,
+        "precision": 0.11764705882352941,
+        "recall": 0.3076923076923077,
+        "roc_auc": 0.6843581949964929,
+        "threshold": 0.904740134435585,
+        "true_negative": 957,
+        "true_positive": 4
+      },
+      "validation_pr_auc": 0.031865800517805,
+      "winner": "logistic_regression"
+    },
+    {
+      "champion_artifact": "artifacts/demo/variant_i/champion.joblib",
+      "dataset": "Variant I",
+      "profile": {
+        "additional_columns": [],
+        "columns": 32,
+        "dtypes": {
+          "bank_branch_count_8w": "int64",
+          "bank_months_count": "int64",
+          "credit_risk_score": "float64",
+          "current_address_months_count": "int64",
+          "customer_age": "int64",
+          "date_of_birth_distinct_emails_4w": "int64",
+          "days_since_request": "float64",
+          "device_distinct_emails_8w": "int64",
+          "device_fraud_count": "int64",
+          "device_os": "object",
+          "email_is_free": "int64",
+          "employment_status": "object",
+          "foreign_request": "int64",
+          "fraud_bool": "int64",
+          "has_other_cards": "int64",
+          "housing_status": "object",
+          "income": "float64",
+          "intended_balcon_amount": "float64",
+          "keep_alive_session": "int64",
+          "month": "int64",
+          "name_email_similarity": "float64",
+          "payment_type": "object",
+          "phone_home_valid": "int64",
+          "phone_mobile_valid": "int64",
+          "prev_address_months_count": "int64",
+          "proposed_credit_limit": "int64",
+          "session_length_in_minutes": "float64",
+          "source": "object",
+          "velocity_24h": "float64",
+          "velocity_4w": "float64",
+          "velocity_6h": "float64",
+          "zip_count_4w": "int64"
+        },
+        "duplicate_rows": 0,
+        "fraud_count": 100,
+        "fraud_rate": 0.016666666666666666,
+        "fraud_rate_by_month": {
+          "0": 0.018666666666666668,
+          "1": 0.018666666666666668,
+          "2": 0.016,
+          "3": 0.017333333333333333,
+          "4": 0.014666666666666666,
+          "5": 0.02,
+          "6": 0.02,
+          "7": 0.008
+        },
+        "minus_one_counts_all_numeric": {
+          "bank_months_count": 150,
+          "current_address_months_count": 28,
+          "device_distinct_emails_8w": 1041,
+          "prev_address_months_count": 38
+        },
+        "missing_cells": 0,
+        "missing_cells_after_sentinel_conversion": 1257,
+        "missing_expected_columns": [],
+        "missing_sentinel_columns": [
+          "bank_months_count",
+          "current_address_months_count",
+          "device_distinct_emails_8w",
+          "intended_balcon_amount",
+          "prev_address_months_count",
+          "session_length_in_minutes"
+        ],
+        "month_counts": {
+          "0": 750,
+          "1": 750,
+          "2": 750,
+          "3": 750,
+          "4": 750,
+          "5": 750,
+          "6": 750,
+          "7": 750
+        },
+        "null_counts": {},
+        "rows": 6000,
+        "sentinel_minus_one_counts": {
+          "bank_months_count": 150,
+          "current_address_months_count": 28,
+          "device_distinct_emails_8w": 1041,
+          "intended_balcon_amount": 0,
+          "prev_address_months_count": 38,
+          "session_length_in_minutes": 0
+        },
+        "sentinel_minus_one_total": 1257
+      },
+      "test_metrics": {
+        "accuracy": 0.95,
+        "confusion_matrix": [
+          [
+            948,
+            38
+          ],
+          [
+            12,
+            2
+          ]
+        ],
+        "f1": 0.07407407407407407,
+        "false_negative": 12,
+        "false_positive": 38,
+        "false_positive_rate": 0.038539553752535496,
+        "pr_auc": 0.02570286981571005,
+        "precision": 0.05,
+        "recall": 0.14285714285714285,
+        "roc_auc": 0.538467110982324,
+        "threshold": 0.3175246859559882,
+        "true_negative": 948,
+        "true_positive": 2
+      },
+      "validation_pr_auc": 0.02496296406506613,
+      "winner": "random_forest"
+    },
+    {
+      "champion_artifact": "artifacts/demo/variant_ii/champion.joblib",
+      "dataset": "Variant II",
+      "profile": {
+        "additional_columns": [],
+        "columns": 32,
+        "dtypes": {
+          "bank_branch_count_8w": "int64",
+          "bank_months_count": "int64",
+          "credit_risk_score": "float64",
+          "current_address_months_count": "int64",
+          "customer_age": "int64",
+          "date_of_birth_distinct_emails_4w": "int64",
+          "days_since_request": "float64",
+          "device_distinct_emails_8w": "int64",
+          "device_fraud_count": "int64",
+          "device_os": "object",
+          "email_is_free": "int64",
+          "employment_status": "object",
+          "foreign_request": "int64",
+          "fraud_bool": "int64",
+          "has_other_cards": "int64",
+          "housing_status": "object",
+          "income": "float64",
+          "intended_balcon_amount": "float64",
+          "keep_alive_session": "int64",
+          "month": "int64",
+          "name_email_similarity": "float64",
+          "payment_type": "object",
+          "phone_home_valid": "int64",
+          "phone_mobile_valid": "int64",
+          "prev_address_months_count": "int64",
+          "proposed_credit_limit": "int64",
+          "session_length_in_minutes": "float64",
+          "source": "object",
+          "velocity_24h": "float64",
+          "velocity_4w": "float64",
+          "velocity_6h": "float64",
+          "zip_count_4w": "int64"
+        },
+        "duplicate_rows": 0,
+        "fraud_count": 90,
+        "fraud_rate": 0.015,
+        "fraud_rate_by_month": {
+          "0": 0.012,
+          "1": 0.02,
+          "2": 0.021333333333333333,
+          "3": 0.013333333333333334,
+          "4": 0.017333333333333333,
+          "5": 0.013333333333333334,
+          "6": 0.010666666666666666,
+          "7": 0.012
+        },
+        "minus_one_counts_all_numeric": {
+          "bank_months_count": 150,
+          "current_address_months_count": 27,
+          "device_distinct_emails_8w": 984,
+          "prev_address_months_count": 39
+        },
+        "missing_cells": 0,
+        "missing_cells_after_sentinel_conversion": 1200,
+        "missing_expected_columns": [],
+        "missing_sentinel_columns": [
+          "bank_months_count",
+          "current_address_months_count",
+          "device_distinct_emails_8w",
+          "intended_balcon_amount",
+          "prev_address_months_count",
+          "session_length_in_minutes"
+        ],
+        "month_counts": {
+          "0": 750,
+          "1": 750,
+          "2": 750,
+          "3": 750,
+          "4": 750,
+          "5": 750,
+          "6": 750,
+          "7": 750
+        },
+        "null_counts": {},
+        "rows": 6000,
+        "sentinel_minus_one_counts": {
+          "bank_months_count": 150,
+          "current_address_months_count": 27,
+          "device_distinct_emails_8w": 984,
+          "intended_balcon_amount": 0,
+          "prev_address_months_count": 39,
+          "session_length_in_minutes": 0
+        },
+        "sentinel_minus_one_total": 1200
+      },
+      "test_metrics": {
+        "accuracy": 0.95,
+        "confusion_matrix": [
+          [
+            948,
+            41
+          ],
+          [
+            9,
+            2
+          ]
+        ],
+        "f1": 0.07407407407407407,
+        "false_negative": 9,
+        "false_positive": 41,
+        "false_positive_rate": 0.041456016177957536,
+        "pr_auc": 0.026773120078257575,
+        "precision": 0.046511627906976744,
+        "recall": 0.18181818181818182,
+        "roc_auc": 0.6333302693262248,
+        "threshold": 0.8192067203857286,
+        "true_negative": 948,
+        "true_positive": 2
+      },
+      "validation_pr_auc": 0.04709258192432157,
+      "winner": "logistic_regression"
+    },
+    {
+      "champion_artifact": "artifacts/demo/variant_iii/champion.joblib",
+      "dataset": "Variant III",
+      "profile": {
+        "additional_columns": [],
+        "columns": 32,
+        "dtypes": {
+          "bank_branch_count_8w": "int64",
+          "bank_months_count": "int64",
+          "credit_risk_score": "float64",
+          "current_address_months_count": "int64",
+          "customer_age": "int64",
+          "date_of_birth_distinct_emails_4w": "int64",
+          "days_since_request": "float64",
+          "device_distinct_emails_8w": "int64",
+          "device_fraud_count": "int64",
+          "device_os": "object",
+          "email_is_free": "int64",
+          "employment_status": "object",
+          "foreign_request": "int64",
+          "fraud_bool": "int64",
+          "has_other_cards": "int64",
+          "housing_status": "object",
+          "income": "float64",
+          "intended_balcon_amount": "float64",
+          "keep_alive_session": "int64",
+          "month": "int64",
+          "name_email_similarity": "float64",
+          "payment_type": "object",
+          "phone_home_valid": "int64",
+          "phone_mobile_valid": "int64",
+          "prev_address_months_count": "int64",
+          "proposed_credit_limit": "int64",
+          "session_length_in_minutes": "float64",
+          "source": "object",
+          "velocity_24h": "float64",
+          "velocity_4w": "float64",
+          "velocity_6h": "float64",
+          "zip_count_4w": "int64"
+        },
+        "duplicate_rows": 0,
+        "fraud_count": 103,
+        "fraud_rate": 0.017166666666666667,
+        "fraud_rate_by_month": {
+          "0": 0.014666666666666666,
+          "1": 0.02266666666666667,
+          "2": 0.006666666666666667,
+          "3": 0.029333333333333333,
+          "4": 0.02,
+          "5": 0.016,
+          "6": 0.012,
+          "7": 0.016
+        },
+        "minus_one_counts_all_numeric": {
+          "bank_months_count": 161,
+          "current_address_months_count": 23,
+          "device_distinct_emails_8w": 1014,
+          "prev_address_months_count": 39
+        },
+        "missing_cells": 0,
+        "missing_cells_after_sentinel_conversion": 1237,
+        "missing_expected_columns": [],
+        "missing_sentinel_columns": [
+          "bank_months_count",
+          "current_address_months_count",
+          "device_distinct_emails_8w",
+          "intended_balcon_amount",
+          "prev_address_months_count",
+          "session_length_in_minutes"
+        ],
+        "month_counts": {
+          "0": 750,
+          "1": 750,
+          "2": 750,
+          "3": 750,
+          "4": 750,
+          "5": 750,
+          "6": 750,
+          "7": 750
+        },
+        "null_counts": {},
+        "rows": 6000,
+        "sentinel_minus_one_counts": {
+          "bank_months_count": 161,
+          "current_address_months_count": 23,
+          "device_distinct_emails_8w": 1014,
+          "intended_balcon_amount": 0,
+          "prev_address_months_count": 39,
+          "session_length_in_minutes": 0
+        },
+        "sentinel_minus_one_total": 1237
+      },
+      "test_metrics": {
+        "accuracy": 0.955,
+        "confusion_matrix": [
+          [
+            951,
+            35
+          ],
+          [
+            10,
+            4
+          ]
+        ],
+        "f1": 0.1509433962264151,
+        "false_negative": 10,
+        "false_positive": 35,
+        "false_positive_rate": 0.035496957403651115,
+        "pr_auc": 0.1028917237963356,
+        "precision": 0.10256410256410256,
+        "recall": 0.2857142857142857,
+        "roc_auc": 0.702694871051869,
+        "threshold": 0.7932241911045629,
+        "true_negative": 951,
+        "true_positive": 4
+      },
+      "validation_pr_auc": 0.01909754503115598,
+      "winner": "logistic_regression"
+    },
+    {
+      "champion_artifact": "artifacts/demo/variant_iv/champion.joblib",
+      "dataset": "Variant IV",
+      "profile": {
+        "additional_columns": [],
+        "columns": 32,
+        "dtypes": {
+          "bank_branch_count_8w": "int64",
+          "bank_months_count": "int64",
+          "credit_risk_score": "float64",
+          "current_address_months_count": "int64",
+          "customer_age": "int64",
+          "date_of_birth_distinct_emails_4w": "int64",
+          "days_since_request": "float64",
+          "device_distinct_emails_8w": "int64",
+          "device_fraud_count": "int64",
+          "device_os": "object",
+          "email_is_free": "int64",
+          "employment_status": "object",
+          "foreign_request": "int64",
+          "fraud_bool": "int64",
+          "has_other_cards": "int64",
+          "housing_status": "object",
+          "income": "float64",
+          "intended_balcon_amount": "float64",
+          "keep_alive_session": "int64",
+          "month": "int64",
+          "name_email_similarity": "float64",
+          "payment_type": "object",
+          "phone_home_valid": "int64",
+          "phone_mobile_valid": "int64",
+          "prev_address_months_count": "int64",
+          "proposed_credit_limit": "int64",
+          "session_length_in_minutes": "float64",
+          "source": "object",
+          "velocity_24h": "float64",
+          "velocity_4w": "float64",
+          "velocity_6h": "float64",
+          "zip_count_4w": "int64"
+        },
+        "duplicate_rows": 0,
+        "fraud_count": 113,
+        "fraud_rate": 0.018833333333333334,
+        "fraud_rate_by_month": {
+          "0": 0.012,
+          "1": 0.02266666666666667,
+          "2": 0.02,
+          "3": 0.018666666666666668,
+          "4": 0.024,
+          "5": 0.006666666666666667,
+          "6": 0.02266666666666667,
+          "7": 0.024
+        },
+        "minus_one_counts_all_numeric": {
+          "bank_months_count": 155,
+          "current_address_months_count": 26,
+          "device_distinct_emails_8w": 1016,
+          "prev_address_months_count": 36
+        },
+        "missing_cells": 0,
+        "missing_cells_after_sentinel_conversion": 1233,
+        "missing_expected_columns": [],
+        "missing_sentinel_columns": [
+          "bank_months_count",
+          "current_address_months_count",
+          "device_distinct_emails_8w",
+          "intended_balcon_amount",
+          "prev_address_months_count",
+          "session_length_in_minutes"
+        ],
+        "month_counts": {
+          "0": 750,
+          "1": 750,
+          "2": 750,
+          "3": 750,
+          "4": 750,
+          "5": 750,
+          "6": 750,
+          "7": 750
+        },
+        "null_counts": {},
+        "rows": 6000,
+        "sentinel_minus_one_counts": {
+          "bank_months_count": 155,
+          "current_address_months_count": 26,
+          "device_distinct_emails_8w": 1016,
+          "intended_balcon_amount": 0,
+          "prev_address_months_count": 36,
+          "session_length_in_minutes": 0
+        },
+        "sentinel_minus_one_total": 1233
+      },
+      "test_metrics": {
+        "accuracy": 0.974,
+        "confusion_matrix": [
+          [
+            974,
+            3
+          ],
+          [
+            23,
+            0
+          ]
+        ],
+        "f1": 0.0,
+        "false_negative": 23,
+        "false_positive": 3,
+        "false_positive_rate": 0.0030706243602865915,
+        "pr_auc": 0.041660577454627236,
+        "precision": 0.0,
+        "recall": 0.0,
+        "roc_auc": 0.6074050999065462,
+        "threshold": 0.6344159989481164,
+        "true_negative": 974,
+        "true_positive": 0
+      },
+      "validation_pr_auc": 0.009438664590361776,
+      "winner": "extra_trees"
+    },
+    {
+      "champion_artifact": "artifacts/demo/variant_v/champion.joblib",
+      "dataset": "Variant V",
+      "profile": {
+        "additional_columns": [],
+        "columns": 32,
+        "dtypes": {
+          "bank_branch_count_8w": "int64",
+          "bank_months_count": "int64",
+          "credit_risk_score": "float64",
+          "current_address_months_count": "int64",
+          "customer_age": "int64",
+          "date_of_birth_distinct_emails_4w": "int64",
+          "days_since_request": "float64",
+          "device_distinct_emails_8w": "int64",
+          "device_fraud_count": "int64",
+          "device_os": "object",
+          "email_is_free": "int64",
+          "employment_status": "object",
+          "foreign_request": "int64",
+          "fraud_bool": "int64",
+          "has_other_cards": "int64",
+          "housing_status": "object",
+          "income": "float64",
+          "intended_balcon_amount": "float64",
+          "keep_alive_session": "int64",
+          "month": "int64",
+          "name_email_similarity": "float64",
+          "payment_type": "object",
+          "phone_home_valid": "int64",
+          "phone_mobile_valid": "int64",
+          "prev_address_months_count": "int64",
+          "proposed_credit_limit": "int64",
+          "session_length_in_minutes": "float64",
+          "source": "object",
+          "velocity_24h": "float64",
+          "velocity_4w": "float64",
+          "velocity_6h": "float64",
+          "zip_count_4w": "int64"
+        },
+        "duplicate_rows": 0,
+        "fraud_count": 119,
+        "fraud_rate": 0.019833333333333335,
+        "fraud_rate_by_month": {
+          "0": 0.018666666666666668,
+          "1": 0.025333333333333333,
+          "2": 0.013333333333333334,
+          "3": 0.024,
+          "4": 0.010666666666666666,
+          "5": 0.02,
+          "6": 0.021333333333333333,
+          "7": 0.025333333333333333
+        },
+        "minus_one_counts_all_numeric": {
+          "bank_months_count": 158,
+          "current_address_months_count": 26,
+          "device_distinct_emails_8w": 979,
+          "prev_address_months_count": 41
+        },
+        "missing_cells": 0,
+        "missing_cells_after_sentinel_conversion": 1204,
+        "missing_expected_columns": [],
+        "missing_sentinel_columns": [
+          "bank_months_count",
+          "current_address_months_count",
+          "device_distinct_emails_8w",
+          "intended_balcon_amount",
+          "prev_address_months_count",
+          "session_length_in_minutes"
+        ],
+        "month_counts": {
+          "0": 750,
+          "1": 750,
+          "2": 750,
+          "3": 750,
+          "4": 750,
+          "5": 750,
+          "6": 750,
+          "7": 750
+        },
+        "null_counts": {},
+        "rows": 6000,
+        "sentinel_minus_one_counts": {
+          "bank_months_count": 158,
+          "current_address_months_count": 26,
+          "device_distinct_emails_8w": 979,
+          "intended_balcon_amount": 0,
+          "prev_address_months_count": 41,
+          "session_length_in_minutes": 0
+        },
+        "sentinel_minus_one_total": 1204
+      },
+      "test_metrics": {
+        "accuracy": 0.952,
+        "confusion_matrix": [
+          [
+            949,
+            27
+          ],
+          [
+            21,
+            3
+          ]
+        ],
+        "f1": 0.1111111111111111,
+        "false_negative": 21,
+        "false_positive": 27,
+        "false_positive_rate": 0.027663934426229508,
+        "pr_auc": 0.07513065201596544,
+        "precision": 0.1,
+        "recall": 0.125,
+        "roc_auc": 0.763276980874317,
+        "threshold": 0.8807762824710076,
+        "true_negative": 949,
+        "true_positive": 3
+      },
+      "validation_pr_auc": 0.08057109937355714,
+      "winner": "logistic_regression"
+    }
+  ],
+  "leakage_controls": {
+    "development_months": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "fixed_random_seed": 42,
+    "imbalance_control": "class_weight applied by estimators during training only",
+    "preprocessing_fit_scope": "sklearn Pipeline fitted on training rows only",
+    "protected_features_excluded_from_models": [
+      "customer_age",
+      "income",
+      "employment_status"
+    ],
+    "target_excluded_from_features": true,
+    "temporal_partitions_disjoint": true,
+    "test_data_used_for_selection": false,
+    "test_months": [
+      6,
+      7
+    ],
+    "time_column_excluded_from_features": true
+  },
+  "notice": "Educational decision-support prototype trained on synthetic BAF data. It must not approve, reject, or block a real bank application.",
+  "production_artifact": "artifacts/demo/production_model.joblib",
+  "selection_rule": "Best validation PR-AUC per dataset; production model is Base champion.",
+  "test_data_not_used_for_selection": true
+}

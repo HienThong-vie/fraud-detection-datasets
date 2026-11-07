@@ -1,0 +1,42 @@
+{
+  "age_fairness_groups": {
+    "older": "customer_age >= 50",
+    "younger": "customer_age < 50"
+  },
+  "development_months": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "fixed_random_seed": 42,
+  "imbalance_control": "class_weight applied by estimators during training only",
+  "missing_value_policy": {
+    "all_negative_values": [
+      "intended_balcon_amount"
+    ],
+    "exact_minus_one": [
+      "bank_months_count",
+      "current_address_months_count",
+      "device_distinct_emails_8w",
+      "prev_address_months_count",
+      "session_length_in_minutes"
+    ]
+  },
+  "preprocessing_fit_scope": "sklearn Pipeline fitted on training rows only",
+  "protected_features_excluded_from_models": [
+    "customer_age",
+    "income",
+    "employment_status"
+  ],
+  "target_excluded_from_features": true,
+  "temporal_partitions_disjoint": true,
+  "test_data_used_for_selection": false,
+  "test_months": [
+    6,
+    7
+  ],
+  "time_column_excluded_from_features": true
+}

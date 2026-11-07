@@ -1,0 +1,10 @@
+{
+  "baf": {
+    "repository": "ai4cyber-fraud",
+    "package": "ai4cyber",
+    "source_commit": "7919ca0e9f6a98e96a9e1d899ae017a784968916",
+    "input_format": "engineered model feature columns",
+    "source_url": "https://github.com/KennyDao1324/ai4cyber-fraud",
+    "kind": "synthetic"
+  }
+}

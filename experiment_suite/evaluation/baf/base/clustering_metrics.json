@@ -1,0 +1,49 @@
+{
+  "dataset": "Base",
+  "rows": 30000,
+  "best_k": 3,
+  "best_silhouette": 0.09919028858977685,
+  "candidates": [
+    {
+      "k": 2,
+      "silhouette": 0.09693046507250738
+    },
+    {
+      "k": 3,
+      "silhouette": 0.09919028858977685
+    },
+    {
+      "k": 4,
+      "silhouette": 0.08554250891065028
+    },
+    {
+      "k": 5,
+      "silhouette": 0.08136794445115182
+    },
+    {
+      "k": 6,
+      "silhouette": 0.08290237185074037
+    }
+  ],
+  "clusters": [
+    {
+      "cluster": 0,
+      "rows": 6694,
+      "fraud_count": 138,
+      "fraud_rate": 0.020615476546160742
+    },
+    {
+      "cluster": 1,
+      "rows": 12722,
+      "fraud_count": 90,
+      "fraud_rate": 0.007074359377456375
+    },
+    {
+      "cluster": 2,
+      "rows": 10584,
+      "fraud_count": 85,
+      "fraud_rate": 0.008030990173847317
+    }
+  ],
+  "interpretation_limit": "Clusters are exploratory patterns, not fraud labels and not used by the decision endpoint."
+}

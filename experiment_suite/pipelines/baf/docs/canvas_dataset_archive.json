@@ -1,0 +1,21 @@
+{
+  "recorded_date": "2026-10-29",
+  "task_reference_filename": "Basic_Datasets.zip",
+  "supplied_filename": "Assignment Datasets.zip",
+  "archive_identity": "Required Canvas Basic Dataset archive",
+  "source_record": "Team-supplied local copy downloaded with the filename Assignment Datasets.zip",
+  "size_bytes": 4754112,
+  "sha256": "c69ea56a433bcf7db86805b26b62450fad268f7ce36b7df7bfe0c29e3022a4a6",
+  "zip_integrity": "passed",
+  "archive_root": "Assignment Datasets/",
+  "dataset_groups": [
+    "misinformation",
+    "malware feature classification",
+    "spam email",
+    "software vulnerabilities",
+    "network intrusion"
+  ],
+  "contains_baf_data": false,
+  "used_for_model_training": false,
+  "repository_policy": "Record metadata only; keep the archive outside Git pending redistribution permission"
+}

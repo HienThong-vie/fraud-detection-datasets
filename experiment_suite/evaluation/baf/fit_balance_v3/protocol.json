@@ -1,0 +1,85 @@
+{
+  "dataset": "baf",
+  "experiment": "fit_balance_v3",
+  "training_device": "local Mac CPU",
+  "platform": "macOS-26.2-arm64-arm-64bit",
+  "threads_per_estimator": 4,
+  "supervised_only": true,
+  "smoke": false,
+  "seed": 42,
+  "budgets": [
+    0.005,
+    0.01,
+    0.05
+  ],
+  "default_budget": 0.01,
+  "stable_scoring": true,
+  "prediction_decimals": 12,
+  "forest_prediction_threads": 1,
+  "preparation": {
+    "dataset": "baf",
+    "feature_columns": [
+      "name_email_similarity",
+      "prev_address_months_count",
+      "current_address_months_count",
+      "days_since_request",
+      "intended_balcon_amount",
+      "payment_type",
+      "zip_count_4w",
+      "velocity_6h",
+      "velocity_24h",
+      "velocity_4w",
+      "bank_branch_count_8w",
+      "date_of_birth_distinct_emails_4w",
+      "credit_risk_score",
+      "email_is_free",
+      "housing_status",
+      "phone_home_valid",
+      "phone_mobile_valid",
+      "bank_months_count",
+      "has_other_cards",
+      "proposed_credit_limit",
+      "foreign_request",
+      "source",
+      "session_length_in_minutes",
+      "device_os",
+      "keep_alive_session",
+      "device_distinct_emails_8w"
+    ],
+    "old_training_cap": 250000,
+    "requested_training_cap": 500000,
+    "notes": [
+      "BAF train months 0-3, calibration month 4, selection month 5, test months 6-7. No finer timestamps available. This changes the training boundary from v1."
+    ],
+    "periods": {
+      "train": {
+        "rows": 500000,
+        "fraud": 4825,
+        "first": 0.0,
+        "last": 3.0
+      },
+      "test": {
+        "rows": 50000,
+        "fraud": 702,
+        "first": 6.0,
+        "last": 7.0
+      },
+      "calibration": {
+        "rows": 50000,
+        "fraud": 569,
+        "first": 4.0,
+        "last": 4.0
+      },
+      "selection": {
+        "rows": 50000,
+        "fraud": 591,
+        "first": 5.0,
+        "last": 5.0
+      }
+    },
+    "preparation": "Original raw split boundaries and test sampling seeds preserved except BAF calibration/train change; no test oversampling."
+  },
+  "data_sha256": "11748aad10eabb0973d5c4aba6b0964ab78624a9c6bed329ecba6cf829aed65d",
+  "selection_rule": "v2 weakest temporal-block utility minus 0.25 positive train/selection AP-above-random gap, 0.15 positive ROC-AUC gap and 0.10 validation block AP drop. Per-family and champion floors: at least 95% incumbent validation AP, 85% incumbent recall at 1% calibration budget, and utility no more than 0.03 below incumbent. Incumbents remain eligible. No test-based selection.",
+  "limitations": "Previously inspected test periods are exploratory, not a fresh final holdout. Validation FPR budgets are not guarantees on test or deployment. AP is average_precision_score, not trapezoidal integration. Historical label features, where used, require operational availability assumptions. Fit-gap diagnostics are warnings, not guarantees of no over/underfitting. AP-above-random rescales the random baseline but does not fully correct prevalence shift. Reused validation can itself be overfit; use a new future holdout for confirmation. Learning capacity is screened, not mathematically proven optimal."
+}

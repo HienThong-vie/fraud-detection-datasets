@@ -1,3 +1,60 @@
+# BAF: latest supervised experiment
+
+Latest: `feature_policy_v4`. Four supervised families; selected champion: **catboost**. Training ran locally on the Mac CPU. Selection uses chronological validation, not test scores.
+
+| Model | Test AP* | Recall* | Actual FPR* | Precision* | F1* | ROC-AUC* |
+|---|---:|---:|---:|---:|---:|---:|
+| logistic_regression | 0.1746 | 16.0% | 0.515% | 30.6% | 0.2097 | 0.8952 |
+| random_forest | 0.1534 | 12.0% | 0.507% | 25.1% | 0.1622 | 0.8816 |
+| extra_trees | 0.1525 | 10.1% | 0.347% | 29.3% | 0.1504 | 0.8744 |
+| catboost | 0.2127 | 21.8% | 0.619% | 33.4% | 0.2638 | 0.9066 |
+
+*Previously inspected test periods are exploratory, not a fresh holdout. The displayed operating point uses a 1% calibration FPR budget; future FPR can differ. Scores support review and do not establish fraud. No business deployment threshold has been approved.
+
+- [Model comparison](experiment_suite/evaluation/baf/feature_policy_v4/model_comparison.png)
+- [Precision–recall curves](experiment_suite/evaluation/baf/feature_policy_v4/precision_recall_curves.png)
+- [All metrics](experiment_suite/evaluation/baf/feature_policy_v4/model_comparison.csv)
+- [Protocol and results](experiment_suite/evaluation/baf/feature_policy_v4/report.json)
+- [Saved models and all graphs](experiment_suite/evaluation/baf/feature_policy_v4/)
+
+- [Threshold policies](experiment_suite/evaluation/baf/feature_policy_v4/threshold_policies.csv)
+- [Feature comparison](experiment_suite/evaluation/baf/feature_policy_v4/candidate_feature_comparison.png)
+- [Temporal checks](experiment_suite/evaluation/baf/feature_policy_v4/temporal_validation.png)
+- [Model card and limitations](experiment_suite/evaluation/baf/feature_policy_v4/MODEL_CARD.md)
+
+The dashboard offers 0.5%, 1%, 2%, 3% and 5% calibration FPR budgets, an approximate one-sided 95% calibration FPR bound, and review-capacity limits. These constraints apply to calibration data and do not guarantee future compliance.
+
+## Run in PyCharm
+
+Open this branch as a project, create a Python 3.12 virtual environment, then use the terminal:
+
+```bash
+python -m pip install -r experiment_suite/requirements.txt
+python experiment_suite/app.py
+```
+
+Open http://127.0.0.1:8050/. Stop another suite server first if the port is in use. Saved models work without raw data; inputs must contain the engineered columns shown by the dashboard.
+
+## Reproduce training
+
+Put downloaded source files in `experiment_suite/dataset/baf/`. Do not commit raw data. Run from `experiment_suite/`:
+
+```bash
+python -c "import sys; sys.path.insert(0, 'training_model'); from priority_data import prepare; prepare('baf')"
+```
+
+```bash
+python training_model/feature_policy_search.py --dataset baf
+```
+
+Completed experiment folders are preserved. A completed run may report already complete or reuse cached fits. For a genuinely new search, use a separate working copy and a new versioned experiment directory; do not overwrite the published evidence. Mac/Linux is required for the training locks (`fcntl`); dashboard inference does not need those locks.
+
+The full implementation lives in `experiment_suite/training_model/`; original project code and documentation remain below. Production baseline artifacts are retained separately.
+
+---
+
+## Earlier project documentation, sources and licences
+
 # BAF: four supervised-model comparison
 
 The latest experiment compares **logistic regression, random forest, extra trees, and CatBoost**. Each family has two regularized settings; validation selects its settings and threshold. The four-model winner is frozen before test evaluation. The run was performed locally on the Mac CPU.
