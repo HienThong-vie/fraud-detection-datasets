@@ -1,3 +1,3 @@
 # Preprocessing
 
-Run `python preprocess_data/run.py`. Unknown labels are excluded and labelled transactions are divided by blockchain time step.
+This folder contains the original preprocessing entrypoint. For the current training workflow, use the preparation command in the [project README](../README.md#training). Imputation, encoding and scaling are fitted on training data only.
