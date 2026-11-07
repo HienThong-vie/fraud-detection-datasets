@@ -1,7 +1,5 @@
 # Fraud Detection Handbook
 
-[Selected model and operating points](FINAL_MODEL.md) · [Conda workflow](experiment_suite/CONDA_GUIDE.md)
-
 A Python project for fraud-data analysis, supervised classification and exploratory clustering. It includes trained pipelines, a local dashboard, evaluation charts and reproducible training code.
 
 ## Features
@@ -15,16 +13,15 @@ A Python project for fraud-data analysis, supervised classification and explorat
 
 ```bash
 git clone --branch handbook --single-branch https://github.com/KennyDao1324/fraud-detection-datasets.git
-cd fraud-detection-datasets
-python3.12 -m venv .venv
-source .venv/bin/activate
-python -m pip install -r experiment_suite/requirements.txt
-python experiment_suite/app.py
+cd fraud-detection-datasets/experiment_suite
+conda env create -f environment.yml
+conda activate fraudsuite
+python app.py
 ```
 
 Open http://127.0.0.1:8050/. Saved models work without downloading the raw data. Use the example engineered record shown in the dashboard; raw transaction rows may require preprocessing.
 
-In PyCharm, open the project folder and select `.venv` as the Python interpreter. On Windows, activate the environment with `.venv\Scripts\Activate.ps1`. Training uses Mac/Linux file locks; inference does not require them.
+In PyCharm, open the project folder and select the `fraudsuite` conda environment as interpreter. Training uses Mac/Linux file locks; inference does not require them.
 
 ## Project structure
 
@@ -44,14 +41,14 @@ Small `__init__.py`, `.gitkeep` and launcher files support packaging or folder l
 
 ## Classification results
 
-Experiment: `priority_search_v2`. Selected model: **random_forest**. The table uses the 1% calibration-FPR operating point; actual later-period FPR can differ.
+Experiment: `priority_search_v2`. Selected model: **random_forest**. The table uses the 5% calibration-FPR headline operating point; actual later-period FPR can differ. 1% is secondary.
 
 | Model | PR-AUC | Recall | FPR | Precision | F1 | ROC-AUC |
 |---|---:|---:|---:|---:|---:|---:|
-| logistic_regression | 0.5628 | 74.3% | 0.959% | 41.2% | 0.5303 | 0.9002 |
-| random_forest | 0.7699 | 78.8% | 0.979% | 42.1% | 0.5490 | 0.9080 |
-| extra_trees | 0.7232 | 77.5% | 0.967% | 42.0% | 0.5447 | 0.9044 |
-| xgboost | 0.7465 | 78.1% | 0.888% | 44.3% | 0.5654 | 0.9035 |
+| logistic_regression | 0.5628 | 80.6% | 5.505% | 11.7% | 0.2041 | 0.9002 |
+| random_forest | 0.7699 | 80.6% | 3.671% | 16.6% | 0.2747 | 0.9080 |
+| extra_trees | 0.7232 | 80.1% | 4.803% | 13.1% | 0.2253 | 0.9044 |
+| xgboost | 0.7465 | 83.0% | 5.308% | 12.4% | 0.2157 | 0.9035 |
 
 [Model comparison](experiment_suite/evaluation/handbook/priority_search_v2/model_comparison.png) · [PR curves](experiment_suite/evaluation/handbook/priority_search_v2/precision_recall_curves.png) · [Metrics CSV](experiment_suite/evaluation/handbook/priority_search_v2/model_comparison.csv) · [Full results and protocol](experiment_suite/evaluation/handbook/priority_search_v2/report.json)
 
@@ -90,3 +87,7 @@ pipeline for the published output data. The separate raw-data repository does no
 licence file, so verify redistribution permission. Raw files are kept local and ignored by Git.
 
 Raw datasets and row-level prediction exports are not redistributed here. Code and dataset licences are separate; check the original source terms before reuse.
+
+Raw datasets and row-level prediction exports are not redistributed here. Code and dataset licences are separate; check the original source terms before reuse.
+
+[Selected-model identity and operating points](FINAL_MODEL.md) · [Conda workflow](experiment_suite/CONDA_GUIDE.md)
