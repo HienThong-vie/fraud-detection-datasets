@@ -1,0 +1,26 @@
+{
+  "repository": "ulb-creditcard-fraud-ml",
+  "selection": {
+    "model": "xgboost_regularized_d3",
+    "threshold": 0.969581663608551,
+    "selection_score": 0.7905517009513919,
+    "train_pr_auc": 0.9347190918162886,
+    "pr_auc_gap": 0.16553127070634377,
+    "pr_auc": 0.7691878211099449,
+    "roc_auc": 0.9807647647647647,
+    "precision": 1.0,
+    "recall": 0.6,
+    "f1": 0.7499999999999999,
+    "fpr": 0.0
+  },
+  "test": {
+    "pr_auc": 0.7983148692159837,
+    "roc_auc": 0.9774890734557494,
+    "precision": 0.9791666666666666,
+    "recall": 0.7121212121212122,
+    "f1": 0.8245614035087719,
+    "fpr": 2.002643489406016e-05
+  },
+  "limitations": "Existing test periods have previously been inspected; this is an exploratory comparison, not a new untouched holdout. Threshold calibration and model selection use separate stratified halves of validation. No production replacement or refit.",
+  "rule": "50% F1, 25% PR-AUC, 25% ROC-AUC geometric mean minus 0.1 times positive train/selection PR-AUC gap; threshold within 98% of calibration-best F1, prefer balanced precision/recall, calibration FPR <= 5%."
+}

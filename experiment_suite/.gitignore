@@ -1,0 +1,12 @@
+.venv/
+.cache/
+__pycache__/
+.pytest_cache/
+dataset/**/*
+!dataset/**/
+!dataset/**/README.md
+preprocessed_df/
+**/test_predictions.csv
+**/calibration_predictions.csv
+**/candidates/
+*.lock
