@@ -1,0 +1,47 @@
+{
+  "dataset": "banksim",
+  "experiment": "priority_search_v2",
+  "rows": 400000,
+  "columns": 8,
+  "csv_sha256": "cee12bd693e166fba5df3d333395ffbe8191106ccda9bc70abdd97fbc66703c3",
+  "csv_bytes": 20848097,
+  "dtypes": {
+    "step": "int64",
+    "amount": "float64",
+    "age": "string",
+    "gender": "string",
+    "category": "string",
+    "target": "int8",
+    "_event_time": "int64",
+    "_split": "str"
+  },
+  "frame_sha256": "685bc8d42c44ca3bbcb5c6eb96a5c44bc7cc70a82dd7e44d0bbe431c529e5248",
+  "feature_columns": [
+    "step",
+    "amount",
+    "age",
+    "gender",
+    "category"
+  ],
+  "checkpoint_sha256": "0c54a822f4272513b5570c581e136449bbf1f8a4013a2d9aed0735e51c15d56c",
+  "periods": {
+    "calibration": {
+      "rows": 19368,
+      "positives": 213
+    },
+    "selection": {
+      "rows": 30632,
+      "positives": 346
+    },
+    "test": {
+      "rows": 50000,
+      "positives": 540
+    },
+    "train": {
+      "rows": 300000,
+      "positives": 3897
+    }
+  },
+  "exact_round_trip_verified": true,
+  "float_format": "%.17g"
+}

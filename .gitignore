@@ -14,3 +14,14 @@ artifacts/*.joblib
 
 # Per-dataset local input links shared across branch switches
 .local_datasets/
+
+# Local data and generated environment files
+*.egg-info/
+.DS_Store
+__pycache__/
+*.py[cod]
+.conda-env/
+final_model_data/**/*.csv
+final_model_data/*_data.csv
+!final_model_data/**/dictionary.csv
+!final_model_data/*_dictionary.csv

@@ -1,0 +1,9 @@
+column,type,meaning,model_input
+step,int64,Prepared feature: step. See pipeline documentation for derivation.,yes
+amount,float64,Prepared feature: amount. See pipeline documentation for derivation.,yes
+age,string,Prepared feature: age. See pipeline documentation for derivation.,yes
+gender,string,Prepared feature: gender. See pipeline documentation for derivation.,yes
+category,string,Prepared feature: category. See pipeline documentation for derivation.,yes
+target,int8,"Binary target label, never a model input.",no
+_event_time,int64,"Original event-time ordering, excluded from model inputs.",no
+_split,str,Frozen train/calibration/selection/test partition.,no

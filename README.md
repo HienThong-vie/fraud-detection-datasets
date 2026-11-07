@@ -84,7 +84,6 @@ Completed experiment folders are preserved and may report already complete or re
 
 The CSV is not redistributed by this repository. Customer IDs, merchant IDs and constant ZIP fields are excluded from the baseline to reduce memorisation and useless features.
 
-Raw datasets and row-level prediction exports are not redistributed here. Code and dataset licences are separate; check the original source terms before reuse.
 
 Raw datasets and row-level prediction exports are not redistributed here. Code and dataset licences are separate; check the original source terms before reuse.
 
@@ -93,3 +92,7 @@ Raw datasets and row-level prediction exports are not redistributed here. Code a
 E. A. López-Rojas and S. Axelsson, “BankSim: A Bank Payment Simulation for Fraud Detection Research,” 2014.
 
 [Selected-model identity and operating points](FINAL_MODEL.md) · [Conda workflow](experiment_suite/CONDA_GUIDE.md)
+
+## Prepared data and reproducibility
+
+[CSV export, scoring, refitting and prediction commands](experiment_suite/CONDA_GUIDE.md). Each export has a data dictionary and checksum manifest. Refit outputs are separate from the selected checkpoint.

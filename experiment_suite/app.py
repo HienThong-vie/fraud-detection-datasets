@@ -11,6 +11,7 @@ from utils.experiments import fitting_ready, features_ready, test_shift_warning
 app=FastAPI(title='Fraud Detection Suite',version='1.0.0')
 
 class PredictionRequest(BaseModel):
+    """Body of POST /predict: records to score plus model version, FPR budget and optional policy settings."""
     records: list[dict] = Field(min_length=1,max_length=1000)
     variant: Literal['selected','production','balanced','supervised','priority','fitting','features'] = 'selected'
     fpr_budget: Literal[.005,.01,.02,.03,.05] = .05
@@ -19,18 +20,22 @@ class PredictionRequest(BaseModel):
 
 @app.get('/')
 def dashboard():
+    """Serve the single-page dashboard."""
     return FileResponse(ROOT/'dashboard/index.html')
 
 @app.get('/datasets')
 def list_datasets():
+    """List the datasets this branch can serve."""
     return datasets()
 
 def valid(dataset):
+    """Reject unknown dataset names with HTTP 404."""
     if dataset not in datasets():
         raise HTTPException(404,'Unknown dataset')
 
 @app.get('/datasets/{dataset}')
 def detail(dataset: str):
+    """Collect metrics, experiment reports, clustering and chart paths of one dataset for the dashboard."""
     valid(dataset)
     output=ROOT/'evaluation'/dataset
     result=dict(id=dataset,**datasets()[dataset])
@@ -79,6 +84,7 @@ def detail(dataset: str):
 @app.get('/datasets/{dataset}/schema')
 def schema(dataset: str,variant: Literal['selected','production','balanced','supervised','priority','fitting','features']='selected',
            fpr_budget: float=.05, threshold_policy: Literal['point','ucb95']='point', review_capacity: float | None=None):
+    """Describe the model inputs, threshold and example record for a model version and FPR budget."""
     valid(dataset)
     selected_features=variant=='selected' and json.loads((ROOT/'configs/final_models.json').read_text())['datasets'][dataset]['experiment']=='feature_policy_v4'
     if fpr_budget not in ((.005,.01,.02,.03,.05) if variant == 'features' or selected_features else (.005,.01,.05)):
@@ -95,6 +101,7 @@ def schema(dataset: str,variant: Literal['selected','production','balanced','sup
 
 @app.post('/predict/{dataset}')
 def prediction(dataset: str,request: PredictionRequest):
+    """Score one or more records; the response states that scores support analyst review only."""
     valid(dataset)
     try:
         return {'predictions':predict(dataset,request.records,request.variant,request.fpr_budget,request.threshold_policy,request.review_capacity),'notice':'Model scores are review signals; analyst review is required. Calibration FPR/confidence and review-capacity limits do not guarantee future-period compliance.'}
@@ -103,6 +110,7 @@ def prediction(dataset: str,request: PredictionRequest):
 
 @app.get('/evaluation/{dataset}/{filename:path}')
 def evaluation_file(dataset: str,filename: str):
+    """Serve one saved chart, table or report file from the evaluation folder."""
     valid(dataset)
     base=(ROOT/'evaluation'/dataset).resolve()
     path=(base/filename).resolve()
