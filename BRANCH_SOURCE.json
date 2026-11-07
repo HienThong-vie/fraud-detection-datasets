@@ -3,5 +3,7 @@
   "source_repository": "elliptic-bitcoin-aml-ml",
   "source_commit": "681380350418f57f39ff45e1875d66b4c0f2ec44",
   "source_branch": "boosted-model-comparison",
-  "balanced_experiment": "Exploratory; production model is unchanged. See outputs/balanced_experiment/report.json."
+  "balanced_experiment": "Exploratory; production model is unchanged. See outputs/balanced_experiment/report.json.",
+  "latest_experiment": "outputs/supervised_search_v1/report.json",
+  "active_training_entrypoint": "training_model/train.py"
 }

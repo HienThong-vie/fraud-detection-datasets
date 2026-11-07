@@ -14,3 +14,6 @@ checkpoint/*.joblib
 artifacts/*.joblib
 examples/sample_transaction.json
 outputs/test_predictions.csv
+
+# Per-dataset local input links shared across branch switches
+.local_datasets/
