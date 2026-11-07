@@ -1,7 +1,5 @@
 # ULB Credit-Card Fraud Detection
 
-[Selected model and operating points](FINAL_MODEL.md) · [Conda workflow](experiment_suite/CONDA_GUIDE.md)
-
 A Python project for fraud-data analysis, supervised classification and exploratory clustering. It includes trained pipelines, a local dashboard, evaluation charts and reproducible training code.
 
 ## Features
@@ -15,16 +13,15 @@ A Python project for fraud-data analysis, supervised classification and explorat
 
 ```bash
 git clone --branch ulb --single-branch https://github.com/KennyDao1324/fraud-detection-datasets.git
-cd fraud-detection-datasets
-python3.12 -m venv .venv
-source .venv/bin/activate
-python -m pip install -r experiment_suite/requirements.txt
-python experiment_suite/app.py
+cd fraud-detection-datasets/experiment_suite
+conda env create -f environment.yml
+conda activate fraudsuite
+python app.py
 ```
 
 Open http://127.0.0.1:8050/. Saved models work without downloading the raw data. Use the example engineered record shown in the dashboard; raw transaction rows may require preprocessing.
 
-In PyCharm, open the project folder and select `.venv` as the Python interpreter. On Windows, activate the environment with `.venv\Scripts\Activate.ps1`. Training uses Mac/Linux file locks; inference does not require them.
+In PyCharm, open the project folder and select the `fraudsuite` conda environment as interpreter. Training uses Mac/Linux file locks; inference does not require them.
 
 ## Project structure
 
@@ -44,14 +41,14 @@ Small `__init__.py`, `.gitkeep` and launcher files support packaging or folder l
 
 ## Classification results
 
-Experiment: `fit_balance_v3`. Selected model: **xgboost**. The table uses the 1% calibration-FPR operating point; actual later-period FPR can differ.
+Experiment: `fit_balance_v3`. Selected model: **xgboost**. The table uses the 5% calibration-FPR headline operating point; actual later-period FPR can differ. 1% is secondary.
 
 | Model | PR-AUC | Recall | FPR | Precision | F1 | ROC-AUC |
 |---|---:|---:|---:|---:|---:|---:|
-| logistic_regression | 0.7579 | 86.4% | 0.713% | 13.8% | 0.2380 | 0.9842 |
-| random_forest | 0.7747 | 86.4% | 0.861% | 11.7% | 0.2061 | 0.9795 |
-| extra_trees | 0.7871 | 87.9% | 0.737% | 13.6% | 0.2358 | 0.9856 |
-| xgboost | 0.7644 | 84.8% | 0.845% | 11.7% | 0.2059 | 0.9796 |
+| logistic_regression | 0.7579 | 90.9% | 3.607% | 3.2% | 0.0623 | 0.9842 |
+| random_forest | 0.7747 | 89.4% | 4.123% | 2.8% | 0.0540 | 0.9795 |
+| extra_trees | 0.7871 | 90.9% | 4.530% | 2.6% | 0.0503 | 0.9856 |
+| xgboost | 0.7644 | 89.4% | 4.127% | 2.8% | 0.0540 | 0.9796 |
 
 [Model comparison](experiment_suite/evaluation/ulb/fit_balance_v3/model_comparison.png) · [PR curves](experiment_suite/evaluation/ulb/fit_balance_v3/precision_recall_curves.png) · [Metrics CSV](experiment_suite/evaluation/ulb/fit_balance_v3/model_comparison.csv) · [Full results and protocol](experiment_suite/evaluation/ulb/fit_balance_v3/report.json)
 
@@ -89,6 +86,10 @@ The anonymization prevents business-level interpretation of the PCA components. 
 
 Raw datasets and row-level prediction exports are not redistributed here. Code and dataset licences are separate; check the original source terms before reuse.
 
+Raw datasets and row-level prediction exports are not redistributed here. Code and dataset licences are separate; check the original source terms before reuse.
+
 ## Citation
 
 Dal Pozzolo, A. et al., “Calibrating Probability with Undersampling for Unbalanced Classification,” IEEE SSCI, 2015.
+
+[Selected-model identity and operating points](FINAL_MODEL.md) · [Conda workflow](experiment_suite/CONDA_GUIDE.md)
