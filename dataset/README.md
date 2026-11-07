@@ -1,6 +1,3 @@
 # Dataset
 
-The five `.csv` links expose the supplied IEEE-CIS transaction, identity, and sample-submission files
-directly in this folder. They resolve to `data/raw` without duplicating the 1.3 GB dataset. Raw data remains
-outside Git.
-
+Dataset sources and licence details are listed in the [project README](../README.md#dataset-and-licence). Current training reads raw files from `experiment_suite/dataset/ieee/`. Raw files remain local and are excluded from Git. Existing links in this folder support the original workflow.

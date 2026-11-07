@@ -1,5 +1,3 @@
-# Preprocessed dataframes
+# Prepared data
 
-`ieee_model_data.csv.gz` contains the sampled, merged, and train-ready transaction rows with a `_split`
-column. The large generated table is excluded from Git; `manifest.json` records its row counts and size.
-
+Prepared tables are generated locally. The current workflow stores versioned tables under `experiment_suite/preprocessed_df/ieee/`. Do not commit raw or prepared records. See the [training guide](../README.md#training).

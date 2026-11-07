@@ -1,7 +1,3 @@
-# Checkpoint
+# Checkpoints
 
-This folder exposes the trained IEEE-CIS production model and model card. The links point to the existing
-`artifacts/` files to avoid duplicate checkpoint copies.
-
-Run `python training_model/train.py` to refresh the checkpoint.
-
+Original production-model files are retained here for reference. Current experiment pipelines are in [`experiment_suite/evaluation/ieee/`](../experiment_suite/evaluation/ieee/). Running the new experiments does not replace production checkpoints.

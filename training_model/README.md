@@ -1,5 +1,3 @@
-# Training model
+# Training
 
-Run `python training_model/train.py` from the project root. The checkpoint is written to `checkpoint/`
-and metrics plus `test_predictions.csv` are written through `evaluation/results/`.
-
+Run `python training_model/train.py` for classification or `python training_model/cluster.py` for exploratory K-means. Both launch the implementation in `experiment_suite/training_model/`. Completed outputs are preserved. See the [project README](../README.md#training) for raw-data preparation.
