@@ -15,7 +15,7 @@ from sklearn.cluster import MiniBatchKMeans
 from sklearn.compose import ColumnTransformer
 from sklearn.decomposition import TruncatedSVD
 from sklearn.impute import SimpleImputer
-from sklearn.metrics import adjusted_rand_score, silhouette_score
+from sklearn.metrics import adjusted_rand_score, silhouette_score, davies_bouldin_score
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from threadpoolctl import threadpool_limits
@@ -75,7 +75,7 @@ def choose_candidate(rows):
     return max(pool, key=lambda r: (r['silhouette'], -r['k'])), fallback
 
 
-def fit_search(x, maximum=80000, probe_rows=2000):
+def fit_search(x, maximum=80000, probe_rows=2000, k_values=range(2, 9), return_candidates=False):
     rng = np.random.default_rng(42)
     indices = np.sort(rng.choice(len(x), min(len(x), maximum), replace=False))
     fit = x.iloc[indices]
@@ -90,7 +90,7 @@ def fit_search(x, maximum=80000, probe_rows=2000):
     z = np.asarray(z, dtype=np.float32)
     probe = np.sort(rng.choice(len(z), min(probe_rows, len(z)), replace=False))
     results, models = [], {}
-    for k in range(2, 9):
+    for k in k_values:
         seed_labels = []
         reference = None
         for seed in (42, 52, 62):
@@ -109,6 +109,8 @@ def fit_search(x, maximum=80000, probe_rows=2000):
         row = dict(k=k, silhouette=silhouette, min_cluster_share=float(counts.min() / counts.sum()),
                    stability_ari_mean=float(np.mean(stability)), stability_ari_min=min(stability),
                    inertia_per_row=float(-reference.score(z) / len(z)), cluster_sizes=counts.tolist())
+        row['inertia'] = row['inertia_per_row'] * len(z)
+        row['davies_bouldin'] = float(davies_bouldin_score(z[probe], seed_labels[0])) if silhouette is not None else None
         results.append(row)
         models[k] = reference
         print('K', k, 'silhouette', silhouette, 'stability', row['stability_ari_mean'], flush=True)
@@ -118,11 +120,14 @@ def fit_search(x, maximum=80000, probe_rows=2000):
         steps.append(('svd', reduction))
     steps.append(('representation', ClusterRepresentation()))
     steps.append(('kmeans', models[selected['k']]))
-    return Pipeline(steps), results, selected, dict(training_fit_rows=len(fit),
+    result = Pipeline(steps), results, selected, dict(training_fit_rows=len(fit),
         training_fit_index_sha256=hashlib.sha256(indices.tobytes()).hexdigest(),
         silhouette_sample_rows=len(probe), encoded_features=encoded.shape[1], representation_features=z.shape[1],
         svd_explained_variance=float(reduction.explained_variance_ratio_.sum()) if reduction is not None else None,
         quality_constraints_relaxed=fallback)
+    if return_candidates:
+        return (*result, {k: Pipeline(steps[:-1] + [('kmeans', model)]) for k, model in models.items()})
+    return result
 
 
 def wilson_interval(positive, total):
