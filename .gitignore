@@ -11,3 +11,6 @@ data/raw/*
 !data/raw/.gitkeep
 preprocessed_df/*.csv.gz
 artifacts/*.joblib
+
+# Per-dataset local input links shared across branch switches
+.local_datasets/
