@@ -1,3 +1,3 @@
-# Preprocessed data
+# Prepared data
 
-`model_data.csv.gz` is generated locally and contains engineered features plus reproducible split labels.
+Prepared tables are generated locally. The current workflow stores versioned tables under `experiment_suite/preprocessed_df/ulb/`. Do not commit raw or prepared records. See the [training guide](../README.md#training).

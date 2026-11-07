@@ -1,3 +1,3 @@
 # Utilities
 
-Shared reusable logic lives under `src/fraudbench/`; this folder is reserved for team helper scripts.
+Helpers for the original dataset workflow. Current prediction workers and experiment checks are in [`experiment_suite/utils/`](../experiment_suite/utils/).
