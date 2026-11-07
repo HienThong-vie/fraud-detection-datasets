@@ -1,0 +1,31 @@
+{
+  "selected": {
+    "k": 8,
+    "silhouette": 0.4462544023990631,
+    "min_cluster_share": 0.0191875,
+    "stability_ari_mean": 0.8635766194014044,
+    "stability_ari_min": 0.8015001083587167,
+    "inertia_per_row": 0.539748828125,
+    "cluster_sizes": [
+      8505,
+      14953,
+      1535,
+      14406,
+      10366,
+      13852,
+      12909,
+      3474
+    ]
+  },
+  "fit_info": {
+    "training_fit_rows": 80000,
+    "training_fit_index_sha256": "41d115aa568e8f75bfe82ee3c33b67e56f694b1f904efa6c267b773de6ffde04",
+    "silhouette_sample_rows": 2000,
+    "encoded_features": 7,
+    "representation_features": 7,
+    "svd_explained_variance": null,
+    "quality_constraints_relaxed": false
+  },
+  "labels_used": false,
+  "test_used": false
+}
