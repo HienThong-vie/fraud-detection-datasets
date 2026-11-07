@@ -1,0 +1,55 @@
+{
+  "selection": "Existing chronological-validation winners only; no test-based re-selection.",
+  "headline_budget": 0.05,
+  "secondary_budget": 0.01,
+  "policy": "point",
+  "review_capacity": null,
+  "test_interpretation": "Previously inspected test periods; exploratory, not fresh holdouts.",
+  "datasets": {
+    "ulb": {
+      "model": "xgboost",
+      "experiment": "fit_balance_v3",
+      "variant": "d3_child60_earlystop",
+      "checkpoint": "evaluation/ulb/fit_balance_v3/champion.joblib",
+      "checkpoint_sha256": "21fc9d21f97716aa24f0c294e86f2f6242e52e29701dcd7f4052d7d011dd29f0",
+      "operating_points": {
+        "0.05": {
+          "threshold": 0.39890104532200005,
+          "test_metrics": {
+            "precision": 0.027830188679245284,
+            "recall": 0.8939393939393939,
+            "f1": 0.053979871912168347,
+            "pr_auc": 0.7643761153367826,
+            "roc_auc": 0.9796411566297817,
+            "fpr": 0.041274482316657986,
+            "accuracy": 0.95864,
+            "tn": 47873,
+            "fp": 2061,
+            "fn": 7,
+            "tp": 59
+          }
+        },
+        "0.01": {
+          "threshold": 0.49489331245400003,
+          "test_metrics": {
+            "precision": 0.11715481171548117,
+            "recall": 0.8484848484848485,
+            "f1": 0.2058823529411765,
+            "pr_auc": 0.7643761153367826,
+            "roc_auc": 0.9796411566297817,
+            "fpr": 0.008451155525293387,
+            "accuracy": 0.99136,
+            "tn": 49512,
+            "fp": 422,
+            "fn": 10,
+            "tp": 56
+          }
+        }
+      },
+      "validation_ap": 0.7628978105469034,
+      "selection_score": 0.7862911839507511,
+      "score_name": "fit_balance_score",
+      "offline_only": false
+    }
+  }
+}

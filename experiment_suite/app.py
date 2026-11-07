@@ -12,8 +12,8 @@ app=FastAPI(title='Fraud Detection Suite',version='1.0.0')
 
 class PredictionRequest(BaseModel):
     records: list[dict] = Field(min_length=1,max_length=1000)
-    variant: Literal['production','balanced','supervised','priority','fitting','features'] = 'production'
-    fpr_budget: Literal[.005,.01,.02,.03,.05] = .01
+    variant: Literal['selected','production','balanced','supervised','priority','fitting','features'] = 'selected'
+    fpr_budget: Literal[.005,.01,.02,.03,.05] = .05
     threshold_policy: Literal['point','ucb95'] = 'point'
     review_capacity: Literal[.005,.01,.02,.05] | None = None
 
@@ -34,6 +34,8 @@ def detail(dataset: str):
     valid(dataset)
     output=ROOT/'evaluation'/dataset
     result=dict(id=dataset,**datasets()[dataset])
+    frozen=ROOT/'configs/final_models.json'
+    result['selected']=json.loads(frozen.read_text())['datasets'][dataset] if frozen.exists() else None
     result['metrics']=json.loads((output/('base/metrics.json' if dataset=='baf' else 'metrics.json')).read_text())
     result['balanced']=json.loads((output/'balanced_experiment/report.json').read_text())
     result['example']=json.loads((ROOT/'examples'/f'{dataset}.json').read_text())
@@ -49,11 +51,14 @@ def detail(dataset: str):
             row['test_shift_warning']=test_shift_warning(row)
     upgraded=output/'feature_policy_v4/report.json'
     result['features']=json.loads(upgraded.read_text()) if features_ready(dataset) else None
-    clustering=output/'clustering_v1/report.json'
-    cluster_verification=output/'clustering_v1/verification.json'
+    cluster_version='clustering_extended_v2' if (output/'clustering_extended_v2/verification.json').exists() else 'clustering_v1'
+    clustering=output/cluster_version/'report.json'
+    cluster_verification=output/cluster_version/'verification.json'
     result['clustering']=(json.loads(clustering.read_text())
                           if clustering.exists() and cluster_verification.exists()
                           and json.loads(cluster_verification.read_text()).get('status')=='passed' else None)
+    if result['clustering']:
+        result['clustering']['output_folder']=cluster_version
     if result['features']:
         for row in result['features']['models']:
             row['test_shift_warning']=test_shift_warning(row)
@@ -72,14 +77,15 @@ def detail(dataset: str):
     return result
 
 @app.get('/datasets/{dataset}/schema')
-def schema(dataset: str,variant: Literal['production','balanced','supervised','priority','fitting','features']='production',
-           fpr_budget: float=.01, threshold_policy: Literal['point','ucb95']='point', review_capacity: float | None=None):
+def schema(dataset: str,variant: Literal['selected','production','balanced','supervised','priority','fitting','features']='selected',
+           fpr_budget: float=.05, threshold_policy: Literal['point','ucb95']='point', review_capacity: float | None=None):
     valid(dataset)
-    if fpr_budget not in ((.005,.01,.02,.03,.05) if variant == 'features' else (.005,.01,.05)):
+    selected_features=variant=='selected' and json.loads((ROOT/'configs/final_models.json').read_text())['datasets'][dataset]['experiment']=='feature_policy_v4'
+    if fpr_budget not in ((.005,.01,.02,.03,.05) if variant == 'features' or selected_features else (.005,.01,.05)):
         raise HTTPException(422,'Unsupported FPR budget for this variant')
     if review_capacity not in (None,.005,.01,.02,.05):
         raise HTTPException(422,'Unsupported review-capacity scenario')
-    if variant != 'features' and (threshold_policy != 'point' or review_capacity is not None):
+    if variant != 'features' and not selected_features and (threshold_policy != 'point' or review_capacity is not None):
         raise HTTPException(422,'Policy scenarios require the features variant')
     try:
         return json.loads(execute(dataset,[str(ROOT/'utils/worker.py'),dataset,variant,str(fpr_budget),
