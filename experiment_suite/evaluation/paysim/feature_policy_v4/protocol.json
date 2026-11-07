@@ -1,0 +1,136 @@
+{
+  "dataset": "paysim",
+  "experiment": "feature_policy_v4",
+  "training_device": "local Mac CPU",
+  "platform": "macOS-26.2-arm64-arm-64bit",
+  "threads_per_estimator": 4,
+  "seed": 42,
+  "smoke": false,
+  "supervised_only": true,
+  "preparation": {
+    "dataset": "paysim",
+    "feature_columns": [
+      "step",
+      "type",
+      "amount",
+      "hour",
+      "day",
+      "sender_prior_gap",
+      "sender_count_24",
+      "sender_mean_amount_24",
+      "sender_count_168",
+      "sender_mean_amount_168",
+      "sender_amount_to_mean_24",
+      "sender_amount_to_mean_168",
+      "recipient_prior_gap",
+      "recipient_count_24",
+      "recipient_mean_amount_24",
+      "recipient_count_168",
+      "recipient_mean_amount_168",
+      "recipient_amount_to_mean_24",
+      "recipient_amount_to_mean_168",
+      "amount_log1p"
+    ],
+    "notes": [
+      "All fraud cases from the original training period retained; only training negatives are sampled. Inverse inclusion weights restore the original training class distribution for population-weighted fits/diagnostics. Calibration, selection, test and forward-evaluation rows remain natural-prevalence samples. No balance columns or isFlaggedFraud used. Sender/recipient 24h/168h history uses only earlier step buckets; requires an online raw-event history, never outcome feedback."
+    ],
+    "sampling": {
+      "available_training_rows": 6010937,
+      "available_training_fraud": 5007,
+      "retained_training_rows": 300000,
+      "retained_training_fraud": 5007,
+      "negative_inclusion_probability": 0.04911695607507913,
+      "positive_inclusion_probability": 1.0,
+      "negative_inverse_probability_weight": 20.35956785415247
+    },
+    "old_preparation": {
+      "dataset": "paysim",
+      "feature_columns": [
+        "step",
+        "type",
+        "amount",
+        "hour",
+        "day"
+      ],
+      "old_training_cap": 150000,
+      "requested_training_cap": 300000,
+      "notes": [
+        "PaySim retains pre-transaction features only; post-transaction balances and isFlaggedFraud excluded."
+      ],
+      "periods": {
+        "train": {
+          "rows": 300000,
+          "fraud": 250,
+          "first": 1.0,
+          "last": 445.0
+        },
+        "test": {
+          "rows": 50000,
+          "fraud": 669,
+          "first": 595.0,
+          "last": 743.0
+        },
+        "calibration": {
+          "rows": 11923,
+          "fraud": 125,
+          "first": 446.0,
+          "last": 505.0
+        },
+        "selection": {
+          "rows": 38077,
+          "fraud": 215,
+          "first": 506.0,
+          "last": 594.0
+        }
+      },
+      "preparation": "Original raw split boundaries and test sampling seeds preserved except BAF calibration/train change; no test oversampling."
+    },
+    "data_sha256": "3c60fd4d19c67c431a2b754efe14a2f0bb21890dc148e5da29a592b4035685db",
+    "natural_train_sha256": "101bfd8d10d76bde8d534cc231279dbece6949f1767e95b54c4df8faca99ce7e",
+    "frozen_evaluation_rows": true,
+    "periods": {
+      "train": {
+        "rows": 300000,
+        "fraud": 5007,
+        "first": 1.0,
+        "last": 445.0
+      },
+      "test": {
+        "rows": 50000,
+        "fraud": 669,
+        "first": 595.0,
+        "last": 743.0
+      },
+      "calibration": {
+        "rows": 11923,
+        "fraud": 125,
+        "first": 446.0,
+        "last": 505.0
+      },
+      "selection": {
+        "rows": 38077,
+        "fraud": 215,
+        "first": 506.0,
+        "last": 594.0
+      }
+    }
+  },
+  "budgets": [
+    0.005,
+    0.01,
+    0.02,
+    0.03,
+    0.05
+  ],
+  "default_budget": 0.01,
+  "data_sha256": "3c60fd4d19c67c431a2b754efe14a2f0bb21890dc148e5da29a592b4035685db",
+  "selection_rule": "Reassess v3 incumbents and new feature candidates on identical calibration/selection rows. Maximize weakest chronological selection-block utility (65% AP + 35% mean recall at five FPR budgets minus FPR-excess penalty), minus 0.15 positive training/validation AP-above-random gap and 0.10 ROC-AUC gap. New candidates must retain >=95% incumbent validation AP, >=85% recall at 1% budget, and utility within 0.03. No test selection. Two forward training-period refits per selected family are diagnostic, not a fresh outer holdout or a champion selection criterion.",
+  "limitations": "Previously viewed test periods and reused validation are exploratory. No guarantee of optimal fitting, future FPR, precision or review capacity. Wilson bounds are approximate one-sided calibration diagnostics, not future-period guarantees under drift or dependence. No deployment threshold is recommended without business constraints. PaySim training metrics are inverse-inclusion-weighted; unweighted enriched-training prevalence differs. Supplied anonymous feature availability cannot all be independently verified.",
+  "prediction_decimals": 12,
+  "protected_datasets": [
+    "banksim",
+    "handbook",
+    "sparkov",
+    "ulb"
+  ]
+}

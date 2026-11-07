@@ -1,0 +1,26 @@
+{
+  "repository": "paysim-fraud-ml",
+  "selection": {
+    "model": "xgboost_regularized_d3",
+    "threshold": 0.9879534244537354,
+    "selection_score": 0.45334856286883596,
+    "train_pr_auc": 0.331965482339757,
+    "pr_auc_gap": 0.020994764705551228,
+    "pr_auc": 0.31097071763420575,
+    "roc_auc": 0.9269223662078605,
+    "precision": 0.5425531914893617,
+    "recall": 0.3,
+    "f1": 0.3863636363636364,
+    "fpr": 0.0017317760773258156
+  },
+  "test": {
+    "pr_auc": 0.3685386145202509,
+    "roc_auc": 0.9060122647298886,
+    "precision": 0.5945121951219512,
+    "recall": 0.2914798206278027,
+    "f1": 0.3911735205616851,
+    "fpr": 0.0026960734629340576
+  },
+  "limitations": "Existing test periods have previously been inspected; this is an exploratory comparison, not a new untouched holdout. Threshold calibration and model selection use separate stratified halves of validation. No production replacement or refit.",
+  "rule": "50% F1, 25% PR-AUC, 25% ROC-AUC geometric mean minus 0.1 times positive train/selection PR-AUC gap; threshold within 98% of calibration-best F1, prefer balanced precision/recall, calibration FPR <= 5%."
+}

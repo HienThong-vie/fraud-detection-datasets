@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Fraud Detection Suite</title>
+<style>
+body{font:16px system-ui;background:#f3f6fa;color:#18263c;margin:0}main{max-width:1150px;margin:auto;padding:35px}header{display:flex;justify-content:space-between;align-items:center;gap:20px}h1{margin:0;font-size:30px}p{line-height:1.6;color:#526079}select,button,textarea{font:inherit;padding:12px;border:1px solid #c8d1df;border-radius:8px}button{background:#2159be;color:white;cursor:pointer}section{background:white;border:1px solid #dce3ed;border-radius:12px;padding:24px;margin-top:22px}textarea{box-sizing:border-box;width:100%;height:230px;font:13px monospace}table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:10px;border-bottom:1px solid #e5e9ef}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#edf2f9;padding:16px;border-radius:8px}#charts{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}img{width:100%;border:1px solid #dce3ed}a{color:#2159be}.tag{font-size:13px;color:#526079}#error{color:#a11b31}
+</style></head><body><main><header><div><h1>Fraud Detection Suite</h1><p>Eight datasets. One workspace for models, evidence and review.</p></div><a href="/docs">API documentation ↗</a></header>
+<section><label for="dataset">Dataset </label><select id="dataset"></select><p id="about"></p><div id="error" role="alert"></div><div id="metrics"></div><p class="tag">The AP / recall / FPR experiment uses chronological validation. Older experiments have different protocols. Previously inspected test periods provide exploratory comparisons.</p></section>
+<section><h2>Score a case</h2><p>Paste an engineered feature record, or an array of records. The example has exactly the model inputs. Raw transaction formats differ; use each pipeline's preprocessing before prediction.</p><label for="variant">Model </label><select id="variant"><option value="production">Current production</option><option value="balanced">Balanced experiment</option></select><p id="features"></p><textarea id="record" aria-label="Case JSON"></textarea><p><button id="score">Run prediction</button></p><pre id="answer">Choose a dataset and score its example.</pre><p class="tag">A score supports review and does not establish fraud. Experimental models require review before adoption.</p></section>
+<section><h2>Evaluation files</h2><p id="files"></p><div id="charts"></div></section></main>
+<script>
+const $=id=>document.getElementById(id);let current;
+async function get(url,options){if(options?.method==='POST'&&url.startsWith('/predict/')){const payload=JSON.parse(options.body);payload.threshold_policy=payload.variant==='features'?$('policy').value:'point';payload.review_capacity=payload.variant==='features'&&$('capacity').value!=='none'?Number($('capacity').value):null;options={...options,body:JSON.stringify(payload)};}const r=await fetch(url,options);if(!r.ok)throw Error(await r.text());return r.json()}
+function metricsRow(name,m){const tr=document.createElement('tr');[name,...['pr_auc','roc_auc','precision','recall','f1','fpr'].map(k=>Number(m[k]??m.false_positive_rate??0).toFixed(4))].forEach(v=>{const td=document.createElement('td');td.textContent=v;tr.appendChild(td)});return tr}
+async function load(){try{$('error').textContent='';const id=$('dataset').value;current=await get('/datasets/'+id);$('about').textContent=current.repository+' · '+current.kind;const table=document.createElement('table');table.innerHTML='<thead><tr><th>Test evaluation</th><th>PR-AUC</th><th>ROC-AUC</th><th>Precision</th><th>Recall</th><th>F1</th><th>FPR</th></tr></thead>';const old=Array.isArray(current.metrics)?current.metrics.find(x=>x.model==='catboost')?.test:current.metrics.test??current.metrics.test_metrics; if(old)table.appendChild(metricsRow('Current',old));table.appendChild(metricsRow('Balanced experiment',current.balanced.test));$('metrics').replaceChildren(table);$('record').value=JSON.stringify(current.example,null,2);$('files').replaceChildren();for(const f of ['model_comparison.csv','balanced_experiment/comparison.csv','balanced_experiment/report.json']){const a=document.createElement('a');a.href='/evaluation/'+id+'/'+(id==='baf'&&f==='model_comparison.csv'?'base/'+f:f);a.textContent=f+' ↗ ';$('files').appendChild(a)}$('charts').replaceChildren();for(const f of current.charts.slice(0,8)){const a=document.createElement('a');a.href='/evaluation/'+id+'/'+f;const img=document.createElement('img');img.loading='lazy';img.src=a.href;img.alt=f;a.appendChild(img);$('charts').appendChild(a)}await schema()}catch(e){$('error').textContent=e.message}}
+async function schema(){try{const s=await get('/datasets/'+$('dataset').value+'/schema?variant='+$('variant').value);$('features').textContent=s.model+' · '+s.features.length+' features · threshold '+s.threshold.toFixed(6)}catch(e){$('error').textContent=e.message}}
+$('dataset').onchange=load;$('variant').onchange=schema;$('score').onclick=async()=>{try{$('score').disabled=true;$('answer').textContent='Scoring…';const v=JSON.parse($('record').value);const r=await get('/predict/'+$('dataset').value,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({variant:$('variant').value,fpr_budget:Number($('budget')?.value??.01),records:Array.isArray(v)?v:[v]})});$('answer').textContent=JSON.stringify(r,null,2)}catch(e){$('answer').textContent=e.message}finally{$('score').disabled=false}};
+get('/datasets').then(d=>{for(const id of Object.keys(d)){const o=document.createElement('option');o.value=id;o.textContent=id.toUpperCase()+' — '+d[id].repository;$('dataset').appendChild(o)}load()}).catch(e=>$('error').textContent=e.message);
+</script>
+<script>
+const previousLoad=load;
+load=async function(){
+  await previousLoad();
+  const option=$('variant').querySelector('option[value="supervised"]');
+  if(!current?.supervised){if(option)option.remove();return;}
+  if(!option){const o=document.createElement('option');o.value='supervised';o.textContent='Four supervised models — selected champion';$('variant').appendChild(o);}
+  const table=document.createElement('table');
+  table.innerHTML='<thead><tr><th>Four-model test comparison</th><th>PR-AUC</th><th>ROC-AUC</th><th>Precision</th><th>Recall</th><th>F1</th><th>FPR</th></tr></thead>';
+  current.supervised.models.forEach(r=>table.appendChild(metricsRow(r.model+(r.model===current.supervised.winner?' ★':''),r.test)));
+  $('metrics').replaceChildren(table);
+  $('charts').replaceChildren();
+  for(const f of current.charts.filter(f=>f.startsWith('supervised_search_v1/')).sort()){
+    const a=document.createElement('a');a.href='/evaluation/'+$('dataset').value+'/'+f;
+    const img=document.createElement('img');img.loading='lazy';img.src=a.href;img.alt=f;a.appendChild(img);$('charts').appendChild(a);
+  }
+  $('files').replaceChildren();
+  for(const f of ['model_comparison.csv','report.json','trials.json','protocol.json']){
+    const a=document.createElement('a');a.href='/evaluation/'+$('dataset').value+'/supervised_search_v1/'+f;a.textContent=f+' ↗ ';$('files').appendChild(a);
+  }
+};
+$('dataset').onchange=load;
+</script>
+<script>
+const budgetLabel=document.createElement('label');budgetLabel.textContent=' Validation FPR budget ';
+const budgetSelect=document.createElement('select');budgetSelect.id='budget';
+for(const [value,label] of [['0.005','0.5%'],['0.01','1%'],['0.05','5%']]){
+  const option=document.createElement('option');option.value=value;option.textContent=label;budgetSelect.appendChild(option);
+}
+budgetSelect.value='0.01';budgetLabel.appendChild(budgetSelect);$('variant').after(budgetLabel);
+const policyLabel=document.createElement('label');policyLabel.textContent=' Threshold policy ';
+const policySelect=document.createElement('select');policySelect.id='policy';
+for(const [value,label] of [['point','Empirical FPR limit'],['ucb95','Approx. 95% calibration FPR bound']]){const o=document.createElement('option');o.value=value;o.textContent=label;policySelect.appendChild(o);}
+policyLabel.appendChild(policySelect);
+const capacityLabel=document.createElement('label');capacityLabel.textContent=' Calibration review capacity ';
+const capacitySelect=document.createElement('select');capacitySelect.id='capacity';
+for(const [value,label] of [['none','No capacity constraint'],['0.005','50 alerts / 10,000 cases'],['0.01','100 alerts / 10,000 cases'],['0.02','200 alerts / 10,000 cases'],['0.05','500 alerts / 10,000 cases']]){const o=document.createElement('option');o.value=value;o.textContent=label;capacitySelect.appendChild(o);}
+capacityLabel.appendChild(capacitySelect);budgetLabel.after(policyLabel,capacityLabel);
+function syncPolicies(){const active=$('variant').value==='features',previous=budgetSelect.value;budgetSelect.replaceChildren();for(const value of (active?['0.005','0.01','0.02','0.03','0.05']:['0.005','0.01','0.05'])){const o=document.createElement('option');o.value=value;o.textContent=(Number(value)*100)+'%';budgetSelect.appendChild(o);}budgetSelect.value=[...budgetSelect.options].some(o=>o.value===previous)?previous:'0.01';policySelect.disabled=capacitySelect.disabled=!active;}
+const priorityNote=document.createElement('p');priorityNote.className='tag';$('metrics').after(priorityNote);
+const refresh=document.createElement('button');refresh.textContent='Refresh training results';$('about').after(refresh);
+function renderPriority(){
+  if(!current?.priority)return;
+  const upgraded=current.features&&$('variant').value==='features';
+  const fitting=current.fitting&&$('variant').value==='fitting';
+  const report=upgraded?current.features:fitting?current.fitting:current.priority,budget=Number($('budget').value),key=String(budget);
+  const scenario=policySelect.value+'|'+key+'|'+(capacitySelect.value==='none'?'none':String(Number(capacitySelect.value)));
+  const folder=upgraded?'feature_policy_v4':fitting?'fit_balance_v3':'priority_search_v2';
+  const table=document.createElement('table');
+  table.innerHTML='<thead><tr><th>Four supervised models · test*</th><th>AP ↑</th><th>Recall ↑</th><th>Actual FPR ↓</th><th>Precision</th><th>F1</th><th>ROC-AUC</th>'+(upgraded?'<th>Alert rate</th>':'')+'</tr></thead>';
+  report.models.forEach(row=>{
+    const metrics=upgraded?row.test_policies[scenario]:row.test_operating_points[key],tr=document.createElement('tr');
+    [row.model+(row.model===report.winner?' ★':''),metrics.pr_auc.toFixed(4),
+     (metrics.recall*100).toFixed(1)+'%',(metrics.fpr*100).toFixed(3)+'%',
+     (metrics.precision*100).toFixed(1)+'%',metrics.f1.toFixed(4),metrics.roc_auc.toFixed(4),...(upgraded?[(metrics.alert_rate*100).toFixed(2)+'%']:[])].forEach(value=>{const td=document.createElement('td');td.textContent=value;tr.appendChild(td)});
+    table.appendChild(tr);
+  });
+  $('metrics').replaceChildren(table);
+  priorityNote.textContent=(upgraded?'v4 features + threshold policies':fitting?'v3 fitting audit':'v2')+' · thresholds calibrated at '+(budget*100)+'% validation FPR; actual test FPR can differ. Winner selected on chronological validation, not test. *Test periods are exploratory. Low FPR is better. Default budget is a demonstration choice.';
+  if(fitting||upgraded){const champion=report.models.find(r=>r.model===report.winner);priorityNote.textContent+=' Fit assessment: '+champion.fitting_assessment+'. '+(champion.test_shift_warning??'');}
+  if(upgraded)priorityNote.textContent+=' Policy: '+policySelect.value+'. Capacity applies to calibration only; future alert volume/FPR can exceed it. No business operating threshold has been approved. '+(report.availability_warning??'');
+  $('charts').replaceChildren();
+  for(const file of current.charts.filter(f=>f.startsWith(folder+'/')).sort()){
+    const a=document.createElement('a');a.href='/evaluation/'+$('dataset').value+'/'+file;
+    const img=document.createElement('img');img.loading='lazy';img.src=a.href;img.alt=file;a.appendChild(img);$('charts').appendChild(a);
+  }
+  $('files').replaceChildren();
+  for(const file of [...(upgraded?['threshold_policies.csv','forward_validation.json','candidate_validation.csv']:['operating_points.csv']),'model_comparison.csv','report.json','protocol.json','selection.json','trials.json',...((fitting||upgraded)?['MODEL_CARD.md','verification.json']:[])]){
+    const a=document.createElement('a');a.href='/evaluation/'+$('dataset').value+'/'+folder+'/'+file;a.textContent=file+' ↗ ';$('files').appendChild(a);
+  }
+}
+let schemaGeneration=0;
+schema=async function(){
+  const generation=++schemaGeneration;
+  $('score').disabled=true;
+  try{
+    const variant=$('variant').value,id=$('dataset').value,budget=$('budget').value;
+    const query=variant==='features'?'&threshold_policy='+policySelect.value+(capacitySelect.value==='none'?'':'&review_capacity='+capacitySelect.value):'';
+    const result=await get('/datasets/'+id+'/schema?variant='+variant+'&fpr_budget='+budget+query);
+    if(generation!==schemaGeneration||id!==$('dataset').value||variant!==$('variant').value||budget!==$('budget').value)return;
+    $('error').textContent='';
+    $('features').textContent=result.model+' · '+result.features.length+' features · threshold '+result.threshold.toFixed(6);
+    $('answer').textContent='Model or policy updated. Run prediction for the current scenario.';
+    if(result.example)$('record').value=JSON.stringify(result.example,null,2);
+    else if(current)$('record').value=JSON.stringify(current.example,null,2);
+  }catch(error){if(generation===schemaGeneration)$('error').textContent=error.message;}
+  finally{if(generation===schemaGeneration)$('score').disabled=false;}
+};
+const v1Load=load;
+load=async function(){
+  $('dataset').disabled=true;refresh.disabled=true;
+  try{
+  const wanted=$('variant').value;$('variant').value='production';
+  await v1Load();
+  const old=$('variant').querySelector('option[value="priority"]');if(old)old.remove();
+  const oldFitting=$('variant').querySelector('option[value="fitting"]');if(oldFitting)oldFitting.remove();
+  const oldFeatures=$('variant').querySelector('option[value="features"]');if(oldFeatures)oldFeatures.remove();
+  const status=current?.training_status;
+  priorityNote.textContent=status?'v2 training: '+status.status+' · completed '+status.completed.length+'/8 · current '+(status.current??'none')+'. Refresh to load newly completed evidence.':'';
+  if(current?.priority){
+    const option=document.createElement('option');option.value='priority';option.textContent='AP / recall / FPR experiment — selected champion';$('variant').appendChild(option);
+  }
+  if(current?.fitting){const option=document.createElement('option');option.value='fitting';option.textContent='Fitting audit v3 — selected champion';$('variant').appendChild(option);}
+  if(current?.features){const option=document.createElement('option');option.value='features';option.textContent='Features + threshold policies v4 — selected champion';$('variant').appendChild(option);}
+  if(current?.features&&['production','priority','fitting','features'].includes(wanted))$('variant').value='features';
+  else if(current?.fitting&&['production','priority','fitting','features'].includes(wanted))$('variant').value='fitting';
+  else if(current?.priority&&['production','fitting','features'].includes(wanted))$('variant').value='priority';
+  else if([...$('variant').options].some(option=>option.value===wanted))$('variant').value=wanted;
+  syncPolicies();
+  renderPriority();
+  await schema();
+  }finally{$('dataset').disabled=false;refresh.disabled=false;}
+};
+budgetSelect.onchange=async()=>{renderPriority();await schema();};
+$('dataset').onchange=load;$('variant').onchange=async()=>{renderPriority();await schema();};refresh.onclick=load;
+$('variant').onchange=async()=>{syncPolicies();renderPriority();await schema();};
+policySelect.onchange=capacitySelect.onchange=async()=>{renderPriority();await schema();};
+</script></body></html>

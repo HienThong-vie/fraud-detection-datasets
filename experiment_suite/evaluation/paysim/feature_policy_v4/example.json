@@ -1,0 +1,24 @@
+[
+  {
+    "step":595,
+    "type":"PAYMENT",
+    "amount":8146.6201171875,
+    "hour":18,
+    "day":24,
+    "sender_prior_gap":-1.0,
+    "sender_count_24":0.0,
+    "sender_mean_amount_24":0.0,
+    "sender_count_168":0.0,
+    "sender_mean_amount_168":0.0,
+    "sender_amount_to_mean_24":8146.6201171875,
+    "sender_amount_to_mean_168":8146.6201171875,
+    "recipient_prior_gap":-1.0,
+    "recipient_count_24":0.0,
+    "recipient_mean_amount_24":0.0,
+    "recipient_count_168":0.0,
+    "recipient_mean_amount_168":0.0,
+    "recipient_amount_to_mean_24":8146.6201171875,
+    "recipient_amount_to_mean_168":8146.6201171875,
+    "amount_log1p":9.0054807663
+  }
+]

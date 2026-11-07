@@ -1,0 +1,251 @@
+{
+  "variant": "features_setting1_windowNone",
+  "folds": [
+    {
+      "fold": 0,
+      "train_last": 276.0,
+      "calibration_first": 277.0,
+      "calibration_last": 322.0,
+      "evaluation_first": 323.0,
+      "evaluation_last": 359.0,
+      "train_rows": 100000,
+      "calibration_rows": 37251,
+      "calibration_fraud": 26,
+      "evaluation_rows": 37271,
+      "evaluation_fraud": 24,
+      "validation": {
+        "precision": 0.025,
+        "recall": 0.25,
+        "f1": 0.045454545454545456,
+        "pr_auc": 0.028360014474804657,
+        "roc_auc": 0.9167751765242839,
+        "fpr": 0.006282385158536258,
+        "accuracy": 0.99323871106222,
+        "tn": 37013,
+        "fp": 234,
+        "fn": 18,
+        "tp": 6
+      },
+      "operating": {
+        "0.005": {
+          "precision": 0.05333333333333334,
+          "recall": 0.16666666666666666,
+          "f1": 0.0808080808080808,
+          "pr_auc": 0.028360014474804657,
+          "roc_auc": 0.9167751765242839,
+          "fpr": 0.001906193787419121,
+          "accuracy": 0.997558423439135,
+          "tn": 37176,
+          "fp": 71,
+          "fn": 20,
+          "tp": 4
+        },
+        "0.01": {
+          "precision": 0.025,
+          "recall": 0.25,
+          "f1": 0.045454545454545456,
+          "pr_auc": 0.028360014474804657,
+          "roc_auc": 0.9167751765242839,
+          "fpr": 0.006282385158536258,
+          "accuracy": 0.99323871106222,
+          "tn": 37013,
+          "fp": 234,
+          "fn": 18,
+          "tp": 6
+        },
+        "0.02": {
+          "precision": 0.027914614121510674,
+          "recall": 0.7083333333333334,
+          "f1": 0.053712480252764615,
+          "pr_auc": 0.028360014474804657,
+          "roc_auc": 0.9167751765242839,
+          "fpr": 0.015893897495100277,
+          "accuracy": 0.9839285235169435,
+          "tn": 36655,
+          "fp": 592,
+          "fn": 7,
+          "tp": 17
+        },
+        "0.03": {
+          "precision": 0.01752577319587629,
+          "recall": 0.7083333333333334,
+          "f1": 0.03420523138832998,
+          "pr_auc": 0.028360014474804657,
+          "roc_auc": 0.9167751765242839,
+          "fpr": 0.02558595323113271,
+          "accuracy": 0.974242708808457,
+          "tn": 36294,
+          "fp": 953,
+          "fn": 7,
+          "tp": 17
+        },
+        "0.05": {
+          "precision": 0.009852216748768473,
+          "recall": 0.75,
+          "f1": 0.01944894651539708,
+          "pr_auc": 0.028360014474804657,
+          "roc_auc": 0.9167751765242839,
+          "fpr": 0.04856766987945338,
+          "accuracy": 0.951302621340989,
+          "tn": 35438,
+          "fp": 1809,
+          "fn": 6,
+          "tp": 18
+        }
+      },
+      "fit_info": {
+        "rows": 100000,
+        "fraud": 3131,
+        "best_rounds": null,
+        "retained_feature_columns": [
+          "type",
+          "amount",
+          "hour",
+          "sender_prior_gap",
+          "sender_count_24",
+          "sender_mean_amount_24",
+          "sender_count_168",
+          "sender_mean_amount_168",
+          "sender_amount_to_mean_24",
+          "sender_amount_to_mean_168",
+          "recipient_prior_gap",
+          "recipient_count_24",
+          "recipient_mean_amount_24",
+          "recipient_count_168",
+          "recipient_mean_amount_168",
+          "recipient_amount_to_mean_24",
+          "recipient_amount_to_mean_168",
+          "amount_log1p"
+        ],
+        "dropped_feature_columns": [
+          "TransactionDay",
+          "day",
+          "step"
+        ]
+      }
+    },
+    {
+      "fold": 1,
+      "train_last": 359.0,
+      "calibration_first": 360.0,
+      "calibration_last": 396.0,
+      "evaluation_first": 397.0,
+      "evaluation_last": 445.0,
+      "train_rows": 100000,
+      "calibration_rows": 24308,
+      "calibration_fraud": 24,
+      "evaluation_rows": 17056,
+      "evaluation_fraud": 28,
+      "validation": {
+        "precision": 0.10572687224669604,
+        "recall": 0.8571428571428571,
+        "f1": 0.18823529411764703,
+        "pr_auc": 0.5420476405425502,
+        "roc_auc": 0.9796889157354274,
+        "fpr": 0.011921540991308432,
+        "accuracy": 0.9878635084427767,
+        "tn": 16825,
+        "fp": 203,
+        "fn": 4,
+        "tp": 24
+      },
+      "operating": {
+        "0.005": {
+          "precision": 0.16666666666666666,
+          "recall": 0.5357142857142857,
+          "f1": 0.2542372881355932,
+          "pr_auc": 0.5420476405425502,
+          "roc_auc": 0.9796889157354274,
+          "fpr": 0.004404510218463707,
+          "accuracy": 0.9948405253283302,
+          "tn": 16953,
+          "fp": 75,
+          "fn": 13,
+          "tp": 15
+        },
+        "0.01": {
+          "precision": 0.10572687224669604,
+          "recall": 0.8571428571428571,
+          "f1": 0.18823529411764703,
+          "pr_auc": 0.5420476405425502,
+          "roc_auc": 0.9796889157354274,
+          "fpr": 0.011921540991308432,
+          "accuracy": 0.9878635084427767,
+          "tn": 16825,
+          "fp": 203,
+          "fn": 4,
+          "tp": 24
+        },
+        "0.02": {
+          "precision": 0.06091370558375635,
+          "recall": 0.8571428571428571,
+          "f1": 0.1137440758293839,
+          "pr_auc": 0.5420476405425502,
+          "roc_auc": 0.9796889157354274,
+          "fpr": 0.021728917077754286,
+          "accuracy": 0.9780722326454033,
+          "tn": 16658,
+          "fp": 370,
+          "fn": 4,
+          "tp": 24
+        },
+        "0.03": {
+          "precision": 0.04660194174757282,
+          "recall": 0.8571428571428571,
+          "f1": 0.08839779005524863,
+          "pr_auc": 0.5420476405425502,
+          "roc_auc": 0.9796889157354274,
+          "fpr": 0.028834860230209067,
+          "accuracy": 0.9709779549718575,
+          "tn": 16537,
+          "fp": 491,
+          "fn": 4,
+          "tp": 24
+        },
+        "0.05": {
+          "precision": 0.03299492385786802,
+          "recall": 0.9285714285714286,
+          "f1": 0.06372549019607843,
+          "pr_auc": 0.5420476405425502,
+          "roc_auc": 0.9796889157354274,
+          "fpr": 0.044749823819591264,
+          "accuracy": 0.9552063789868668,
+          "tn": 16266,
+          "fp": 762,
+          "fn": 2,
+          "tp": 26
+        }
+      },
+      "fit_info": {
+        "rows": 100000,
+        "fraud": 4009,
+        "best_rounds": null,
+        "retained_feature_columns": [
+          "type",
+          "amount",
+          "hour",
+          "sender_prior_gap",
+          "sender_count_24",
+          "sender_mean_amount_24",
+          "sender_count_168",
+          "sender_mean_amount_168",
+          "sender_amount_to_mean_24",
+          "sender_amount_to_mean_168",
+          "recipient_prior_gap",
+          "recipient_count_24",
+          "recipient_mean_amount_24",
+          "recipient_count_168",
+          "recipient_mean_amount_168",
+          "recipient_amount_to_mean_24",
+          "recipient_amount_to_mean_168",
+          "amount_log1p"
+        ],
+        "dropped_feature_columns": [
+          "TransactionDay",
+          "day",
+          "step"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "paysim": {
+    "repository": "paysim-fraud-ml",
+    "package": "paysim_fraud",
+    "source_commit": "a8eea764a88919f9f892119bdc5f4aa48f51cb02",
+    "input_format": "engineered model feature columns",
+    "source_url": "https://github.com/KennyDao1324/paysim-fraud-ml",
+    "kind": "synthetic"
+  }
+}
