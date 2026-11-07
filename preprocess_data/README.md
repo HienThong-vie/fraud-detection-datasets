@@ -1,4 +1,3 @@
 # Preprocessing
 
-`run.py` validates and combines the daily files, creates prior-only behavioral features, performs a
-chronological split, applies laptop-safe row limits, and saves the dataset profile.
+This folder contains the original preprocessing entrypoint. For the current training workflow, use the preparation command in the [project README](../README.md#training). Imputation, encoding and scaling are fitted on training data only.
