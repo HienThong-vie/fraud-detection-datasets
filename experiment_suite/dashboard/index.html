@@ -5,6 +5,7 @@ body{font:16px system-ui;background:#f3f6fa;color:#18263c;margin:0}main{max-widt
 </style></head><body><main><header><div><h1>Fraud Detection Suite</h1><p>Eight datasets. One workspace for models, evidence and review.</p></div><a href="/docs">API documentation ↗</a></header>
 <section><label for="dataset">Dataset </label><select id="dataset"></select><p id="about"></p><div id="error" role="alert"></div><div id="metrics"></div><p class="tag">The AP / recall / FPR experiment uses chronological validation. Older experiments have different protocols. Previously inspected test periods provide exploratory comparisons.</p></section>
 <section><h2>Score a case</h2><p>Paste an engineered feature record, or an array of records. The example has exactly the model inputs. Raw transaction formats differ; use each pipeline's preprocessing before prediction.</p><label for="variant">Model </label><select id="variant"><option value="production">Current production</option><option value="balanced">Balanced experiment</option></select><p id="features"></p><textarea id="record" aria-label="Case JSON"></textarea><p><button id="score">Run prediction</button></p><pre id="answer">Choose a dataset and score its example.</pre><p class="tag">A score supports review and does not establish fraud. Experimental models require review before adoption.</p></section>
+<section id="clustering" hidden><h2>Exploratory clustering — separate method</h2><p id="cluster-summary"></p><p id="cluster-files"></p><div id="cluster-charts" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px"></div></section>
 <section><h2>Evaluation files</h2><p id="files"></p><div id="charts"></div></section></main>
 <script>
 const $=id=>document.getElementById(id);let current;
@@ -87,6 +88,14 @@ function renderPriority(){
   }
 }
 let schemaGeneration=0;
+function renderClustering(){
+  const report=current?.clustering;$('clustering').hidden=!report;if(!report)return;
+  $('cluster-summary').textContent='MiniBatch K-means · k='+report.selected_k+' · training silhouette '+report.selected.silhouette.toFixed(3)+' · seed ARI '+report.selected.stability_ari_mean.toFixed(3)+'. '+report.quality_assessment+' Fraud labels are used only for interpretation after fitting; clusters are not fraud decisions.';
+  const base='/evaluation/'+$('dataset').value+'/clustering_v1/';
+  $('cluster-files').replaceChildren();$('cluster-charts').replaceChildren();
+  for(const name of ['README.md','k_comparison.csv','cluster_metrics.csv','numeric_profiles.csv','categorical_profiles.csv','report.json','verification.json']){const a=document.createElement('a');a.href=base+name;a.textContent=name+' ↗ ';$('cluster-files').appendChild(a);}
+  for(const name of ['silhouette_stability.png','cluster_sizes.png','feature_profiles.png','fraud_rates.png']){const a=document.createElement('a');a.href=base+name;const img=document.createElement('img');img.src=a.href;img.alt='Clustering: '+name;img.loading='lazy';a.appendChild(img);$('cluster-charts').appendChild(a);}
+}
 schema=async function(){
   const generation=++schemaGeneration;
   $('score').disabled=true;
@@ -125,6 +134,7 @@ load=async function(){
   else if([...$('variant').options].some(option=>option.value===wanted))$('variant').value=wanted;
   syncPolicies();
   renderPriority();
+  renderClustering();
   await schema();
   }finally{$('dataset').disabled=false;refresh.disabled=false;}
 };

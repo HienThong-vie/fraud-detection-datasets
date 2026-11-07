@@ -1,0 +1,79 @@
+{
+  "dataset": "handbook",
+  "method": "MiniBatchKMeans",
+  "method_type": "clustering",
+  "training_device": "local Mac CPU",
+  "feature_columns": [
+    "TX_AMOUNT",
+    "hour",
+    "day_of_week",
+    "customer_previous_count",
+    "customer_mean_amount_previous",
+    "customer_seconds_since_previous",
+    "terminal_previous_count",
+    "terminal_seconds_since_previous",
+    "customer_count_1d",
+    "customer_mean_amount_1d",
+    "amount_to_customer_mean_1d",
+    "customer_count_7d",
+    "customer_mean_amount_7d",
+    "amount_to_customer_mean_7d",
+    "customer_count_30d",
+    "customer_mean_amount_30d",
+    "amount_to_customer_mean_30d",
+    "terminal_count_1d",
+    "terminal_mean_amount_1d",
+    "terminal_count_7d",
+    "terminal_mean_amount_7d",
+    "terminal_count_30d",
+    "terminal_mean_amount_30d"
+  ],
+  "excluded_columns": [
+    "terminal_known_fraud_rate_1d_delay7d",
+    "terminal_known_fraud_rate_7d_delay7d",
+    "terminal_known_fraud_rate_30d_delay7d"
+  ],
+  "training_sample": "Uniform, fixed seed, maximum 80000 rows from the existing prepared training split; no label stratification in this experiment. Existing source tables may have earlier prevalence-preserving sampling.",
+  "selection": "Highest training silhouette among k=2..8 with minimum 1% training-fit cluster share and mean seed ARI >=0.6. If none eligible, highest valid silhouette with an explicit quality warning. Ties favour smaller k. The selected model uses seed42; seed52/62 are stability checks, not label-based selection.",
+  "preprocessing": "Fit median/mode imputation, numeric 1st/99th percentile clipping, StandardScaler and categorical one-hot encoding on the training fit sample only. Train-fitted 20-component TruncatedSVD if encoded dimensions exceed20. Euclidean K-means in that representation.",
+  "seeds": [
+    42,
+    52,
+    62
+  ],
+  "thread_limit": 4,
+  "labels_used_for_fit_or_selection": false,
+  "validation_test_refit": false,
+  "labels_used_after_freeze": "Per-cluster fraud-rate interpretation only; not classification metrics or cluster names.",
+  "limitations": "Exploratory segmentation, not a fraud classifier. Silhouette is an internal geometry score, not accuracy. Mixed categorical/numeric distances, scaling, sampling and compression affect geometry. Repeated seeds measure initialization sensitivity, not temporal stability. Previously viewed test periods are not a fresh holdout. Elliptic uses only labelled-subset records and local anonymous features; availability cannot all be independently verified. Demographic features, where present, may drive groups; no adverse decisions should be made from clusters. Fraud-rate Wilson intervals are descriptive and assume independent cases; temporal dependence can make them optimistic.",
+  "selected_k": 2,
+  "selected": {
+    "k": 2,
+    "silhouette": 0.12768973410129547,
+    "min_cluster_share": 0.4686875,
+    "stability_ari_mean": 0.5496835012656518,
+    "stability_ari_min": 0.3730085827065541,
+    "inertia_per_row": 19.9512546875,
+    "cluster_sizes": [
+      37495,
+      42505
+    ]
+  },
+  "fit_info": {
+    "training_fit_rows": 80000,
+    "training_fit_index_sha256": "41d115aa568e8f75bfe82ee3c33b67e56f694b1f904efa6c267b773de6ffde04",
+    "silhouette_sample_rows": 2000,
+    "encoded_features": 23,
+    "representation_features": 20,
+    "svd_explained_variance": 0.9976679393516971,
+    "quality_constraints_relaxed": true
+  },
+  "quality_assessment": "Weak/unstable geometry: no candidate satisfied both quality floors; do not claim meaningful fraud groups.",
+  "split_rows": {
+    "calibration": 20002,
+    "selection": 29998,
+    "test": 50000,
+    "train": 300000
+  },
+  "saved_pipeline_reproduced": true
+}
