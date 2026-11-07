@@ -15,6 +15,7 @@ TARGETS = ('baf', 'ieee', 'paysim', 'elliptic')
 
 
 def fingerprint(frame):
+    """SHA-256 of a data frame's values and index, used to prove that frozen rows did not change."""
     return hashlib.sha256(pd.util.hash_pandas_object(frame, index=True).values.tobytes()).hexdigest()
 
 
@@ -62,6 +63,7 @@ def incoming_graph_features(nodes, edges):
 
 
 def _align_parts(parts, old):
+    """Reorder rebuilt partitions so their rows match the frozen v2 rows exactly."""
     for split in ('train', 'validation', 'test'):
         parts[split] = parts[split].sort_values('_event_time', kind='stable').reset_index(drop=True)
     validation = parts.pop('validation')
@@ -78,6 +80,8 @@ def _align_parts(parts, old):
 
 
 def prepare(dataset):
+    """Build once and cache the v4 frame: the frozen v2 partitions plus engineered features, with
+    fingerprints and per-split counts in metadata.json."""
     directory = ROOT / 'preprocessed_df' / dataset / 'feature_policy_v4'
     directory.mkdir(parents=True, exist_ok=True)
     if (directory / 'metadata.json').exists():

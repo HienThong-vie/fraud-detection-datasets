@@ -1,0 +1,78 @@
+{
+  "dataset": "paysim",
+  "experiment": "feature_policy_v4",
+  "rows": 400000,
+  "columns": 24,
+  "csv_sha256": "207e222388add20822c8c86422b5baef0f3967ad205442ba04b8397d875c25fc",
+  "csv_bytes": 64473306,
+  "dtypes": {
+    "step": "int16",
+    "type": "category",
+    "amount": "float32",
+    "hour": "int8",
+    "day": "int16",
+    "sender_prior_gap": "float32",
+    "sender_count_24": "float32",
+    "sender_mean_amount_24": "float32",
+    "sender_count_168": "float32",
+    "sender_mean_amount_168": "float32",
+    "sender_amount_to_mean_24": "float32",
+    "sender_amount_to_mean_168": "float32",
+    "recipient_prior_gap": "float32",
+    "recipient_count_24": "float32",
+    "recipient_mean_amount_24": "float32",
+    "recipient_count_168": "float32",
+    "recipient_mean_amount_168": "float32",
+    "recipient_amount_to_mean_24": "float32",
+    "recipient_amount_to_mean_168": "float32",
+    "amount_log1p": "float32",
+    "target": "int8",
+    "_event_time": "int16",
+    "_sample_weight": "float64",
+    "_split": "str"
+  },
+  "frame_sha256": "3c60fd4d19c67c431a2b754efe14a2f0bb21890dc148e5da29a592b4035685db",
+  "feature_columns": [
+    "step",
+    "type",
+    "amount",
+    "hour",
+    "day",
+    "sender_prior_gap",
+    "sender_count_24",
+    "sender_mean_amount_24",
+    "sender_count_168",
+    "sender_mean_amount_168",
+    "sender_amount_to_mean_24",
+    "sender_amount_to_mean_168",
+    "recipient_prior_gap",
+    "recipient_count_24",
+    "recipient_mean_amount_24",
+    "recipient_count_168",
+    "recipient_mean_amount_168",
+    "recipient_amount_to_mean_24",
+    "recipient_amount_to_mean_168",
+    "amount_log1p"
+  ],
+  "checkpoint_sha256": "ea67b343f9ad118ab5f120f380db67dad8e2b9bef8a99c0b9496f1254fc797ef",
+  "periods": {
+    "calibration": {
+      "rows": 11923,
+      "positives": 125
+    },
+    "selection": {
+      "rows": 38077,
+      "positives": 215
+    },
+    "test": {
+      "rows": 50000,
+      "positives": 669
+    },
+    "train": {
+      "rows": 300000,
+      "positives": 5007
+    }
+  },
+  "exact_round_trip_verified": true,
+  "float_format": "%.17g"
+}

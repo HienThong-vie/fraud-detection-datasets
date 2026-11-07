@@ -1,4 +1,0 @@
-[console_scripts]
-paysim-predict = paysim_fraud.inference:main
-paysim-profile = paysim_fraud.profiling:main
-paysim-train = paysim_fraud.training:main

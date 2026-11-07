@@ -6,6 +6,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def fitting_ready(dataset):
+    """True when experiment v3 finished and passed its verification."""
     folder = ROOT / 'evaluation' / dataset / 'fit_balance_v3'
     marker = folder / 'verification.json'
     return ((folder / 'report.json').is_file() and marker.is_file()
@@ -13,6 +14,8 @@ def fitting_ready(dataset):
 
 
 def test_shift_warning(row):
+    """Warning text when test AP falls more than 0.10 below validation AP (an exploratory drift signal, not a
+    selection rule)."""
     if row['validation']['pr_auc'] - row['test']['pr_auc'] > .10:
         return ('Large validation-to-test AP drop: investigate temporal/prevalence changes. '
                 'This is an exploratory diagnostic, not a model-selection rule.')
@@ -20,6 +23,7 @@ def test_shift_warning(row):
 
 
 def features_ready(dataset):
+    """True when experiment v4 finished and passed its verification."""
     folder = ROOT / 'evaluation' / dataset / 'feature_policy_v4'
     marker = folder / 'verification.json'
     return ((folder / 'report.json').is_file() and marker.is_file()

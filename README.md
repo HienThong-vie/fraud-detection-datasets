@@ -90,7 +90,6 @@ Completed experiment folders are preserved and may report already complete or re
 The project does not redistribute the raw CSV. PaySim is synthetic and its results do not establish
 performance on real customers or real mobile-money systems.
 
-Raw datasets and row-level prediction exports are not redistributed here. Code and dataset licences are separate; check the original source terms before reuse.
 
 Raw datasets and row-level prediction exports are not redistributed here. Code and dataset licences are separate; check the original source terms before reuse.
 
@@ -100,3 +99,7 @@ E. A. Lopez-Rojas, A. Elmir, and S. Axelsson, “PaySim: A financial mobile mone
 detection,” 28th European Modeling and Simulation Symposium, 2016.
 
 [Selected-model identity and operating points](FINAL_MODEL.md) · [Conda workflow](experiment_suite/CONDA_GUIDE.md)
+
+## Prepared data and reproducibility
+
+[CSV export, scoring, refitting and prediction commands](experiment_suite/CONDA_GUIDE.md). Each export has a data dictionary and checksum manifest. Refit outputs are separate from the selected checkpoint.

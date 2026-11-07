@@ -1,0 +1,25 @@
+column,type,meaning,model_input
+step,int16,Prepared feature: step. See pipeline documentation for derivation.,yes
+type,category,Prepared feature: type. See pipeline documentation for derivation.,yes
+amount,float32,Prepared feature: amount. See pipeline documentation for derivation.,yes
+hour,int8,Prepared feature: hour. See pipeline documentation for derivation.,yes
+day,int16,Prepared feature: day. See pipeline documentation for derivation.,yes
+sender_prior_gap,float32,Prepared feature: sender_prior_gap. See pipeline documentation for derivation.,yes
+sender_count_24,float32,Prepared feature: sender_count_24. See pipeline documentation for derivation.,yes
+sender_mean_amount_24,float32,Prepared feature: sender_mean_amount_24. See pipeline documentation for derivation.,yes
+sender_count_168,float32,Prepared feature: sender_count_168. See pipeline documentation for derivation.,yes
+sender_mean_amount_168,float32,Prepared feature: sender_mean_amount_168. See pipeline documentation for derivation.,yes
+sender_amount_to_mean_24,float32,Prepared feature: sender_amount_to_mean_24. See pipeline documentation for derivation.,yes
+sender_amount_to_mean_168,float32,Prepared feature: sender_amount_to_mean_168. See pipeline documentation for derivation.,yes
+recipient_prior_gap,float32,Prepared feature: recipient_prior_gap. See pipeline documentation for derivation.,yes
+recipient_count_24,float32,Prepared feature: recipient_count_24. See pipeline documentation for derivation.,yes
+recipient_mean_amount_24,float32,Prepared feature: recipient_mean_amount_24. See pipeline documentation for derivation.,yes
+recipient_count_168,float32,Prepared feature: recipient_count_168. See pipeline documentation for derivation.,yes
+recipient_mean_amount_168,float32,Prepared feature: recipient_mean_amount_168. See pipeline documentation for derivation.,yes
+recipient_amount_to_mean_24,float32,Prepared feature: recipient_amount_to_mean_24. See pipeline documentation for derivation.,yes
+recipient_amount_to_mean_168,float32,Prepared feature: recipient_amount_to_mean_168. See pipeline documentation for derivation.,yes
+amount_log1p,float32,Prepared feature: amount_log1p. See pipeline documentation for derivation.,yes
+target,int8,"Binary target label, never a model input.",no
+_event_time,int16,"Original event-time ordering, excluded from model inputs.",no
+_sample_weight,float64,Training-only sampling weight; not an input feature.,no
+_split,str,Frozen train/calibration/selection/test partition.,no
