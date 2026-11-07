@@ -1,42 +1,65 @@
-# Fraud Detection Datasets
+# ULB Real Credit-Card Fraud ML
 
-One Git repository with eight independent dataset branches. `main` contains this navigation guide.
-Each dataset branch contains its complete Python/PyCharm project, model checkpoints, configuration,
-tests, evaluation charts and reports. The datasets are not merged into one CSV or classifier.
+Standalone PyCharm project for the real, anonymized ULB/Worldline European card-transaction dataset. It
+compares class-weighted logistic regression, random forest, and XGBoost under a time-ordered evaluation.
 
-| Branch | Dataset | Source project |
-|---|---|---|
-| `baf` | Bank Account Fraud Base + Variants I–V | ai4cyber-fraud |
-| `ieee` | IEEE-CIS Fraud Detection | ieee-fraud-ml |
-| `paysim` | PaySim mobile money | paysim-fraud-ml |
-| `handbook` | Fraud Detection Handbook simulator | fraud-handbook-ml |
-| `sparkov` | Sparkov synthetic card transactions | sparkov-fraud-ml |
-| `banksim` | BankSim payments | banksim-fraud-ml |
-| `ulb` | ULB/Worldline credit-card transactions | ulb-creditcard-fraud-ml |
-| `elliptic` | Elliptic Bitcoin AML | elliptic-bitcoin-aml-ml |
+## Dataset
 
-Open this repository in PyCharm. Choose a branch using the Git branch selector, or use:
+- [Original Kaggle distribution](https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud)
+- 284,807 real transactions, including 492 confirmed fraud cases
+- `V1`–`V28` are anonymized PCA components; `Time` and `Amount` retain their published meaning
+
+The anonymization prevents business-level interpretation of the PCA components. This project must not invent meanings for them.
+
+## PyCharm setup and run
+
+Open the whole folder and create a Python 3.11 virtual environment:
 
 ```bash
-git switch paysim
+python -m pip install --upgrade pip
+python -m pip install -e ".[dev]"
+python scripts/download_data.py
+python preprocess_data/run.py
+python training_model/train.py
+python evaluation/evaluate.py
+python -m fraudbench.inference examples/sample_transaction.json
+python -m uvicorn fraudbench.api:app --host 127.0.0.1 --port 8060
 ```
 
-Then follow the README on that branch to set up its environment and run it. Save or commit work before
-switching branches. Each branch keeps its own complete project; do not merge dataset branches into main.
+The download script uses TensorFlow's public mirror and saves `data/raw/creditcard.csv`. Raw data remains ignored by Git.
 
-For teammates working on multiple datasets at once, use separate worktrees to avoid mixing data and
-Python environments between branches:
+## Folder guide
 
-```bash
-git worktree add ../fraud-paysim paysim
-git worktree add ../fraud-ieee ieee
-```
+| Folder | Contents |
+|---|---|
+| `dataset` | Source, limitations and expected filename |
+| `preprocess_data` | Time-ordered split entrypoint |
+| `preprocessed_df` | Generated model table |
+| `training_model` | Training entrypoint |
+| `checkpoint` | Selected `.joblib` model |
+| `evaluation` | Evaluation entrypoint |
+| `outputs` | Metrics, predictions and charts |
+| `utils` | Team helper scripts |
 
-These are source snapshots of the existing boosted-model-comparison commits; the original repositories
-and their full histories remain available. Each branch records its source commit in BRANCH_SOURCE.json.
-Current checkpoints remain distinct from the exploratory balanced-experiment checkpoint. Existing
-dataset source, licence, attribution and academic-assistance notes are retained in each project README.
-Raw datasets and virtual environments are local inputs, not part of Git. Supply the matching dataset
-on each branch before retraining. Do not share virtual environments across branches.
+## Evaluation design
 
-No GitHub remote is configured yet. Nothing in this repository has been pushed or merged.
+- Rows are ordered by `Time`, then divided 60%/20%/20%.
+- Sampling occurs after splitting and preserves the target ratio.
+- Scalers and imputers are fitted only inside the model pipeline.
+- Validation PR-AUC selects the model; test data is evaluated once.
+- Accuracy is reported but is not the main metric because only 0.172% of rows are fraud.
+
+## Citation
+
+Dal Pozzolo, A. et al., “Calibrating Probability with Undersampling for Unbalanced Classification,” IEEE SSCI, 2015.
+
+## Current trained result
+
+XGBoost was selected with validation PR-AUC **0.7660**. On the later 50,000-row real-transaction sample it
+achieved PR-AUC **0.8155**, ROC-AUC **0.9725**, precision **0.9038**, recall **0.7121**, and F1 **0.7966**.
+See [`outputs/metrics.json`](outputs/metrics.json) and
+[`outputs/model_comparison.csv`](outputs/model_comparison.csv).
+
+![ULB model comparison](outputs/model_comparison.png)
+
+![ULB confusion matrix](outputs/confusion_matrix.png)

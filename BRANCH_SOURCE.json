@@ -1,0 +1,7 @@
+{
+  "dataset_branch": "ulb",
+  "source_repository": "ulb-creditcard-fraud-ml",
+  "source_commit": "5e676c85796318c0b72478d6505070339b82bae4",
+  "source_branch": "boosted-model-comparison",
+  "balanced_experiment": "Exploratory; production model is unchanged. See outputs/balanced_experiment/report.json."
+}
