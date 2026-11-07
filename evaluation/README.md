@@ -1,3 +1,11 @@
+# Latest: four supervised classifiers
+
+[Open all latest metrics and charts](../outputs/supervised_search_v1/)
+
+[Model comparison](../outputs/supervised_search_v1/model_comparison.png) · [PR curves](../outputs/supervised_search_v1/precision_recall_curves.png) · [ROC curves](../outputs/supervised_search_v1/roc_curves.png) · [Metrics CSV](../outputs/supervised_search_v1/model_comparison.csv)
+
+---
+
 # Sparkov evaluation
 
 - [Held-out metrics](../outputs/metrics.json)
