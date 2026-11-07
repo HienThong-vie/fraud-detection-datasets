@@ -41,3 +41,6 @@ outputs/*
 !outputs/variant_v/
 !outputs/variant_v/**
 
+
+# Per-dataset local input links shared across branch switches
+.local_datasets/
