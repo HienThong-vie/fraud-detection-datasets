@@ -29,3 +29,6 @@ checkpoint/*
 !checkpoint/README.md
 !checkpoint/model_card.json
 !checkpoint/production_model.joblib
+
+# Per-dataset local input links shared across branch switches
+.local_datasets/
