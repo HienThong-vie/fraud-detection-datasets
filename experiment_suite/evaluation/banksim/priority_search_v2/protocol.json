@@ -1,0 +1,62 @@
+{
+  "dataset": "banksim",
+  "experiment": "priority_search_v2",
+  "training_device": "local Mac CPU",
+  "platform": "macOS-26.2-arm64-arm-64bit",
+  "threads_per_estimator": 4,
+  "supervised_only": true,
+  "smoke": false,
+  "budgets": [
+    0.005,
+    0.01,
+    0.05
+  ],
+  "default_budget": 0.01,
+  "seed": 42,
+  "preparation": {
+    "dataset": "banksim",
+    "feature_columns": [
+      "step",
+      "amount",
+      "age",
+      "gender",
+      "category"
+    ],
+    "old_training_cap": 150000,
+    "requested_training_cap": 300000,
+    "notes": [],
+    "periods": {
+      "train": {
+        "rows": 300000,
+        "fraud": 3897,
+        "first": 0.0,
+        "last": 107.0
+      },
+      "test": {
+        "rows": 50000,
+        "fraud": 540,
+        "first": 144.0,
+        "last": 179.0
+      },
+      "calibration": {
+        "rows": 19368,
+        "fraud": 213,
+        "first": 108.0,
+        "last": 121.0
+      },
+      "selection": {
+        "rows": 30632,
+        "fraud": 346,
+        "first": 122.0,
+        "last": 143.0
+      }
+    },
+    "preparation": "Original raw split boundaries and test sampling seeds preserved except BAF calibration/train change; no test oversampling."
+  },
+  "data_sha256": "685bc8d42c44ca3bbcb5c6eb96a5c44bc7cc70a82dd7e44d0bbe431c529e5248",
+  "selection_rule": "Maximize weakest chronological-block utility: 65% AP + 35% mean recall across three calibrated FPR budgets, minus selection FPR excess penalty and 0.10 positive training/selection AP gap. No ROC-AUC or accuracy weight.",
+  "limitations": "Previously inspected test periods are exploratory, not a fresh final holdout. Validation FPR budgets are not guarantees on test or deployment. AP is average_precision_score, not trapezoidal integration. Historical label features, where used, require operational availability assumptions.",
+  "stable_scoring": true,
+  "prediction_decimals": 12,
+  "forest_prediction_threads": 1
+}

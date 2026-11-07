@@ -1,0 +1,26 @@
+{
+  "repository": "banksim-fraud-ml",
+  "selection": {
+    "model": "catboost_regularized_d5",
+    "threshold": 0.9632352159022494,
+    "selection_score": 0.8002670910769901,
+    "train_pr_auc": 0.7928852709935517,
+    "pr_auc_gap": 0.012793967217127222,
+    "pr_auc": 0.7800913037764244,
+    "roc_auc": 0.9910487459546925,
+    "precision": 0.7729083665338645,
+    "recall": 0.6928571428571428,
+    "f1": 0.7306967984934087,
+    "fpr": 0.0023058252427184465
+  },
+  "test": {
+    "pr_auc": 0.77224434064358,
+    "roc_auc": 0.9907001168171811,
+    "precision": 0.776824034334764,
+    "recall": 0.6703703703703704,
+    "f1": 0.7196819085487077,
+    "fpr": 0.0021027092600080875
+  },
+  "limitations": "Existing test periods have previously been inspected; this is an exploratory comparison, not a new untouched holdout. Threshold calibration and model selection use separate stratified halves of validation. No production replacement or refit.",
+  "rule": "50% F1, 25% PR-AUC, 25% ROC-AUC geometric mean minus 0.1 times positive train/selection PR-AUC gap; threshold within 98% of calibration-best F1, prefer balanced precision/recall, calibration FPR <= 5%."
+}

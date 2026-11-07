@@ -1,0 +1,24 @@
+{
+  "rows": 594643,
+  "columns": 6,
+  "fraud_rows": 7200,
+  "fraud_rate": 0.012108105199254007,
+  "missing_values": {
+    "step": 0,
+    "age": 0,
+    "gender": 0,
+    "category": 0,
+    "amount": 0,
+    "fraud": 0
+  },
+  "step_min": 0,
+  "step_max": 179,
+  "split_rows": {
+    "train": 150000,
+    "validation": 50000,
+    "test": 50000
+  },
+  "source_hashes": {
+    "dataset_path": "ae8a3ec9d0f5bc3bcb5f579b6c32b04c43c53e3ceb5541156a7756c6a1187daa"
+  }
+}

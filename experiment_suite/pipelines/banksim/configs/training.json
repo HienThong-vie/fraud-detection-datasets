@@ -1,0 +1,17 @@
+{
+  "dataset_name": "BankSim synthetic bank payments",
+  "dataset_kind": "synthetic",
+  "dataset_path": "data/raw/bs140513_032310.csv",
+  "train_fraction": 0.6,
+  "validation_fraction": 0.2,
+  "max_train_rows": 150000,
+  "max_validation_rows": 50000,
+  "max_test_rows": 50000,
+  "random_seed": 42,
+  "logistic_max_iter": 500,
+  "random_forest_trees": 140,
+  "random_forest_max_depth": 14,
+  "catboost_iterations": 400,
+  "catboost_depth": 8,
+  "catboost_learning_rate": 0.06
+}
