@@ -1,0 +1,65 @@
+{
+  "dataset": "sparkov",
+  "experiment": "fit_balance_v3",
+  "training_device": "local Mac CPU",
+  "platform": "macOS-26.2-arm64-arm-64bit",
+  "threads_per_estimator": 4,
+  "supervised_only": true,
+  "smoke": false,
+  "seed": 42,
+  "budgets": [
+    0.005,
+    0.01,
+    0.05
+  ],
+  "default_budget": 0.01,
+  "stable_scoring": true,
+  "prediction_decimals": 12,
+  "forest_prediction_threads": 1,
+  "preparation": {
+    "dataset": "sparkov",
+    "feature_columns": [
+      "amt",
+      "city_pop",
+      "age",
+      "hour",
+      "weekday",
+      "distance_km",
+      "category",
+      "gender"
+    ],
+    "old_training_cap": 200000,
+    "requested_training_cap": 400000,
+    "notes": [],
+    "periods": {
+      "train": {
+        "rows": 400000,
+        "fraud": 2301,
+        "first": 1325376018.0,
+        "last": 1362554077.0
+      },
+      "test": {
+        "rows": 50000,
+        "fraud": 193,
+        "first": 1371817107.0,
+        "last": 1388534208.0
+      },
+      "calibration": {
+        "rows": 20001,
+        "fraud": 117,
+        "first": 1362554488.0,
+        "last": 1366465652.0
+      },
+      "selection": {
+        "rows": 29999,
+        "fraud": 180,
+        "first": 1366465748.0,
+        "last": 1371816562.0
+      }
+    },
+    "preparation": "Original raw split boundaries and test sampling seeds preserved except BAF calibration/train change; no test oversampling."
+  },
+  "data_sha256": "be141e28a68ea9e5ba1426a984666f911e614e784c1cb7d4fa80bdb6ac5c33ca",
+  "selection_rule": "v2 weakest temporal-block utility minus 0.25 positive train/selection AP-above-random gap, 0.15 positive ROC-AUC gap and 0.10 validation block AP drop. Per-family and champion floors: at least 95% incumbent validation AP, 85% incumbent recall at 1% calibration budget, and utility no more than 0.03 below incumbent. Incumbents remain eligible. No test-based selection.",
+  "limitations": "Previously inspected test periods are exploratory, not a fresh final holdout. Validation FPR budgets are not guarantees on test or deployment. AP is average_precision_score, not trapezoidal integration. Historical label features, where used, require operational availability assumptions. Fit-gap diagnostics are warnings, not guarantees of no over/underfitting. AP-above-random rescales the random baseline but does not fully correct prevalence shift. Reused validation can itself be overfit; use a new future holdout for confirmation. Learning capacity is screened, not mathematically proven optimal."
+}

@@ -1,0 +1,65 @@
+{
+  "dataset": "sparkov",
+  "experiment": "priority_search_v2",
+  "training_device": "local Mac CPU",
+  "platform": "macOS-26.2-arm64-arm-64bit",
+  "threads_per_estimator": 4,
+  "supervised_only": true,
+  "smoke": false,
+  "budgets": [
+    0.005,
+    0.01,
+    0.05
+  ],
+  "default_budget": 0.01,
+  "seed": 42,
+  "preparation": {
+    "dataset": "sparkov",
+    "feature_columns": [
+      "amt",
+      "city_pop",
+      "age",
+      "hour",
+      "weekday",
+      "distance_km",
+      "category",
+      "gender"
+    ],
+    "old_training_cap": 200000,
+    "requested_training_cap": 400000,
+    "notes": [],
+    "periods": {
+      "train": {
+        "rows": 400000,
+        "fraud": 2301,
+        "first": 1325376018.0,
+        "last": 1362554077.0
+      },
+      "test": {
+        "rows": 50000,
+        "fraud": 193,
+        "first": 1371817107.0,
+        "last": 1388534208.0
+      },
+      "calibration": {
+        "rows": 20001,
+        "fraud": 117,
+        "first": 1362554488.0,
+        "last": 1366465652.0
+      },
+      "selection": {
+        "rows": 29999,
+        "fraud": 180,
+        "first": 1366465748.0,
+        "last": 1371816562.0
+      }
+    },
+    "preparation": "Original raw split boundaries and test sampling seeds preserved except BAF calibration/train change; no test oversampling."
+  },
+  "data_sha256": "be141e28a68ea9e5ba1426a984666f911e614e784c1cb7d4fa80bdb6ac5c33ca",
+  "selection_rule": "Maximize weakest chronological-block utility: 65% AP + 35% mean recall across three calibrated FPR budgets, minus selection FPR excess penalty and 0.10 positive training/selection AP gap. No ROC-AUC or accuracy weight.",
+  "limitations": "Previously inspected test periods are exploratory, not a fresh final holdout. Validation FPR budgets are not guarantees on test or deployment. AP is average_precision_score, not trapezoidal integration. Historical label features, where used, require operational availability assumptions.",
+  "stable_scoring": true,
+  "prediction_decimals": 12,
+  "forest_prediction_threads": 1
+}

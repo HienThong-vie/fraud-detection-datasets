@@ -1,3 +1,55 @@
+# SPARKOV: latest supervised experiment
+
+Latest: `fit_balance_v3`. Four supervised families; selected champion: **catboost**. Training ran locally on the Mac CPU. Selection uses chronological validation, not test scores.
+
+| Model | Test AP* | Recall* | Actual FPR* | Precision* | F1* | ROC-AUC* |
+|---|---:|---:|---:|---:|---:|---:|
+| logistic_regression | 0.1531 | 51.3% | 0.970% | 17.0% | 0.2555 | 0.9140 |
+| random_forest | 0.8440 | 95.3% | 1.150% | 24.3% | 0.3874 | 0.9953 |
+| extra_trees | 0.8062 | 86.0% | 1.142% | 22.6% | 0.3578 | 0.9827 |
+| catboost | 0.8859 | 94.8% | 1.076% | 25.5% | 0.4013 | 0.9939 |
+
+*Previously inspected test periods are exploratory, not a fresh holdout. The displayed operating point uses a 1% calibration FPR budget; future FPR can differ. Scores support review and do not establish fraud. No business deployment threshold has been approved.
+
+- [Model comparison](experiment_suite/evaluation/sparkov/fit_balance_v3/model_comparison.png)
+- [Precision–recall curves](experiment_suite/evaluation/sparkov/fit_balance_v3/precision_recall_curves.png)
+- [All metrics](experiment_suite/evaluation/sparkov/fit_balance_v3/model_comparison.csv)
+- [Protocol and results](experiment_suite/evaluation/sparkov/fit_balance_v3/report.json)
+- [Saved models and all graphs](experiment_suite/evaluation/sparkov/fit_balance_v3/)
+
+This branch retains its previously completed experiment; the latest feature-policy retraining targeted BAF, IEEE, PaySim and Elliptic only.
+
+## Run in PyCharm
+
+Open this branch as a project, create a Python 3.12 virtual environment, then use the terminal:
+
+```bash
+python -m pip install -r experiment_suite/requirements.txt
+python experiment_suite/app.py
+```
+
+Open http://127.0.0.1:8050/. Stop another suite server first if the port is in use. Saved models work without raw data; inputs must contain the engineered columns shown by the dashboard.
+
+## Reproduce training
+
+Put downloaded source files in `experiment_suite/dataset/sparkov/`. Do not commit raw data. Run from `experiment_suite/`:
+
+```bash
+python -c "import sys; sys.path.insert(0, 'training_model'); from priority_data import prepare; prepare('sparkov')"
+```
+
+```bash
+python training_model/fit_balance_search.py --dataset sparkov
+```
+
+Completed experiment folders are preserved. A completed run may report already complete or reuse cached fits. For a genuinely new search, use a separate working copy and a new versioned experiment directory; do not overwrite the published evidence. Mac/Linux is required for the training locks (`fcntl`); dashboard inference does not need those locks.
+
+The full implementation lives in `experiment_suite/training_model/`; original project code and documentation remain below. Production baseline artifacts are retained separately.
+
+---
+
+## Earlier project documentation, sources and licences
+
 # SPARKOV: four supervised-model comparison
 
 The latest experiment compares **logistic regression, random forest, extra trees, and CatBoost**. Each family has two regularized settings; validation selects its settings and threshold. The four-model winner is frozen before test evaluation. The run was performed locally on the Mac CPU.
